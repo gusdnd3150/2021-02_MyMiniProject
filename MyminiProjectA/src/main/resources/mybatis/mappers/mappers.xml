@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration 	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!-- vo맵핑 -->
+	 <!-- <typeAliases>
+	<typeAlias alias="boardVO" type="com.example.demo.voGroup.BoardVO" />
+	<typeAlias alias="JoinVO" type="com.example.demo.voGroup.JoinVO" />
+	</typeAliases> -->
+	
+	<!-- mapper .xmp 파일 정의 - 실제 SQL Query 가 선언되어 있는 부분 -->
+	    <mappers>
+		<mapper resource="mybatis/model/test-mapper.xml"/>
+		</mappers>        
+</configuration> 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+
+<!-- 해더 css -->
+<th:block th:replace="common/header :: headerCss"></th:block>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body style="background-color:#e9e9e9">
+<!-- 해더 공통 -->
+<th:block th:replace="common/header :: header"></th:block>
+
+<div class="container" align="center">
+  <h3>로그인</h3>
+  <div class="row" style="background-color:white;border-radius:25px;width:50%">
+    <div>
+				<form>
+  <div class="form-group">
+    <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" placeholder="Password">
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+	</div>
+  </div>
+</div>
+
+
+
+</body>
+<script>
+window.onload = function(){
+	 var header=document.getElementById("loginHeader");
+	 header.setAttribute("class","active");
+ }
+
+</script>
+</html>

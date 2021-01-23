@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+
+
+<!-- 해더 css -->
+<th:block th:fragment="headerCss">
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<style>
+.MainHeader{
+ background-color:red;
+}
+</style>
+</th:block>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+<th:block th:fragment="header">
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">재능기부</a>
+    </div>
+    
+    <ul class="nav navbar-nav">
+      <li class="active" id="home"><a href="#">Home</a></li>
+      <li id=""><a href="#">Page 1</a></li>
+      <li id=""><a href="#">Page 2</a></li>
+    </ul>
+    
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> 회원가입</a></li>
+      <li id="loginHeader"><a href="/loginForm.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav> 
+</th:block>
+
+
+</body>
+</html>

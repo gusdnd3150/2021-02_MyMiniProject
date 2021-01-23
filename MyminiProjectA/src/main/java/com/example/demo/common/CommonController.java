@@ -11,11 +11,18 @@ public class CommonController {
 	@Autowired
 	CommonService service;
 	
+	//메인화면
 	@RequestMapping("/main.do")
 	public String main() {
-		
-		
 		return "main";
 	}
+	
+	//로그인폼
+	@RequestMapping("/loginForm.do")
+	public String loginForm() {
+		return "loginForm";
+	}
+	
+	
 
 }

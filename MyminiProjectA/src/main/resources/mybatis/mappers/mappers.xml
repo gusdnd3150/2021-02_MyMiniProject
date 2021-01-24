@@ -4,10 +4,10 @@
 
 <configuration>
     <!-- vo맵핑 -->
-	 <!-- <typeAliases>
-	<typeAlias alias="boardVO" type="com.example.demo.voGroup.BoardVO" />
-	<typeAlias alias="JoinVO" type="com.example.demo.voGroup.JoinVO" />
-	</typeAliases> -->
+	 <typeAliases>
+	<!-- <typeAlias alias="boardVO" type="com.example.demo.voGroup.BoardVO" /> -->
+	<typeAlias alias="userVo" type="com.example.demo.common.UserVo" />
+	</typeAliases> 
 	
 	<!-- mapper .xmp 파일 정의 - 실제 SQL Query 가 선언되어 있는 부분 -->
 	    <mappers>

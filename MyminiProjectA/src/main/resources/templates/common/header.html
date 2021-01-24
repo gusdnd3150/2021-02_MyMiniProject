@@ -13,6 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <style>
+
 .MainHeader{
  background-color:red;
 }
@@ -34,14 +35,15 @@
     </div>
     
     <ul class="nav navbar-nav">
-      <li class="active" id="home"><a href="#">Home</a></li>
-      <li id=""><a href="#">Page 1</a></li>
-      <li id=""><a href="#">Page 2</a></li>
+      <li id="homeHeader"><a href="/main.do">Home</a></li>
+      <li id="addConfidenceHeader"><a href="/addConfidence.do">재능등록</a></li>
     </ul>
     
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> 회원가입</a></li>
-      <li id="loginHeader"><a href="/loginForm.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li th:if="${session.USER==null}" id="joinHeader"><a href="#"><span class="glyphicon glyphicon-user"></span>회원가입</a></li>
+      <li th:if="${session.USER==null}" id="loginHeader"><a href="/loginForm.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li th:if="${session.USER!=null}" id="myPageHeader"><a href="#"><span class="glyphicon glyphicon-user"></span> 마이페이지</a></li>
+      <li th:if="${session.USER!=null}" id=""><a href="#"><span class="glyphicon glyphicon-user"></span> logout</a></li>
     </ul>
   </div>
 </nav> 

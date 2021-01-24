@@ -10,4 +10,12 @@ public class CommonDao {
 	
 	@Autowired
 	private SqlSession session;
+	
+	
+    //유저 정보 가져오기	
+	public UserVo selectUser(UserVo user) {
+		return session.selectOne("user.selectUser",user);
+	}
 }
+
+

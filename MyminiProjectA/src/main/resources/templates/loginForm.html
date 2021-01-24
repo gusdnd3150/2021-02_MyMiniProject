@@ -15,18 +15,20 @@
 <div class="container" align="center">
   <h3>로그인</h3>
   <div class="row" style="background-color:white;border-radius:25px;width:50%">
-    <div>
-				<form>
+    <div style="width:50%;padding-top: 12%;padding-bottom: 12%">
+
+				<form name="logimForm" id="logimForm">
   <div class="form-group">
-    <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <input type="text" id="idInput" class="form-control"  placeholder="your ID" name="userId">
+    <small id="idBox" class="form-text text-muted"></small>
   </div>
   <div class="form-group">
-    <input type="password" class="form-control" placeholder="Password">
+    <input type="password" id="PasswordInput" class="form-control" placeholder="Password" name="password">
+    <small id="PasswordBox" class="form-text text-muted"></small>
   </div>
   
-  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+  <button type="submit" class="btn btn-primary" onclick="login()">Submit</button>
 	</div>
   </div>
 </div>
@@ -39,6 +41,41 @@ window.onload = function(){
 	 var header=document.getElementById("loginHeader");
 	 header.setAttribute("class","active");
  }
+ 
+ 
+ function login(){
+	 var form = document.logimForm;
+	 
+	 if(form.userId.value==""){
+		 alert("아이디 입력은 필수입니다.");
+		 return;
+	 }else if(form.password.value==""){
+		 alert("비밀번호 입력은 필수입니다.");
+		 return;
+	 }
+	 
+	 var params = $("#logimForm").serialize(); 
+		    $.ajax({
+		        url: '/userLogin.do',
+		        type: 'POST',
+		        data:params,
+		        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
+		        dataType: 'text',
+		        success: function (data) {
+			          if(data=='success'){
+			        	  alert("로그인 성공");
+			        	  location.href="/main.do";
+			          }else if(data=='noMachPassword'){
+			        	  document.getElementById("PasswordBox").innerHTML='비밀번호 불일치';
+			        	  document.getElementById("PasswordInput").style.borderColor="red";
+			          }else if(data=='noId'){
+			        	  document.getElementById("idBox").innerHTML='아이디가 존재 하지않습니다';
+			        	  document.getElementById("idInput").style.borderColor="red";
+			          }
+		        }
+		    });
+ }
+ 
 
 </script>
 </html>

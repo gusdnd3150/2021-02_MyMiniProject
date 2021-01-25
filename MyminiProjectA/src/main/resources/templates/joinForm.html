@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+
+<!-- 해더 css -->
+<th:block th:replace="common/header :: headerCss"></th:block>
+
+
+<meta charset="UTF-8">
+<title>회원가입</title>
+</head>
+<body>
+
+<!-- 해더 공통 -->
+<th:block th:replace="common/header :: header"></th:block>
+
+
+<div class="container" align="center">
+  <h3><strong>회원가입</strong></h3>
+  <div class="row" style="background-color:white;border-radius:25px;width:50%">
+    <div style="width:50%;padding-top: 12%;padding-bottom: 12%">
+
+				<form name="joinForm" id="joinForm">
+  <div class="form-group" align="left">
+  <label>아이디 생성</label>
+    <input type="text" id="idInput" class="form-control"  placeholder="your ID" name="userId">
+    <small id="idBox" class="form-text text-muted"></small>
+  </div>
+  
+  <div class="form-group" align="left">
+  <label>비밀번호</label>
+    <input type="password" id="PasswordInput" class="form-control" placeholder="Password" name="userPassword">
+  </div>
+  
+  <div class="form-group" align="left">
+  <label>이름</label>
+    <input type="text" id="PasswordInput" class="form-control" placeholder="홍길동" name="userName">
+  </div>
+  
+  <div class="form-group" align="left">
+  <label>이메일</label>
+    <input type="text" id="emailInput" class="form-control" placeholder="text@gmail.com" name="userEmail">
+  </div>
+  
+  <input type="hidden" name="autho" value="user">
+  
+  <br>
+</form>
+  <button type="submit" class="btn btn-success btn-block" onclick="join()" style="width:100%">회원가입</button>
+	</div>
+  </div>
+</div>
+
+
+
+</body>
+
+<script>
+
+window.onload = function(){
+	 document.getElementById("joinHeader").setAttribute("class","active");
+}
+
+function join(){
+	
+	var form = document.joinForm;
+	
+	if(form.userId.value==null){
+		alert("아이디 입력은 필수 입니다.");
+	}else if(form.userPassword.value==null){
+		alert("비밀번호 입력은 필수 입니다.");
+	}else if(form.userName.value==null){
+		alert("이름 입력은 필수 입니다.");
+	}else if(form.userEmail.value=null){
+		alert("이메일 입력은 필수 입니다.");
+	}
+	
+	var params = $("#joinForm").serialize(); 
+	    $.ajax({
+	        url: '/userJoin.do',
+	        type: 'POST',
+	        data:params,
+	        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
+	        dataType: 'text',
+	        success: function (data) {
+		          if(data=='success'){
+		        	  alert("회원가입을 축하 드립니다");
+		        	  location.href="/main.do";
+		          }else{
+		        	  alert("실패");
+		          }
+	        }
+	    });
+
+}
+
+
+</script>
+</html>

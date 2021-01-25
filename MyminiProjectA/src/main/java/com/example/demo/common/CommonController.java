@@ -41,7 +41,7 @@ public class CommonController {
 	public String test() {
 		return "/common/slideCard";
 	}
-	
+	  
 	//재능 등록
 	@GetMapping("/addConfidence.do")
 	public String confidence() {
@@ -49,7 +49,19 @@ public class CommonController {
 		return "addCondfidence";
 	}
 	
+	// 가입페이지 이동
+	@RequestMapping("/joinForm.do")
+	public String joinform() {
+		return "/joinForm";
+	}
 	
-	
+	//회원가입
+	@ResponseBody
+	@RequestMapping("/userJoin.do")
+	public String joinUser(UserVo user) {
+		String result=null;
+		result = service.userJoin(user);
+		return result;
+	}
 
 }

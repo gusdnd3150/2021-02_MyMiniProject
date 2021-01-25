@@ -23,7 +23,7 @@ public class CommonService {
 			
 			if(selectUser==null) {
 				result="noId";
-			}else if(!selectUser.getPassword().equals(user.getPassword())) {
+			}else if(!selectUser.getUserPassword().equals(user.getUserPassword())) {
 				result="noMachPassword";
 			}else {
 				System.out.println(selectUser.toString());
@@ -36,6 +36,27 @@ public class CommonService {
 			result="fail";
 		}
 		
+		return result;
+	}
+	
+	//회원가입
+	public String userJoin(UserVo user) {
+		String result=null;
+		System.out.println(user.toString());
+		try {
+			UserVo selectUser= dao.selectUser(user);
+			
+			if(selectUser==null) {
+				int id=dao.userJoin(user);
+				result="success";
+			}else if(selectUser.getUserId().equals(user.getUserId())){
+				result="already";
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="fail";
+		}
 		return result;
 	}
 }

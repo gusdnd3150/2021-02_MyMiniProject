@@ -12,9 +12,10 @@ public class UserVo {
 	
 	private int id;
 	private String userId;
-	private String name;
-	private String email;
-	private String password;
+	private String userName;
+	private String userEmail;
+	private String userPassword;
+	private String joinDate;
 	private String autho;  //권한   user,admin
 
 }

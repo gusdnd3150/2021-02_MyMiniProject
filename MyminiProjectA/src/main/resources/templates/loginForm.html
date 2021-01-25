@@ -8,27 +8,37 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body style="background-color:#e9e9e9">
+<body>
+
+
 <!-- 해더 공통 -->
 <th:block th:replace="common/header :: header"></th:block>
 
+
 <div class="container" align="center">
-  <h3>로그인</h3>
+  <h3><strong>로그인</strong></h3>
   <div class="row" style="background-color:white;border-radius:25px;width:50%">
     <div style="width:50%;padding-top: 12%;padding-bottom: 12%">
 
 				<form name="logimForm" id="logimForm">
-  <div class="form-group">
+  <div class="form-group" align="left">
+  <label>아이디</label>
     <input type="text" id="idInput" class="form-control"  placeholder="your ID" name="userId">
     <small id="idBox" class="form-text text-muted"></small>
   </div>
-  <div class="form-group">
+  <div class="form-group" align="left">
+  <label>비밀번호</label>
     <input type="password" id="PasswordInput" class="form-control" placeholder="Password" name="password">
     <small id="PasswordBox" class="form-text text-muted"></small>
   </div>
   
+  <div class="form-group" align="left">
+  <a href="#">비밀번호 찾기</a>
+  </div>
+  <br>
 </form>
-  <button type="submit" class="btn btn-primary" onclick="login()">Submit</button>
+  <button type="submit" class="btn btn-primary btn-block" onclick="login()" style="width:100%">아이디 로그인</button>
+  <button type="submit" class="btn btn-success btn-block" onclick="join()" style="width:100%">회원가입</button>
 	</div>
   </div>
 </div>
@@ -38,8 +48,7 @@
 </body>
 <script>
 window.onload = function(){
-	 var header=document.getElementById("loginHeader");
-	 header.setAttribute("class","active");
+	 document.getElementById("loginHeader").setAttribute("class","active");
  }
  
  
@@ -76,6 +85,12 @@ window.onload = function(){
 		    });
  }
  
+ 
+  function join(){
+	  if(window.confirm("회원가입 하시겠습니까?")){
+	  location.href="/joinForm.do";
+	  }
+  }
 
 </script>
 </html>

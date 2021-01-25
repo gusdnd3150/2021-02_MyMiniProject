@@ -44,18 +44,19 @@ public class CommonService {
 		String result=null;
 		System.out.println(user.toString());
 		try {
+			UserVo selectUser= dao.selectUser(user);
 			
-			int id=dao.userJoin(user);
-			System.out.println("유저 pk"+user.getId());
+			if(selectUser==null) {
+				int id=dao.userJoin(user);
+				result="success";
+			}else if(selectUser.getUserId().equals(user.getUserId())){
+				result="already";
+			}
 			
-			result="success";
 		} catch (Exception e) {
 			e.printStackTrace();
 			result="fail";
 		}
-		
-		
 		return result;
-		
 	}
 }

@@ -21,6 +21,8 @@ public class CommonDao {
 	public Integer userJoin(UserVo user) {
 		return session.insert("user.userJoin",user);
 	}
+	
+	
 }
 
 

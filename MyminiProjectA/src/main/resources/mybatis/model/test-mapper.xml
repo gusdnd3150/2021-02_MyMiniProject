@@ -20,5 +20,11 @@
       INSERT INTO users (userId,userName,userEmail,userPassword,autho,joinDate)
       VALUES (#{userId}, #{userName}, #{userEmail}, #{userPassword}, #{autho}, NOW())
 	</insert>
+      
+       <select id="selectUserById" parameterType="String" resultType="userVo">
+        select *
+        from users
+        where userId=#{userId}
+       </select>
 
 </mapper>

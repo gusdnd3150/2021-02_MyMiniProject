@@ -17,6 +17,11 @@ public class CommonDao {
 		return session.selectOne("user.selectUser",user);
 	}
 	
+	//유저 정보 가져오기	
+		public UserVo selectUserById(String userId) {
+			return session.selectOne("user.selectUserById",userId);
+		}
+	
 	//회원가입
 	public Integer userJoin(UserVo user) {
 		return session.insert("user.userJoin",user);

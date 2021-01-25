@@ -28,7 +28,7 @@
   </div>
   <div class="form-group" align="left">
   <label>비밀번호</label>
-    <input type="password" id="PasswordInput" class="form-control" placeholder="Password" name="password">
+    <input type="password" id="PasswordInput" class="form-control" placeholder="Password" name="userPassword">
     <small id="PasswordBox" class="form-text text-muted"></small>
   </div>
   
@@ -58,7 +58,7 @@ window.onload = function(){
 	 if(form.userId.value==""){
 		 alert("아이디 입력은 필수입니다.");
 		 return;
-	 }else if(form.password.value==""){
+	 }else if(form.userPassword.value==""){
 		 alert("비밀번호 입력은 필수입니다.");
 		 return;
 	 }

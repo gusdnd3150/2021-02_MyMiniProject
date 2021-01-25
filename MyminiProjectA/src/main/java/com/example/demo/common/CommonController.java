@@ -41,7 +41,7 @@ public class CommonController {
 	public String test() {
 		return "/common/slideCard";
 	}
-	
+	  
 	//재능 등록
 	@GetMapping("/addConfidence.do")
 	public String confidence() {

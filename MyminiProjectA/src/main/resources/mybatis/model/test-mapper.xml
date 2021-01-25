@@ -15,5 +15,10 @@
 	<select id="all" resultType="map">
 	SELECT * FROM boards
 	</select>
+	
+	<insert id="userJoin" parameterType="userVo" useGeneratedKeys="true" keyProperty="id">
+      INSERT INTO users (userId,userName,userEmail,userPassword,autho,joinDate)
+      VALUES (#{userId}, #{userName}, #{userEmail}, #{userPassword}, #{autho}, NOW())
+	</insert>
 
 </mapper>

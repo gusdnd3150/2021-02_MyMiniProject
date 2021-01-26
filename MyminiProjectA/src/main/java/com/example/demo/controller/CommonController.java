@@ -1,16 +1,27 @@
-package com.example.demo.common;
+package com.example.demo.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.common.UserVo;
+import com.example.demo.service.CommonService;
+
+import lombok.extern.java.Log;
+
+@Log
 @Controller
 public class CommonController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
 	
 	@Autowired
 	CommonService service;
@@ -31,9 +42,16 @@ public class CommonController {
 	@PostMapping("/userLogin.do")
 	@ResponseBody
 	public String login(UserVo user,HttpServletRequest request) {
-		String result=null;
-		result= service.loginUserCheck(user, request);
-		return result;
+				String result=null;
+				result= service.loginUserCheck(user, request);
+				return result;
+	}
+	
+	
+	@PostMapping("/login.do")
+	public void loginProcessing(String error) {
+		logger.info("login-processing!");
+		logger.info("err :" + error );
 	}
 	
 	@RequestMapping("/test")

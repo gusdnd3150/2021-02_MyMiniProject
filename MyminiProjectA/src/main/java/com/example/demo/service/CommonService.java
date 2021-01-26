@@ -1,6 +1,7 @@
-package com.example.demo.common;
+package com.example.demo.service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.common.CommonDao;
+import com.example.demo.common.UserSecurityVo;
+import com.example.demo.common.UserVo;
+
 @Service
 public class CommonService  implements UserDetailsService{
 	
@@ -28,19 +33,15 @@ public class CommonService  implements UserDetailsService{
 	public String loginUserCheck(UserVo user,HttpServletRequest request) {
 		String result= null;
 		HttpSession  session = request.getSession();
-		
+	
 		try {
 			UserVo selectUser= dao.selectUser(user);
 			
 			if(selectUser==null) {
-				result="noId";
+			result="noId";
 			}else if(!encoder.matches(user.getUserPassword(), selectUser.getUserPassword())) {
 				result="noMachPassword";
 			}else {
-				
-				
-				loadUserByUsername(selectUser.getUserId());
-				System.out.println("나온 후 "+selectUser.toString());
 				session.setAttribute("USER", selectUser);
 				result="success";
 			}
@@ -67,28 +68,28 @@ public class CommonService  implements UserDetailsService{
 			}else if(selectUser.getUserId().equals(user.getUserId())){
 				result="already";
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			result="fail";
-		}
-		return result;
+		} 
+		return result; 
 	}
 
 	
+	//보류
 	@Override
-	public UserVo loadUserByUsername(String userId) throws UsernameNotFoundException {
-		UserVo setUser =new UserVo();
+	public UserSecurityVo loadUserByUsername(String userId) throws UsernameNotFoundException {
+		System.out.println("--" + userId);
 		UserVo user = dao.selectUserById(userId);
+		UserSecurityVo securityVo = new UserSecurityVo(user);
+		if(user.getUserPassword().equals(securityVo.getPassword())) {
+			System.out.println("비번같음");
+		}else {
+			System.out.println("틀림");
+		}
 		
-		setUser.setUsername(user.getUserId());;
-		setUser.setPassword(user.getUserPassword());
 		
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority(user.getAutho()));
-
-        setUser.setAuthorities(authorities);
-        System.out.println("유저권한 설정 후:"+setUser.toString());
-		return setUser;
+		System.out.println("password: "+securityVo.getPassword()+" 이름:"+securityVo.getUsername()+" 권한:"+securityVo.getAuthorities());
+		return securityVo;
 	}
 }

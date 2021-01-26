@@ -12,12 +12,12 @@ public class CommonDao {
 	private SqlSession session;
 	
 	
-    //유저 정보 가져오기	
+    //유저 정보 가져오기 (vo)
 	public UserVo selectUser(UserVo user) {
 		return session.selectOne("user.selectUser",user);
 	}
 	
-	//유저 정보 가져오기	
+	//유저 정보 가져오기 (아이디)	
 		public UserVo selectUserById(String userId) {
 			return session.selectOne("user.selectUserById",userId);
 		}

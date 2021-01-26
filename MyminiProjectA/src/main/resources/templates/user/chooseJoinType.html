@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+
+<!-- 해더 css -->
+<th:block th:replace="common/header :: headerCss"></th:block>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 해더 공통 -->
+<th:block th:replace="common/header :: header"></th:block>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col" >
+    <h3><strong>일반회원</strong></h3>
+       <div style="background-color:yellow;padding:4%;border-radius:25px;background-image: url('/image/person.png');height:480px">
+			<p>이력서를 등록하여 기업에게 자신을 어필해 보세요!</p>        
+            <a class="btn btn-light" href="/joinForm.do?type=user">일반 회원 가입</a>
+       </div>
+    </div>
+    <div class="col" >
+    <h3><strong>기업회원</strong></h3>
+  		<div style="background-color:pink;padding:4%;border-radius:25px;background-image: url('/image/person.png');height:480px">
+  		
+  		  <p>기업가입하여 비대면 면접으로 구직자를 채용해 보세요!</p>
+  		  <a class="btn btn-light" href="/joinForm.do?type=company">기업 회원 가입</a>
+       </div>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+
+<script>
+window.onload = function(){
+	 document.getElementById("joinHeader").setAttribute("class","nav-link active");
+}
+</script>
+</html>

@@ -7,7 +7,7 @@
 
 
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>기업 회원가입</title>
 </head>
 <body>
 
@@ -16,34 +16,34 @@
 
 
 <div class="container" align="center">
-  <h3><strong>회원가입</strong></h3>
+  <h3><strong>기업 회원가입</strong></h3>
   <div class="row" style="background-color:white;border-radius:25px;width:50%">
-    <div style="width:50%;padding-top: 12%;padding-bottom: 12%">
-
-				<form name="joinForm" id="joinForm">
-  <div class="form-group" align="left">
-  <label>아이디 생성</label>
-    <input type="text" id="idInput" class="form-control"  placeholder="your ID" name="userId">
-    <small id="idBox" class="form-text text-muted"></small>
-  </div>
-  
-  <div class="form-group" align="left">
-  <label>비밀번호</label>
-    <input type="password" id="PasswordInput" class="form-control" placeholder="Password" name="userPassword">
-  </div>
-  
-  <div class="form-group" align="left">
-  <label>이름</label>
-    <input type="text" id="PasswordInput" class="form-control" placeholder="홍길동" name="userName">
-  </div>
-  
-  <div class="form-group" align="left">
-  <label>이메일</label>
-    <input type="text" id="emailInput" class="form-control" placeholder="text@gmail.com" name="userEmail">
-  </div>
-  
-  <input type="hidden" name="autho" value="USER">
-  
+    <div  class="col" style="width:50%;padding-top: 12%;padding-bottom: 12%">
+	
+	<form name="joinForm" id="joinForm">
+	  <div class="form-group" align="left">
+	  <label>아이디 생성</label>
+	    <input type="text" id="idInput" class="form-control"  placeholder="your ID" name="user_id">
+	    <small id="idBox" class="form-text text-muted"></small>
+	  </div>
+	  
+	  <div class="form-group" align="left">
+	  <label>비밀번호</label>
+	    <input type="password" id="PasswordInput" class="form-control" placeholder="Password" name="user_password">
+	  </div>
+	  
+	  <div class="form-group" align="left">
+	  <label>이름</label>
+	    <input type="text" id="PasswordInput" class="form-control" placeholder="홍길동" name="user_name">
+	  </div>
+	  
+	  <div class="form-group" align="left">
+	  <label>이메일</label>
+	    <input type="text" id="emailInput" class="form-control" placeholder="text@gmail.com" name="user_email">
+	  </div>
+	  
+	  <input type="hidden" name="autho" value="COMPANY">
+	  
   <br>
 </form>
   <button type="submit" class="btn btn-success btn-block" onclick="join()" style="width:100%">회원가입</button>
@@ -93,7 +93,6 @@ function join(){
 	    });
 
 }
-
 
 </script>
 </html>

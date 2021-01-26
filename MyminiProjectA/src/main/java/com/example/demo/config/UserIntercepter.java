@@ -16,16 +16,17 @@ public class UserIntercepter extends HandlerInterceptorAdapter  {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
 		HttpSession session=request.getSession();
-		
+		ModelAndView mv = new ModelAndView();
 		UserVo user= (UserVo) session.getAttribute("USER");
 	
+		
 		if(user == null){
-		response.sendRedirect("/loginForm.do");
+			System.out.println("세션 empty");
+			mv.addObject("intercepter", "needLogin");
+			response.sendRedirect("/loginForm.do");
 		return false;
 		}
-		
 		return true;
 	}
 

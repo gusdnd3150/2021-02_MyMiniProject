@@ -14,11 +14,6 @@ import lombok.Data;
 @Component
 @Data
 public class UserSecurityVo implements UserDetails  {
-    
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
 	private UserVo user;
 	
@@ -38,12 +33,12 @@ public class UserSecurityVo implements UserDetails  {
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return user.getUserPassword();
+		return user.getUser_password();
 	}
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return user.getUserId();
+		return user.getUser_name();
 	}
 	@Override
 	public boolean isAccountNonExpired() {

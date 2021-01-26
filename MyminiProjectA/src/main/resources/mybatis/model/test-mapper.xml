@@ -9,7 +9,7 @@
 	<select id="selectUser" resultType="userVo" parameterType="userVo">
 		SELECT *
 		 FROM users
-		 where userId=#{userId}
+		 where user_id=#{user_id}
 	</select>
 	
 	<select id="all" resultType="map">
@@ -17,14 +17,19 @@
 	</select>
 	
 	<insert id="userJoin" parameterType="userVo" useGeneratedKeys="true" keyProperty="id">
-      INSERT INTO users (userId,userName,userEmail,userPassword,autho,joinDate)
-      VALUES (#{userId}, #{userName}, #{userEmail}, #{userPassword}, #{autho}, NOW())
+      INSERT INTO users (user_id,user_name,user_email,user_password,autho,joinDate)
+      VALUES (#{user_id}, #{user_name}, #{user_email}, #{user_password}, #{autho}, NOW())
 	</insert>
       
        <select id="selectUserById" parameterType="String" resultType="userVo">
         select *
         from users
-        where userId=#{userId}
+        where user_id=#{user_id}
        </select>
+
+    <insert id="user.inserUserDetail" parameterType="userVo">
+        INSERT INTO users_detail(id,user_phone,user_age,user_gender,user_zip,user_address1,user_address2)
+        VALUES(#{id},#{user_phone},#{user_age},#{user_gender},#{user_zip},#{user_address1},#{user_address2})
+    </insert>
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +37,7 @@ public class CommonController {
 	//로그인폼
 	@RequestMapping("/loginForm.do")
 	public String loginForm() {
-		return "loginForm";
+		return "/user/loginForm";
 	}
 	
 	//유저 로그인
@@ -54,6 +56,7 @@ public class CommonController {
 		logger.info("err :" + error );
 	}
 	
+	//test
 	@RequestMapping("/test")
 	public String test() {
 		return "/common/slideCard";
@@ -68,8 +71,20 @@ public class CommonController {
 	
 	// 가입페이지 이동
 	@RequestMapping("/joinForm.do")
-	public String joinform() {
-		return "/joinForm";
+	public String joinform(@RequestParam("type")String type) {
+		
+		if(type.equals("user")) {
+			return "/user/joinForm";
+		}else if(type.equals("company")) {
+			return "/user/joinCompanyForm";
+		}
+		return "/user/joinForm";
+	}
+	
+	// 기업,유저 가입 페이지로 이동
+	@RequestMapping("/chooseJoinType.do")
+	public String joinTypePage() {
+		return "/user/chooseJoinType";
 	}
 	
 	//회원가입
@@ -80,5 +95,21 @@ public class CommonController {
 		result = service.userJoin(user);
 		return result;
 	}
-
+	
+	//로그아웃
+	@RequestMapping("/logOutUser.do")
+	public String logout(HttpSession session,HttpServletRequest request) {
+		session.removeAttribute("USER");
+		return "/main";
+	}
+	
+	//당진시 일자리 종합
+	
+	//유저아이디 중복체크
+	@ResponseBody
+	@PostMapping("/checkId.do")
+	public String checkDup(@RequestParam("user_id")String user_id) {
+		String result = service.checkDup(user_id);
+		return result;
+	}
 }

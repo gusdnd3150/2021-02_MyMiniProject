@@ -39,7 +39,7 @@ public class CommonService  implements UserDetailsService{
 			
 			if(selectUser==null) {
 			result="noId";
-			}else if(!encoder.matches(user.getUserPassword(), selectUser.getUserPassword())) {
+			}else if(!encoder.matches(user.getUser_password(), selectUser.getUser_password())) {
 				result="noMachPassword";
 			}else {
 				session.setAttribute("USER", selectUser);
@@ -62,10 +62,12 @@ public class CommonService  implements UserDetailsService{
 			UserVo selectUser= dao.selectUser(user);
 			
 			if(selectUser==null) {
-				user.setUserPassword(encoder.encode(user.getUserPassword()));
-				int id=dao.userJoin(user);
+				user.setUser_password(encoder.encode(user.getUser_password()));
+				int id=dao.userJoin(user);   // users 		테이블 추가
+				System.out.println("인설트 후"+user.toString());
+				dao.insertUserDetail(user);  // users_detail 테이블 추가
 				result="success";
-			}else if(selectUser.getUserId().equals(user.getUserId())){
+			}else if(selectUser.getUser_id().equals(user.getUser_id())){
 				result="already";
 			}
 		} catch (Exception e) {
@@ -73,6 +75,24 @@ public class CommonService  implements UserDetailsService{
 			result="fail";
 		} 
 		return result; 
+	}
+	
+	
+	
+	public String checkDup(String user_id) {
+		String result =null;
+		try {
+			UserVo user= dao.selectUserById(user_id);
+			if(user==null) {
+				result="able";
+			}else {
+				result ="already";
+			}
+		} catch (Exception e) {
+			result="fail";
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	
@@ -82,13 +102,11 @@ public class CommonService  implements UserDetailsService{
 		System.out.println("--" + userId);
 		UserVo user = dao.selectUserById(userId);
 		UserSecurityVo securityVo = new UserSecurityVo(user);
-		if(user.getUserPassword().equals(securityVo.getPassword())) {
+		if(user.getUser_password().equals(securityVo.getPassword())) {
 			System.out.println("비번같음");
 		}else {
 			System.out.println("틀림");
 		}
-		
-		
 		System.out.println("password: "+securityVo.getPassword()+" 이름:"+securityVo.getUsername()+" 권한:"+securityVo.getAuthorities());
 		return securityVo;
 	}

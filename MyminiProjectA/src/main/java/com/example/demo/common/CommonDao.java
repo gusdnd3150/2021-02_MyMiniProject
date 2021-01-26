@@ -27,6 +27,10 @@ public class CommonDao {
 		return session.insert("user.userJoin",user);
 	}
 	
+	//유저 디테일정보 추가
+	public void insertUserDetail(UserVo user) {
+		session.insert("user.inserUserDetail",user);
+	}
 	
 }
 

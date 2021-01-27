@@ -7,10 +7,6 @@
 <!-- 해더 css -->
 <th:block th:fragment="headerCss">
 
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -19,11 +15,7 @@
 
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<style>
-.MainHeader{
- background-color:red;
-}
-</style>
+
 </th:block>
 
 <meta charset="UTF-8">
@@ -43,7 +35,10 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="/main.do">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="/addConfidence.do">등록</a>
+      <!-- <a class="nav-item nav-link" href="/addConfidence.do">등록</a> -->
+      
+      <a th:if="${session.USER!=null&&session.USER.autho=='USER'}"class="nav-item nav-link" href="/ResiResume.do">이력서 등록</a>
+      <a th:if="${session.USER!=null&&session.USER.autho=='COMPANY'}"class="nav-item nav-link" href="/addConfidence.do">채용공고 등록</a>
     </div>
   </div>
 		  <ul class="nav justify-content-end">
@@ -53,9 +48,9 @@
 		  <li th:if="${session.USER==null}" class="nav-item">
 		    <a id="joinHeader" class="nav-link" href="/chooseJoinType.do">회원가입</a>
 		  </li>
-		  <li th:if="${session.USER!=null}" id=""><a href="/logOutUser.do">logout</a>
+		  <li th:if="${session.USER!=null}" class="nav-item" id=""><a href="/logOutUser.do" class="nav-link">logout</a>
 		     </li>
-		   <li th:if="${session.USER!=null}" id=""><a href="#">마이페이지</a>
+		   <li th:if="${session.USER!=null}" class="nav-item" id=""><a href="#" class="nav-link">마이페이지</a>
 		     </li>
 		</ul>
 </nav>
@@ -67,25 +62,3 @@
 </body>
 </html>
 
-
-<!-- <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#"></a>
-    </div>
-    
-   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-  </nav>
-    
-    <ul class="nav navbar-nav">
-      <li id="homeHeader"><a href="/main.do">Home</a></li>
-      <li id="addConfidenceHeader"><a href="/addConfidence.do">등록</a></li>
-    </ul>
-    
-    <ul class="nav navbar-nav navbar-right">
-      <li th:if="${session.USER==null}" id="joinHeader"><a href="/chooseJoinType.do"><span class="glyphicon glyphicon-user"></span>회원가입</a></li>
-      <li th:if="${session.USER==null}" id="loginHeader"><a href="/loginForm.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      <li th:if="${session.USER!=null}" id="myPageHeader"><a href="#"><span class="glyphicon glyphicon-user"></span> 마이페이지</a></li>
-      
-    </ul>
-  </div> -->

@@ -60,7 +60,8 @@
 	  
 	  <div class="form-group" align="left">
 	  <label><strong>회사 소개</strong></label>
-	    <input type="text"  class="form-control" placeholder="" name="company_intro">
+	    <!-- <input type="text"  class="form-control" placeholder="" name="company_intro"> -->
+	    <textarea class="form-control" placeholder="간단한 소개" name="company_intro"></textarea>
 	  </div>
 	  
 	  	<div class="input-group mb-3">
@@ -156,7 +157,12 @@ function join(){
         cache: false,
         timeout: 600000,
         success: function (data) {
-        	alert(data);
+        	if(data=='success'){
+        		alert("가입이 완료 되었습니다!");
+        		location.href='/main.do';
+        	}else {
+        		alert("다시 작성해 주세요");
+        	}
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -166,6 +172,10 @@ function join(){
 
 
 function setPreview(event){
+	
+	var input= document.querySelector("div#companyLogo");
+	$("#companyLogo").empty();
+	
     for(var image of event.target.files) {
         var reader = new FileReader();
 
@@ -173,7 +183,7 @@ function setPreview(event){
             var img = document.createElement("img");// 이미지 tag를 생성하는 과정
             img.setAttribute("src", event.target.result);
             img.setAttribute("class","")
-            document.querySelector("div#companyLogo").appendChild(img);
+            input.appendChild(img);
         };
         reader.readAsDataURL(image);
     }

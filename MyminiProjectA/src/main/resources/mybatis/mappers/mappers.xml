@@ -11,6 +11,7 @@
 	
 	<!-- mapper .xmp 파일 정의 - 실제 SQL Query 가 선언되어 있는 부분 -->
 	    <mappers>
-		<mapper resource="mybatis/model/test-mapper.xml"/>
+		<mapper resource="mybatis/model/user-mapper.xml"/>
+		<mapper resource="mybatis/model/resume-mapper.xml"/>
 		</mappers>        
 </configuration> 

@@ -60,6 +60,7 @@ public class FileService {
 					return result;
 				}
 
+	
 			public static String getRandomString() { // 파일업로드 시 랜덤값을 만들어줌
 				return UUID.randomUUID().toString().replaceAll("-", "");
 				}

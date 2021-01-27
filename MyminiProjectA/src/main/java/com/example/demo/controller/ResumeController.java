@@ -16,13 +16,12 @@ public class ResumeController {
 	@Autowired
 	private ResumeService service;
 
-	
 	@RequestMapping("/resiResume.do")
 	public String ResiResum(HttpServletRequest request,Model model) {
 		
 		UserVo user = (UserVo) request.getSession().getAttribute("USER");
-		UserVo selectUser = service.
-		
+		UserVo selectUser = service.selectUserDetail(user);
+		model.addAttribute("defualtInfo", selectUser);
 		return "/resiResume";
 	}
 }

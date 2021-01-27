@@ -14,12 +14,8 @@ public class ResumeService {
 	@Autowired
 	private ResumeDao dao;
 	
-	@Autowired
-	private CommonDao commonDao;
-	
-	
-	public UserVo selectUser(UserVo user) {
-		return commonDao.selectUser(null);
+	public UserVo selectUserDetail(UserVo user) {
+		return dao.selectDefualtInfoById(user.getId());
 	}
 
 }

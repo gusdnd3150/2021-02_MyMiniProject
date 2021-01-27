@@ -25,7 +25,6 @@ import lombok.extern.java.Log;
 @Controller
 public class CommonController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
 	
 	@Autowired
 	CommonService service;
@@ -54,8 +53,6 @@ public class CommonController {
 	
 	@PostMapping("/login.do")
 	public void loginProcessing(String error) {
-		logger.info("login-processing!");
-		logger.info("err :" + error );
 	}
 	
 	//test
@@ -63,7 +60,6 @@ public class CommonController {
 	public String test() {
 		return "/common/slideCard";
 	}
-	  
 	//재능 등록
 	@GetMapping("/addConfidence.do")
 	public String confidence() {

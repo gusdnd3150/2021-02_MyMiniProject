@@ -16,10 +16,7 @@
 	SELECT * FROM boards
 	</select>
 	
-	<insert id="userJoin" parameterType="userVo" useGeneratedKeys="true" keyProperty="id">
-      INSERT INTO users (user_id,user_name,user_email,user_password,autho,joinDate)
-      VALUES (#{user_id}, #{user_name}, #{user_email}, #{user_password}, #{autho}, NOW())
-	</insert>
+	
       
        <select id="selectUserById" parameterType="String" resultType="userVo">
         select *
@@ -27,9 +24,40 @@
         where user_id=#{user_id}
        </select>
 
-    <insert id="user.inserUserDetail" parameterType="userVo">
-        INSERT INTO users_detail(id,user_phone,user_age,user_gender,user_zip,user_address1,user_address2)
+
+	<insert id="userJoin" parameterType="userVo" useGeneratedKeys="true" keyProperty="id">
+      INSERT INTO users (user_id,user_name,user_email,user_password,autho,joinDate)
+      VALUES (#{user_id}, #{user_name}, #{user_email}, #{user_password}, #{autho}, NOW())
+	</insert>
+
+    <insert id="inserUserDetail" parameterType="userVo">
+        INSERT INTO users_detail(
+        id,
+        user_phone,
+        user_age,
+        user_gender,
+        user_zip,
+        user_address1,
+        user_address2
+        )
         VALUES(#{id},#{user_phone},#{user_age},#{user_gender},#{user_zip},#{user_address1},#{user_address2})
     </insert>
+    
+    <insert id="insertCompanyDetail" parameterType="userVo">
+        INSERT INTO user_company_detail(
+        id,
+        company_logo,
+        company_intro,
+       	company_owner,
+       	company_name,
+       	company_homepage,
+       	company_address1,
+       	company_address2,
+       	company_zip
+        )
+        VALUES(#{id},#{company_logo},#{company_intro},#{company_owner},#{company_name},#{company_homepage},#{company_address1},#{company_address2},#{company_zip})
+    </insert>
+    
+    
 
 </mapper>

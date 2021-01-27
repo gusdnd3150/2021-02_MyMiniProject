@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,10 +16,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.example.demo.common.CommonDao;
-import com.example.demo.common.UserSecurityVo;
-import com.example.demo.common.UserVo;
+import com.example.demo.dao.CommonDao;
+import com.example.demo.file.FileService;
+import com.example.demo.vo.UserSecurityVo;
+import com.example.demo.vo.UserVo;
+
 
 @Service
 public class CommonService  implements UserDetailsService{
@@ -27,7 +31,10 @@ public class CommonService  implements UserDetailsService{
 	private CommonDao dao;
 
 	@Autowired
-	PasswordEncoder encoder;
+	private PasswordEncoder encoder;
+	
+	@Autowired
+	private FileService fileService;
 	
 	//로그인
 	public String loginUserCheck(UserVo user,HttpServletRequest request) {
@@ -55,21 +62,35 @@ public class CommonService  implements UserDetailsService{
 	}
 	
 	//회원가입
-	public String userJoin(UserVo user) {
+	public String userJoin(UserVo user,MultipartHttpServletRequest upfile,HttpServletRequest request) {
+		
 		String result=null;
+		//String logoNmae=null;
 		System.out.println(user.toString());
 		try {
+			
 			UserVo selectUser= dao.selectUser(user);
 			
 			if(selectUser==null) {
 				user.setUser_password(encoder.encode(user.getUser_password()));
-				int id=dao.userJoin(user);   // users 		테이블 추가
-				System.out.println("인설트 후"+user.toString());
-				dao.insertUserDetail(user);  // users_detail 테이블 추가
+				
+				if(user.getAutho().equals("USER")) { //일반 구직자 디테일 insert
+					int id=dao.userJoin(user);   // users 기본정보만 insert
+					dao.insertUserDetail(user);  
+					
+				}else if(user.getAutho().equals("COMPANY")) { // 회사 디테일  insert
+					user.setCompany_logo(fileService.addImageFile(upfile, request));
+					int id=dao.userJoin(user);   // users 기본정보만 insert
+					
+					System.out.println("서비스에서:"+user.toString());
+					dao.insertCompanyDetail(user);
+				}
 				result="success";
 			}else if(selectUser.getUser_id().equals(user.getUser_id())){
 				result="already";
 			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			result="fail";
@@ -78,7 +99,7 @@ public class CommonService  implements UserDetailsService{
 	}
 	
 	
-	
+	//아이디 중복 검사
 	public String checkDup(String user_id) {
 		String result =null;
 		try {

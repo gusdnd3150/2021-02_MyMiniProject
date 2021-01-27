@@ -20,33 +20,89 @@
   <div class="row" style="background-color:white;border-radius:25px;width:50%">
     <div  class="col" style="width:50%;padding-top: 12%;padding-bottom: 12%">
 	
-	<form name="joinForm" id="joinForm">
+	 <form name="joinForm" id="joinForm" enctype="multipart/form-data">
 	  <div class="form-group" align="left">
-	  <label>아이디 생성</label>
+	  <label><strong>아이디 생성</strong></label>
 	    <input type="text" id="idInput" class="form-control"  placeholder="your ID" name="user_id">
 	    <small id="idBox" class="form-text text-muted"></small>
+	    <button class="btn btn-primary" onclick="checkDup(event)">중복검사</button>
 	  </div>
 	  
 	  <div class="form-group" align="left">
-	  <label>비밀번호</label>
+	  <label><strong>비밀번호</strong></label>
 	    <input type="password" id="PasswordInput" class="form-control" placeholder="Password" name="user_password">
 	  </div>
 	  
 	  <div class="form-group" align="left">
-	  <label>이름</label>
-	    <input type="text" id="PasswordInput" class="form-control" placeholder="홍길동" name="user_name">
+	  <label><strong>가입자 이름</strong></label>
+	    <input type="text"  class="form-control" placeholder="ex:홍길동" name="user_name">
 	  </div>
 	  
 	  <div class="form-group" align="left">
-	  <label>이메일</label>
-	    <input type="text" id="emailInput" class="form-control" placeholder="text@gmail.com" name="user_email">
+	  <label><strong>이메일</strong></label>
+	    <input type="text"  class="form-control" placeholder="ex:text@gmail.com" name="user_email">
 	  </div>
 	  
-	  <input type="hidden" name="autho" value="COMPANY">
+	  <div class="form-group" align="left">
+	  <label><strong>회사 대표</strong></label>
+	    <input type="text"  class="form-control" placeholder="ex:이유섭" name="company_owner">
+	  </div>
 	  
+	  <div class="form-group" align="left">
+	  <label><strong>회사 이름</strong></label>
+	    <input type="text"  class="form-control" placeholder="ex:이노스피치" name="company_name">
+	  </div>
+	  
+	  <div class="form-group" align="left">
+	  <label><strong>회사 홈페이지</strong></label>
+	    <input type="text"  class="form-control" placeholder="ex:http://company.com" name="company_homepage">
+	  </div>
+	  
+	  <div class="form-group" align="left">
+	  <label><strong>회사 소개</strong></label>
+	    <input type="text"  class="form-control" placeholder="" name="company_intro">
+	  </div>
+	  
+	  	<div class="input-group mb-3">
+		  <div class="input-group-prepend">
+		    <span class="input-group-text">회사 로고</span>
+		  </div>
+		  <div class="custom-file">
+		    <input type="file" class="custom-file-input" id="" onchange="setPreview(event)" name="file">
+		    <label class="custom-file-label" for="inputGroupFile01">이미지 파일</label>
+		  </div>
+		</div>
+		
+		<!-- 로고 프리뷰 -->
+		<div  id="companyLogo">
+		</div>
+		
+		
+		<div class="input-group mb-3">
+		  <div class="input-group-prepend">
+		    <span class="input-group-text" id="basic-addon1">우편번호</span>
+		  </div>
+		  <input type="text" class="form-control" placeholder="" aria-label="" onclick="openZipSearch()" aria-describedby="basic-addon1" name="company_zip" >
+		</div>
+		<div class="input-group mb-3">
+		  <div class="input-group-prepend">
+		    <span class="input-group-text" id="basic-addon1">주소</span>
+		  </div>
+		  <input type="text" class="form-control" placeholder="" aria-label="" onclick="openZipSearch()" aria-describedby="basic-addon1" name="company_address1" readonly="readonly">
+		</div>
+		
+		<div class="input-group mb-3">
+		  <div class="input-group-prepend">
+		    <span class="input-group-text" id="basic-addon1">상세주소</span>
+		  </div>
+		  <input type="text" class="form-control" placeholder="ex:102동 1602호" aria-label="" aria-describedby="basic-addon1" name="company_address2">
+		</div>
+	  
+	  <!-- 일반 유저 -->
+	  <input type="hidden" name="autho" value="COMPANY">   
   <br>
 </form>
-  <button type="submit" class="btn btn-success btn-block" onclick="join()" style="width:100%">회원가입</button>
+  <button type="button" class="btn btn-success btn-block" onclick="join()" style="width:100%">기업가입</button>
 	</div>
   </div>
 </div>
@@ -54,6 +110,7 @@
 
 
 </body>
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
 <script>
 
@@ -61,37 +118,104 @@ window.onload = function(){
 	 document.getElementById("joinHeader").setAttribute("class","active");
 }
 
+//회원가입
 function join(){
 	
 	var form = document.joinForm;
 	
-	if(form.userId.value==null){
+	if(form.user_id.value==null){
 		alert("아이디 입력은 필수 입니다.");
-	}else if(form.userPassword.value==null){
+	}else if(form.user_password.value==null){
 		alert("비밀번호 입력은 필수 입니다.");
-	}else if(form.userName.value==null){
+	}else if(form.user_name.value==null){
 		alert("이름 입력은 필수 입니다.");
-	}else if(form.userEmail.value=null){
+	}else if(form.user_email.value=null){
 		alert("이메일 입력은 필수 입니다.");
+	}else if(form.company_owner.value==null){
+		alert("대표자 입력은 필수 입니다.");
+	}else if(form.company_name.value==null){
+		alert("회사이름 필수 입니다.");
+	}else if(form.company_zip.value==null){
+		alert("우편번호 입력은 필수 입니다.");
+	}else if(form.company_address1.value==null){
+		alert("주소 입력 필수 입니다.");
+	}else if(form.company_address2.value==null){
+		alert("상세주소 입력은 필수 입니다.");
 	}
 	
-	var params = $("#joinForm").serialize(); 
-	    $.ajax({
-	        url: '/userJoin.do',
-	        type: 'POST',
-	        data:params,
-	        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
-	        dataType: 'text',
-	        success: function (data) {
-		          if(data=='success'){
-		        	  alert("회원가입을 축하 드립니다");
-		        	  location.href="/main.do";
-		          }else{
-		        	  alert("실패");
-		          }
-	        }
-	    });
+    var form = $('#joinForm')[0];
+    var data = new FormData(form);
+	
+	   $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "/userJoin.do",
+        data: data,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+        	alert(data);
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+        }
+    });
+}
 
+
+function setPreview(event){
+    for(var image of event.target.files) {
+        var reader = new FileReader();
+
+        reader.onload = function (event) {
+            var img = document.createElement("img");// 이미지 tag를 생성하는 과정
+            img.setAttribute("src", event.target.result);
+            img.setAttribute("class","")
+            document.querySelector("div#companyLogo").appendChild(img);
+        };
+        reader.readAsDataURL(image);
+    }
+}
+
+
+//아이디 중복체크 
+function checkDup(event){
+	event.preventDefault();
+	
+	var idBox = document.getElementById("idBox");
+	var idInput =document.getElementById("idInput");
+	
+	var user_id = document.joinForm.user_id.value;
+	    $.ajax({
+		        url: '/checkId.do',
+		        type: 'POST',
+		        data:{user_id:user_id},
+		        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
+		        dataType: 'text',
+		        success: function (data) {
+					
+					if(data=='already'){
+						idInput.style.borderColor="red";
+						idBox.style.color="red";
+						idBox.innerHTML ="이미 존재하는 아이디입니다.";
+					}else if(data=='able'){
+						idInput.style.borderColor="blue";
+						idBox.style.color="blue";
+						idBox.innerHTML ="사용 가능합니다.";
+					}
+		        }
+		    });
+}
+function openZipSearch() {
+	new daum.Postcode({
+		oncomplete: function(data) {
+			$('[name=company_zip]').val(data.zonecode); // 우편번호 (5자리)
+			$('[name=company_address1]').val(data.address);
+			$('[name=company_address2]').val(data.buildingName);
+		}
+	}).open();
 }
 
 </script>

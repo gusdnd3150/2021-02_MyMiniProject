@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.example.demo.common.UserVo;
 import com.example.demo.service.CommonService;
+import com.example.demo.vo.UserVo;
 
 import lombok.extern.java.Log;
 
@@ -90,9 +92,11 @@ public class CommonController {
 	//회원가입
 	@ResponseBody
 	@RequestMapping("/userJoin.do")
-	public String joinUser(UserVo user) {
+	public String joinUser(UserVo user,MultipartHttpServletRequest upfile,
+			HttpServletRequest request) {
+		System.out.println("컨트롤러:"+user.toString());
 		String result=null;
-		result = service.userJoin(user);
+		result = service.userJoin(user,upfile,request);
 		return result;
 	}
 	
@@ -103,7 +107,6 @@ public class CommonController {
 		return "/main";
 	}
 	
-	//당진시 일자리 종합
 	
 	//유저아이디 중복체크
 	@ResponseBody

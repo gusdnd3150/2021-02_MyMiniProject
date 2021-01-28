@@ -65,6 +65,7 @@ public class ResumeVo {
 	private String resume_li_name;  // 자격증이름
 	private String resume_li_from;  // 발행처
 	private String resume_li_getDay;  //취득일
+	private String uselicenseForm;   //자격증 form 사용여부 기본값은 false
 	
 	//resume_portfolio_id [포트폴리오]
 	private int resume_po_id;  //pk

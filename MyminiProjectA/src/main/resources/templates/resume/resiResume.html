@@ -269,7 +269,6 @@
 					  <textarea class="form-control" aria-label="With textarea" name="resume_ex_content"></textarea>
 					</div>
                    </td>
-                 
                  </tr>
               </table>
            
@@ -280,14 +279,57 @@
        
        <div >
            <p><strong>자격증</strong></p>
-           <div style="background-color: white;padding: 5%;border-radius: 25px">
+           <div style="background-color: white;padding: 4%;border-radius: 25px">
+           
+              <table>
+                <tr>
+                   <td>
+                      <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">자격증 이름</span>
+						  </div>
+						  <input type="text" class="form-control"   placeholder="ex:운전면허" name="resume_li_name">
+						</div>
+                   </td>
+                   <td>
+                   <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">발행처</span>
+						  </div>
+						  <input type="text" class="form-control"   placeholder="ex:경찰청" name="resume_li_from">
+						</div>
+                   </td>
+                   <td>
+                   <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">취득일</span>
+						  </div>
+						  <input type="text" class="form-control"   placeholder="ex:2015-05" name="resume_li_getDay">
+						</div>
+                   </td>
+                </tr>
+              </table>
            </div>
        </div>
        <br>
        
-       <div >
-           <p><strong>포트폴리오</strong></p>
+       <div>
+           <p><strong>포트폴리오</strong>  <span onclick="">파일</span> <span onclick="">url</span> </p>
            <div style="background-color: white;padding: 5%;border-radius: 25px">
+                 	 <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">포트폴리오(url)</span>
+						  </div>
+						  <input type="hidden"  name="resume_po_type" value="U">
+						  <input type="text" class="form-control"   placeholder="ex:http://." name="resume_po_url">
+						</div>
+						<div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">포트폴리오(파일)</span>
+						  </div>
+						  <input type="hidden"  name="resume_po_type" value="F">
+						  <input type="file" class="form-control" name="resume_po_url">
+						</div>
            </div>
        </div>
        <br>
@@ -296,20 +338,103 @@
        <div >
            <p><strong>교육</strong></p>
            <div style="background-color: white;padding: 5%;border-radius: 25px">
+           
+           		<table>
+           		   <tr>
+           		   	   <td>
+           		   	   <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">학원명</span>
+						  </div>
+						  <input type="text" class="form-control"   placeholder="ex:비트캠프" name="resume_cr_name">
+						</div>
+           		   	    </td>
+           		   	   <td> 
+           		   	   <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">교육과목</span>
+						  </div>
+						  <input type="text" class="form-control"  width="170px" placeholder="ex:java프로그래밍" name="resume_cr_subject">
+						</div>
+           		   	   </td>
+           		   	   <td> 
+           		   	   <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">시작일</span>
+						  </div>
+						  <input type="text" class="form-control"   placeholder="ex:2020-07" name="resume_cr_start">
+						</div>
+           		   	   </td>
+           		   	   <td> 
+           		   	   <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">종료일</span>
+						  </div>
+						  <input type="text" class="form-control"   placeholder="ex:2020-12" name="resume_cr_end">
+						</div>
+           		   	   </td>
+           		   </tr>
+           		   <tr>
+           		        <td colspan="4">
+           		        <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">내용</span>
+						  </div>
+						  <textarea class="form-control" name="resume_cr_content"></textarea>
+						</div>
+           		        </td>
+           		   </tr>
+           		</table>
            </div>
        </div>
        <br>
        
-       <div >
+       <div>
            <p><strong>언어능력</strong></p>
-           <div style="background-color: white;padding: 5%;border-radius: 25px">
-           </div>
+           
+	           <div style="background-color: white;padding: 5%;border-radius: 25px">
+           <table>
+           	<tr>	
+	           <td width="400px">
+	               <div class="input-group mb-3">
+						  <div class="input-group-prepend">
+						    <label class="input-group-text" for="inputGroupSelect01">언어</label>
+						  </div>
+						  <select class="custom-select" id="inputGroupSelect01" name="resume_la_type">
+						    <option selected="selected" value="EN">영어</option>
+						    <option value="JP">일어</option>
+						    <option value="CH">중국어</option>
+						  </select>
+						</div>
+	           </td>
+	           
+	            <td width="400px">
+	               <div class="input-group mb-3">
+						  <div class="input-group-prepend">
+						    <label class="input-group-text" for="inputGroupSelect01">구사능력</label>
+						  </div>
+						  <select class="custom-select" id="inputGroupSelect01" name="resume_la_level">
+						    <option selected="selected" value="hight">원어민</option>
+						    <option value="middle">기본회화</option>
+						    <option value="low">간단한 주문</option>
+						  </select>
+						</div>
+	           </td>
+           	</tr>
+           </table>
+	           </div>
        </div>
        <br>
        
        <div >
            <p><strong>자기소개</strong></p>
-           <div style="background-color: white;padding: 5%;border-radius: 25px">
+           <div style="background-color: white;padding: 3%;border-radius: 25px">
+               <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">자기소개</span>
+						  </div>
+						  <textarea class="form-control" name="resume_self_content"></textarea>
+						</div>
            </div>
        </div>
        <br>

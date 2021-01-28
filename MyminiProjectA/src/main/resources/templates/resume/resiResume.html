@@ -25,12 +25,25 @@
 <div class="container">
   <div class="row">
   <!-- 왼쪽 이력서 작성 영역 -->
-      <form name="insertForm" id="insertForm" action="requestupload1" method="post" enctype="multipart/form-data">
     <div class="col-10">
+      <form name="insertForm" id="insertForm" action="requestupload1" method="post" enctype="multipart/form-data">
+      <div>
+           <div>
+              <div>
+                 <div class="input-group mb-3">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">이력서 제목</span>
+						  </div>
+						  <input type="text" class="form-control" name="resume_title">
+						</div>
+              </div>
+           </div>
+       </div>
+       <br>
+      
       <div >
            <p><strong>인적사항</strong></p>
            <div style="background-color: white;padding: 5%;border-radius: 25px">
-        
 				<table>
                     <tr>
                      <td>
@@ -102,9 +115,11 @@
        <br>
        
        <div>
-           <p><strong>학력</strong></p>
-           <div style="background-color: white;padding: 5%;border-radius: 25px">
-           
+           <p><strong>학력</strong> <span id="eduCheckBox" onclick="controllEducateBox()">+</span> </p>
+           <div style="background-color: white;padding: 5%;border-radius: 25px;display:none" id="educateDivBox" >
+              <!-- 기본은 false로 두고 사용원할 시 true -->
+             <input type="hidden" name="useEducateForm" value="false">  
+             
                 <table>
                   <tr>
                      <td>
@@ -138,7 +153,7 @@
                      <td>
                         <div class="input-group mb-3" style="width:190px">
 						  <div class="input-group-prepend">
-						    <span class="input-group-text" id="basic-addon1">졸업일</span>
+						    <span class="input-group-text">졸업일</span>
 						  </div>
 						  <input type="text" class="form-control" placeholder="ex:2022-06" name="resume_ed_end">
 						</div>
@@ -149,9 +164,9 @@
                     <td>
                         <div class="input-group mb-3">
 						  <div class="input-group-prepend">
-						    <label class="input-group-text" for="inputGroupSelect01">졸업상태</label>
+						    <label class="input-group-text" >졸업상태</label>
 						  </div>
-						  <select class="custom-select" id="inputGroupSelect01" name="resume_ed_Gstate">
+						  <select class="custom-select" name="resume_ed_Gstate">
 						    <option selected="selected" value="Y">졸업</option>
 						    <option value="WILL">졸업예정</option>
 						    <option value="ING">재학중</option>
@@ -170,21 +185,27 @@
                       <td colspan="3">
                         <div class="input-group mb-3" style="width:190px">
 						  <div class="input-group-prepend">
-						    <span class="input-group-text" id="basic-addon1">졸업학점</span>
+						    <span class="input-group-text">졸업학점</span>
 						  </div>
 						  <input type="text" class="form-control" placeholder="ex:3.27" name="resume_ed_score">
 						</div>
                       </td>
                   </tr>
                 </table>
+                
+                <br>
+                <div>
+                   <button type="button" class="btn btn-light btn-sm btn-block" onclick="addEducate()" >추가</button>
+                </div>
+                
            </div>
        </div>
        <br>
        
        <div >
-           <p><strong>경력</strong></p>
-           <div style="background-color: white;padding: 5%;border-radius: 25px">
-             
+           <p><strong>경력</strong><span id="experienceCheckBox" onclick="controllExperienceBox()">+</span></p>
+           <div style="background-color: white;padding: 5%;border-radius: 25px;display:none" id="experienceDivBox">
+             <input type="hidden" name="useExperienceForm" value="false">
               <table>
                  <tr>
                    <td>
@@ -436,20 +457,35 @@
 						  </div>
 						  <textarea rows="10" cols="70" class="form-control" name="resume_self_content"></textarea>
 						</div>
+						<div align="center">
+					       <button type="button" class="btn btn-primary" onclick="insert(event)">이력서 등록</button>
+					       </div>
            </div>
        </div>
        <br>
-       <div align="center">
-       <button type="button" class="btn btn-primary" onclick="insert(event)">이력서 등록</button>
-       </div>
-    </div>
+       
     </form>
+    </div>
     
     <!-- 오른쪽 사이드 영역 -->
     <div class="col-2">
-       <div style="background-color: white;padding: 5%;border-radius: 25px">
-         ddd
-       </div>
+       <div style="padding: 5%;border-radius: 25px">
+		       <div class="alert alert-primary" role="alert" id="eduAlert" style="display:none">
+				  <strong>학력</strong>
+				</div>
+				<div class="alert alert-primary" role="alert" id="exAlert" style="display:none">
+				  <strong>경력</strong>
+				</div>
+				<div class="alert alert-primary" role="alert" id="liAlert" style="display:none">
+				  자격증
+				</div>
+				<div class="alert alert-primary" role="alert" style="display:none">
+				  포트폴리오
+				</div>
+				<div class="alert alert-primary" role="alert" style="display:none">
+				  교육
+				</div>
+	    </div>
     </div>
   </div>
 </div>
@@ -466,6 +502,45 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script>
+
+//학력 박스
+function controllEducateBox(){
+	var use = document.insertForm.useEducateForm;
+	var check = document.getElementById("eduCheckBox");
+	
+	if(use.value=='false'){
+	   $("#educateDivBox").slideDown();
+	   $("#eduAlert").slideDown();
+	   use.value="true";   //사용여부를 true로 바꿔줬음
+	   check.innerHTML ="-";
+	}else if(use.value='true'){
+		$("#educateDivBox").slideUp();
+		$("#eduAlert").slideUp();
+		use.value="false";   //사용여부를 false로 바꿔줬음
+		check.innerHTML ="+";
+	}
+}
+
+
+
+
+//경력 박스
+function controllExperienceBox(){
+	var use = document.insertForm.useExperienceForm;
+	var check = document.getElementById("experienceCheckBox");
+	if(use.value=='false'){
+	   $("#experienceDivBox").slideDown();
+	   $("#exAlert").slideDown();
+	   use.value="true";   //사용여부를 true로 바꿔줬음
+	   check.innerHTML ="-";
+	}else if(use.value='true'){
+		$("#experienceDivBox").slideUp();
+		$("#exAlert").slideUp();
+		use.value="false";   //사용여부를 false로 바꿔줬음
+		check.innerHTML ="+";
+	}
+}
+
 
 
 function openZipSearch() {

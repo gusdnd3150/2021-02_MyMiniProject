@@ -41,6 +41,7 @@ public class ResumeVo {
 	private String resume_ed_Gstate;  // 졸업여부 상태
 	private String resume_ed_major;  // 전공
 	private String resume_ed_score;  // 졸업학점
+	private String useEducateForm;   // form 사용여부 기본값은 false
 	
 	
 	//resume_experience    [경력]
@@ -52,6 +53,7 @@ public class ResumeVo {
 	private String resume_ex_start;  // 입사일
 	private String resume_ex_end;  // 퇴사일
 	private String resume_ex_salary;  // 연봉
+	private String useExperienceForm;  // form 사용여부 기본값은 fasle
 	
 	//resume_language  [언어능력]
 	private int resume_la_id;  //pk

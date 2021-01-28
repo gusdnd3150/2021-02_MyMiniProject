@@ -22,13 +22,5 @@ public class ResumeService {
 	}
 	
 	
-	@ResponseBody
-	@PostMapping("/insertResume.do")
-	public String insertResume(ResumeVo resume) {
-		String result =null;
-		System.out.println("이력서 정보"+resume.toString()+"\\n");
-		
-		return result;
-	}
-
+	
 }

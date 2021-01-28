@@ -85,14 +85,23 @@ public class CommonController {
 		return "/user/chooseJoinType";
 	}
 	
-	//회원가입
+	//구직자 회원가입
 	@ResponseBody
 	@RequestMapping("/userJoin.do")
-	public String joinUser(UserVo user,MultipartHttpServletRequest upfile,
-			HttpServletRequest request) {
+	public String joinUser(UserVo user) {
 		System.out.println("컨트롤러:"+user.toString());
 		String result=null;
-		result = service.userJoin(user,upfile,request);
+		result = service.userJoin(user);
+		return result;
+	}
+	
+	//기업 회원가입
+	@ResponseBody
+	@RequestMapping("/companyJoin.do")
+	public String companyJoin(UserVo user,MultipartHttpServletRequest upfile,HttpServletRequest request) {
+		System.out.println("컨트롤러:"+user.toString());
+		String result=null;
+		result = service.CompanyJoin(user, upfile, request);
 		return result;
 	}
 	

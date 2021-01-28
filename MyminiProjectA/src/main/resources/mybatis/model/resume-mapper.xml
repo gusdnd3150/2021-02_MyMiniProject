@@ -6,7 +6,12 @@
 
 <mapper namespace="resume">
 	
-	
+	<select id="selectDefualtInfoById" parameterType="int" resultType="userVo">
+	  	SELECT *
+		FROM users_detail d,users u
+		WHERE d.id=u.id
+		AND d.id=#{id}
+	</select>
     
 
 </mapper>

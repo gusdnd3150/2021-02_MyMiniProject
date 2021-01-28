@@ -61,29 +61,19 @@ public class CommonService  implements UserDetailsService{
 		return result;
 	}
 	
-	//회원가입
-	public String userJoin(UserVo user,MultipartHttpServletRequest upfile,HttpServletRequest request) {
+	// 구직자 회원가입
+	public String userJoin(UserVo user) {
 		
 		String result=null;
-		//String logoNmae=null;
-		System.out.println(user.toString());
 		try {
 			
 			UserVo selectUser= dao.selectUser(user);
 			
 			if(selectUser==null) {
-				user.setUser_password(encoder.encode(user.getUser_password()));
-				
-				if(user.getAutho().equals("USER")) { //일반 구직자 디테일 insert
+				    user.setUser_password(encoder.encode(user.getUser_password()));
 					int id=dao.userJoin(user);   // users 기본정보만 insert
 					dao.insertUserDetail(user);  
-					
-				}else if(user.getAutho().equals("COMPANY")) { // 회사 디테일  insert
-					user.setCompany_logo(fileService.addImageFile(upfile, request));
-					int id=dao.userJoin(user);   // users 기본정보만 insert
-					dao.insertCompanyDetail(user);
-				}
-				result="success";
+				  result="success";
 			}else if(selectUser.getUser_id().equals(user.getUser_id())){
 				result="already";
 			}
@@ -95,7 +85,30 @@ public class CommonService  implements UserDetailsService{
 		} 
 		return result; 
 	}
-	
+	//기업 회원가입
+	public String CompanyJoin(UserVo user,MultipartHttpServletRequest upfile,HttpServletRequest request) {
+		
+		String result=null;
+		try {
+			
+			UserVo selectUser= dao.selectUser(user);
+			
+			if(selectUser==null) {
+				user.setUser_password(encoder.encode(user.getUser_password()));
+					user.setCompany_logo(fileService.addImageFile(upfile, request));
+					int id=dao.userJoin(user);   // users 기본정보만 insert
+					dao.insertCompanyDetail(user);
+				result="success";
+			}else if(selectUser.getUser_id().equals(user.getUser_id())){
+				result="already";
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="fail";
+		} 
+		return result; 
+	}
 	
 	//아이디 중복 검사
 	public String checkDup(String user_id) {

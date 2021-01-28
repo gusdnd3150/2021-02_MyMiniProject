@@ -18,10 +18,13 @@ public class ResumeController {
 
 	@RequestMapping("/resiResume.do")
 	public String ResiResum(HttpServletRequest request,Model model) {
-		
 		UserVo user = (UserVo) request.getSession().getAttribute("USER");
 		UserVo selectUser = service.selectUserDetail(user);
-		model.addAttribute("defualtInfo", selectUser);
-		return "/resiResume";
+		
+		System.out.println("유저 디테일:"+selectUser.toString());
+	   
+		model.addAttribute("userDetail", selectUser);
+		
+		return "/resume/resiResume";
 	}
 }

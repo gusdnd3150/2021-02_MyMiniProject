@@ -21,8 +21,6 @@ public class ResumeController {
 		UserVo user = (UserVo) request.getSession().getAttribute("USER");
 		UserVo selectUser = service.selectUserDetail(user);
 		
-		System.out.println("유저 디테일:"+selectUser.toString());
-	   
 		model.addAttribute("userDetail", selectUser);
 		
 		return "/resume/resiResume";

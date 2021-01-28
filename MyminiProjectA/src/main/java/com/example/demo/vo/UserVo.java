@@ -26,6 +26,8 @@ public class UserVo  {
 	private String user_zip;			//우편번호
 	private String user_address1;	//기본주소
 	private String user_address2;	//상세주소
+	private String user_profile;	//유저 프로필 이미지
+	
 	
 	//회사 디테일정보
 	private String company_logo;	//이미지로고

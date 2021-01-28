@@ -6,6 +6,7 @@
 <th:block th:replace="common/header :: headerCss"></th:block>
 
 
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -28,17 +29,73 @@
       <div >
            <p><strong>인적사항</strong></p>
            <div style="background-color: white;padding: 5%;border-radius: 25px">
-           
-           
-               <div class="input-group mb-3" style="width:150px">
-				  <div class="input-group-prepend">
-				    <span class="input-group-text" id="basic-addon1">이름</span>
-				  </div>
-				  <input type="text" class="form-control">
-				</div>
+        
+				<table>
+                    <tr>
+                     <td>
+                        <div class="input-group mb-3" style="width:200px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">이름</span>
+						  </div>
+						  <input type="text" class="form-control" name="resume_name" th:value="${userDetail.user_name}" readonly="readonly">
+						</div>
+                     </td>
+                     <td>
+                       <div class="input-group mb-3" style="width:200px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">나이</span>
+						  </div>
+						  <input type="text" class="form-control" name="resume_age" th:value="${userDetail.user_age}" readonly="readonly">
+						</div>
+                     </td>
+                     
+                     <td>
+                        <div class="input-group mb-3" style="width:300px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">이메일</span>
+						  </div>
+						  <input type="text" class="form-control"  name="resume_email" th:value="${userDetail.user_email}">
+						</div>
+                     </td>
+                     <td rowspan="2" >
+                        <div id="profileImage" >
+                           <img th:if="${userDetail.user_profile==null}" src="/image/person.png" width="100px" height="100px">
+                          <!--  <img th:if="${userDetail.user_profile!=null}" src="/profile/"> -->
+                        </div>
+                     </td>
+                    </tr>	
+                    <tr>
+                    <td>
+                        <div class="input-group mb-3" style="width:200px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">성별</span>
+						  </div>
+						  <input th:if="${userDetail.user_gender=='M'}" type="text" class="form-control"  name="resume_gender" value="남자" readonly="readonly">
+						  <input th:if="${userDetail.user_gender=='W'}" type="text" class="form-control"  name="resume_gender" value="여자" readonly="readonly">
+						</div>
+                     </td>
+                     <td>
+                       <div class="input-group mb-3" style="width:200px">
+						  <input type="text" placeholder="전화번호" class="form-control"  name="resume_phone" th:value="${userDetail.user_phone}">
+						</div>
+                     </td>
+                     <td>
+                       <div class="input-group mb-3" style="width:300px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1" >주소</span>
+						  </div>
+						  <input type="text" class="form-control" id="changeAddress" 
+						  name="resume_address1" th:value="${userDetail.user_address1}">
+						  <div class="input-group-append">
+						    <button class="btn btn-outline-secondary" onclick="openZipSearch()" type="button">검색</button>
+						  </div>
+						</div>
+                     </td>
+                   
+                    </tr>			
+				</table>
 				
 				
-             
            </div>
        </div>
        <br>
@@ -46,6 +103,79 @@
        <div>
            <p><strong>학력</strong></p>
            <div style="background-color: white;padding: 5%;border-radius: 25px">
+           
+                <table>
+                  <tr>
+                     <td>
+                        <div class="input-group mb-3">
+						  <div class="input-group-prepend">
+						    <label class="input-group-text" for="inputGroupSelect01">학교구분</label>
+						  </div>
+						  <select class="custom-select" id="inputGroupSelect01" name="resume_ed_type">
+						    <option selected="selected" value="year2or3">대학(2,3년)</option>
+						    <option value="year4">대학(4년)</option>
+						    <option value="year6">대학원</option>
+						  </select>
+						</div>
+                     </td>
+                     <td>
+                        <div class="input-group mb-3" style="width:230px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">대학교명</span>
+						  </div>
+						  <input type="text" class="form-control"  name="resume_ed_school">
+						</div>
+                     </td>
+                     <td>
+                        <div class="input-group mb-3" style="width:190px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">입학일</span>
+						  </div>
+						  <input type="text" class="form-control" placeholder="ex:2020-04" name="resume_ed_start">
+						</div>
+                     </td>
+                     <td>
+                        <div class="input-group mb-3" style="width:190px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">졸업일</span>
+						  </div>
+						  <input type="text" class="form-control" placeholder="ex:2022-06" name="resume_ed_end">
+						</div>
+                     </td>
+                   
+                  </tr>
+                  <tr>
+                    <td>
+                        <div class="input-group mb-3">
+						  <div class="input-group-prepend">
+						    <label class="input-group-text" for="inputGroupSelect01">졸업상태</label>
+						  </div>
+						  <select class="custom-select" id="inputGroupSelect01" name="resume_ed_Gsate">
+						    <option selected="selected" value="Y">졸업</option>
+						    <option value="WILL">졸업예정</option>
+						    <option value="ING">재학중</option>
+						    <option value="REST">휴학</option>
+						  </select>
+						</div>
+                     </td>
+                      <td colspan="1">
+                        <div class="input-group mb-3" style="width:230px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">전공명</span>
+						  </div>
+						  <input type="text" class="form-control" placeholder="ex:사회경제과" name="resume_ed_major">
+						</div>
+                      </td>
+                      <td colspan="3">
+                        <div class="input-group mb-3" style="width:190px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">졸업학점</span>
+						  </div>
+						  <input type="text" class="form-control" placeholder="ex:3.27" name="resume_ed_score">
+						</div>
+                      </td>
+                  </tr>
+                </table>
            </div>
        </div>
        <br>
@@ -53,6 +183,97 @@
        <div >
            <p><strong>경력</strong></p>
            <div style="background-color: white;padding: 5%;border-radius: 25px">
+             
+              <table>
+                 <tr>
+                   <td>
+                      <div class="input-group mb-3" style="width:230px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">회사명</span>
+						  </div>
+						  <input type="text" class="form-control" placeholder="ex:삼성" name="resume_ex_company">
+						</div>
+                   </td>
+                   <td>
+                      <div class="input-group mb-3" style="width:230px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">부서명</span>
+						  </div>
+						  <input type="text" class="form-control" placeholder="ex:개발팀"   name="resume_ex_job">
+						</div>
+                   </td>
+                   <td>
+                      <div class="input-group mb-3" style="width:180px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">입사일</span>
+						  </div>
+						  <input type="text" class="form-control"  placeholder="ex:2020-01"  name="resume_ex_start">
+						</div>
+                   </td>
+                   <td>
+                      <div class="input-group mb-3" style="width:180px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">퇴사일</span>
+						  </div>
+						  <input type="text" class="form-control"  placeholder="ex:2022-06"  name="resume_ex_end">
+						</div>
+                   </td>
+                   <td>
+                   </td>
+                 </tr>
+                 
+                 <tr>
+                   <td>
+                     <div class="input-group mb-3" style="width:230px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">직급직책</span>
+						  </div>
+						  <input type="text" class="form-control"   placeholder="ex:사원" name="resume_ex_job">
+						</div>                   
+                   </td>
+                   <td>
+                    <div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <label class="input-group-text" for="inputGroupSelect01">분야</label>
+					  </div>
+					  <select class="custom-select" id="inputGroupSelect01" name="resume_ex_jobType">
+					    <option value="0" selected>IT</option>
+					    <option value="1">경영사무</option>
+					    <option value="2">마케팅</option>
+					    <option value="3">디자인</option>
+					    <option value="4">교육</option>
+					    <option value="5">전문직</option>
+					  </select>
+					</div>
+                   </td>
+                   <td>
+                   	    <div class="input-group mb-3" style="width:180px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">연봉</span>
+						  </div>
+						  <input type="text" class="form-control"  placeholder="ex:2300"  name="resume_ex_salary">
+						</div>   
+                   </td>
+                   <td>
+                   </td>
+                   <td>
+                   </td>
+                 </tr>
+                 
+                 <tr>
+                   <td colspan="5">
+                     <div class="input-group">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">업무 내용</span>
+					  </div>
+					  <textarea class="form-control" aria-label="With textarea" name="resume_ex_content"></textarea>
+					</div>
+                   </td>
+                 
+                 </tr>
+              </table>
+           
+           
            </div>
        </div>
        <br>
@@ -103,8 +324,21 @@
   </div>
 </div>
   
- 
 
 
 </body>
+
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<script>
+
+
+function openZipSearch() {
+	new daum.Postcode({
+		oncomplete: function(data) {
+			$('#changeAddress').val(data.address);
+		}
+	}).open();
+}
+</script>
+
 </html>

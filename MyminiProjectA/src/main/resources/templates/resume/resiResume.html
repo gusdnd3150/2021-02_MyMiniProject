@@ -25,6 +25,7 @@
 <div class="container">
   <div class="row">
   <!-- 왼쪽 이력서 작성 영역 -->
+      <form name="insertForm" id="insertForm" action="requestupload1" method="post" enctype="multipart/form-data">
     <div class="col-10">
       <div >
            <p><strong>인적사항</strong></p>
@@ -150,7 +151,7 @@
 						  <div class="input-group-prepend">
 						    <label class="input-group-text" for="inputGroupSelect01">졸업상태</label>
 						  </div>
-						  <select class="custom-select" id="inputGroupSelect01" name="resume_ed_Gsate">
+						  <select class="custom-select" id="inputGroupSelect01" name="resume_ed_Gstate">
 						    <option selected="selected" value="Y">졸업</option>
 						    <option value="WILL">졸업예정</option>
 						    <option value="ING">재학중</option>
@@ -328,7 +329,7 @@
 						    <span class="input-group-text" id="basic-addon1">포트폴리오(파일)</span>
 						  </div>
 						  <input type="hidden"  name="resume_po_type" value="F">
-						  <input type="file" class="form-control" name="resume_po_url">
+						  <input type="file" class="form-control" name="resumeFile">
 						</div>
            </div>
        </div>
@@ -439,9 +440,10 @@
        </div>
        <br>
        <div align="center">
-       <button type="button" class="btn btn-primary">이력서 등록</button>
+       <button type="button" class="btn btn-primary" onclick="insert(event)">이력서 등록</button>
        </div>
     </div>
+    </form>
     
     <!-- 오른쪽 사이드 영역 -->
     <div class="col-2">
@@ -461,6 +463,7 @@
 <br>
 </body>
 
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script>
 
@@ -471,6 +474,36 @@ function openZipSearch() {
 			$('#changeAddress').val(data.address);
 		}
 	}).open();
+}
+
+
+
+function insert(event){
+	event.preventDefault();
+	
+	
+    var form = $('#insertForm')[0];
+    var data = new FormData(form);
+
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "/insertResume.do",
+        data: data,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+        	alert("complete");
+            $("#btnSubmit").prop("disabled", false);
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+            alert("fail");
+        }
+    });
+
 }
 </script>
 

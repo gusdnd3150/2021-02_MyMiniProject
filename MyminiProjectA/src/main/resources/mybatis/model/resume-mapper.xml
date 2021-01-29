@@ -13,5 +13,13 @@
 		AND d.id=#{id}
 	</select>
     
+    <!-- 인적사항 insert -->
+    <insert id="insertResumeDetail" parameterType="resumeVo" useGeneratedKeys="true" keyProperty="resume_id">
+      INSERT INTO resume
+       (id,
+       resume_title,
+       resume_state)
+      VALUES (#{id},#{resume_title},#{resume_state})
+	</insert>
 
 </mapper>

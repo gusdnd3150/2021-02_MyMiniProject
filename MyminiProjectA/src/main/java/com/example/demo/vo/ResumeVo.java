@@ -1,5 +1,7 @@
 package com.example.demo.vo;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
@@ -12,6 +14,7 @@ public class ResumeVo {
 	
 	//테이블 정보
 	//resume
+	private int id; //유저 fk
 	private int resume_id;   //pk
 	private String resume_title;  // 이력서 제목
 	private String resume_state;   // 공개여부   "Y","N"
@@ -60,6 +63,7 @@ public class ResumeVo {
 	private int resume_la_id;  //pk
 	private String resume_la_type;  // 언어종류
 	private String resume_la_level;  // 언어 숙련도
+	private String useLanguageForm;
 	
 	//resume_license [자격증]
 	private int resume_li_id;  //pk
@@ -75,6 +79,8 @@ public class ResumeVo {
 	
 	//resume_selfintro  [자기소개서]
 	private String resume_self_content;  // 자기소개서
+	
+	private List<ResumeVo> list;
 }
 
 

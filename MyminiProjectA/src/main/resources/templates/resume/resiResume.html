@@ -31,7 +31,7 @@
   <div class="row">
   <!-- 왼쪽 이력서 작성 영역 -->
     <div class="col-10">
-      <form name="insertForm" id="insertForm" action="requestupload1" method="post" enctype="multipart/form-data">
+      <form name="insertForm1" id="insertForm1" action="requestupload1" method="post" enctype="multipart/form-data">
       <div>
            <div>
               <div>
@@ -116,11 +116,12 @@
                     </tr>			
 				</table>
 				
-				
            </div>
        </div>
        <br>
+		</form>
        
+       <form name="insertForm2" id="insertForm2" action="requestupload1" method="post">
        <div>
            <h3><strong>학력</strong>&nbsp;<span id="eduCheckBox" class="plusTag" onclick="controllEducateBox()">-</span> </h3>
            <div style="background-color: white;padding: 5%;border-radius: 25px;" id="educateDivBox" >
@@ -210,8 +211,11 @@
            
            
        </div>
+       </form>
        <br>
        
+       
+       <form name="insertForm3" id="insertForm3" action="requestupload1" method="post">
        <div >
            <h3><strong>경력</strong>&nbsp;<span id="experienceCheckBox"  class="plusTag" onclick="controllExperienceBox()">-</span></h3>
            <div style="background-color: white;padding: 5%;border-radius: 25px;" id="experienceDivBox">
@@ -313,8 +317,10 @@
            
            </div>
        </div>
+       </form>
        <br>
        
+       <form name="insertForm4" id="insertForm4" action="requestupload1" method="post">
        <div >
            <h3><strong>자격증</strong>&nbsp;<span id="licenseCheckBox" class="plusTag" onclick="controllLicense()">-</span></h3>
            <div style="background-color: white;padding: 4%;border-radius: 25px;" id="licenseDivBox">
@@ -356,8 +362,10 @@
                 </div>
            </div>
        </div>
+       </form>
        <br>
        
+       <form name="insertForm5" id="insertForm5" action="requestupload1" method="post">
        <div>
            <h3><strong>포트폴리오</strong>  &nbsp;<span class="plusTag btn btn-primary" onclick="addPoForm('f')">파일</span>&nbsp;or&nbsp;<span class="plusTag btn btn-primary" onclick="addPoForm('u')">주소</span></h3>
            <div style="background-color: white;padding: 5%;border-radius: 25px" id="inputPoForm">
@@ -365,8 +373,9 @@
            </div>
        </div>
        <br>
+       </form>
        
-       
+       <form name="insertForm6" id="insertForm6" action="requestupload1" method="post">
        <div >
            <h3><strong>교육</strong>&nbsp;<span id="cramCheckBox" class="plusTag" onclick="controllCram()">-</span></h3>
            <div style="background-color: white;padding: 5%;border-radius: 25px;" id="cramDivBox">
@@ -427,7 +436,9 @@
            </div>
        </div>
        <br>
+       </form>
        
+       <form name="insertForm7" id="insertForm7" action="requestupload1" method="post">
        <div>
            <h3><strong>언어능력</strong>&nbsp;<span id="langCheckBox" class="plusTag" onclick="controllLang()">-</span></h3>
 	           <div style="background-color: white;padding: 5%;border-radius: 25px;" id="langDivBox">    
@@ -470,9 +481,11 @@
                 </div>
 	           </div>
        </div>
+       </form>
        <br>
        
-       <div >
+       <form name="insertForm8" id="insertForm8" action="requestupload1" method="post">
+       <div>
            <h3><strong>자기소개</strong></h3>
            <div style="background-color: white;padding: 3%;border-radius: 25px">
                <div class="input-group mb-3" >
@@ -481,14 +494,20 @@
 						  </div>
 						  <textarea rows="10" cols="70" class="form-control" name="resume_self_content"></textarea>
 						</div>
+                      </div>
+			           <br>
+			           <br>
 						<div align="center">
 					       <button type="button" class="btn btn-primary" onclick="insert(event)" id="bt6">이력서 등록</button>
 					       </div>
-           </div>
-       </div>
+					       <br>
+        				   <br>
+					       <div class="alert alert-danger" role="alert" style="display:none;padding:5%" id="commaAlert">
+							  입력 정보에 ',' 콤마가 포함되지 않도록 주의하시어 작성 부탁 드립니다.
+							</div>
+          </div>
+    	</form>
        <br>
-       
-    </form>
     </div>
     
     <!-- 오른쪽 사이드 영역 -->
@@ -519,7 +538,7 @@
     </div>
   </div>
 </div>
-  
+ 
 
 
 
@@ -539,6 +558,9 @@ $(document).ready(function () {
 	});
 });
 
+
+
+
 //미리보기
 function previewImage(event){
     for(var image of event.target.files) {
@@ -553,7 +575,7 @@ function previewImage(event){
 
 //학력 박스
 function controllEducateBox(){
-	var use = document.insertForm.useEducateForm;
+	var use = document.insertForm2.useEducateForm;
 	var check = document.getElementById("eduCheckBox");
 	
 	if(use.value=='false'){
@@ -611,7 +633,7 @@ function addLaForm(){
 
 //경력 박스
 function controllExperienceBox(){
-	var use = document.insertForm.useExperienceForm;
+	var use = document.insertForm3.useExperienceForm;
 	var check = document.getElementById("experienceCheckBox");
 	if(use.value=='false'){
 	   $("#experienceDivBox").slideDown();
@@ -630,7 +652,7 @@ function controllExperienceBox(){
 
 //자격증 박스
 function controllLicense(){
-	var use = document.insertForm.uselicenseForm;
+	var use = document.insertForm4.uselicenseForm;
 	var check = document.getElementById("licenseCheckBox");
 	
 	if(use.value=='false'){
@@ -650,7 +672,7 @@ function controllLicense(){
 
 //학원교육 박스
 function controllCram(){
-	var use = document.insertForm.useCramForm;
+	var use = document.insertForm6.useCramForm;
 	var check = document.getElementById("cramCheckBox");
 	
 	if(use.value=='false'){
@@ -669,7 +691,7 @@ function controllCram(){
 
 //언어능력 박스
 function controllLang(){
-	var use = document.insertForm.useLanguageForm;
+	var use = document.insertForm7.useLanguageForm;
 	var check = document.getElementById("langCheckBox");
 	
 	if(use.value=='false'){
@@ -727,65 +749,40 @@ function openZipSearch() {
 
 function insert(event){
 	event.preventDefault();
+	var detail=$("#insertForm1").serialize();
+	var edu =$("#insertForm2").serialize();
+	var experience=$("#insertForm3").serialize(); 
+	var license=$("#insertForm4").serialize();
+	var pofol=$("#insertForm5").serialize() ;
+	var cram =$("#insertForm6").serialize() ;
+	var language=$("#insertForm7").serialize(); 
+	var selfintro=$("#insertForm8").serialize(); 
 	
-	var form1 = document.insertForm;
-
-	 for(var i =0 ; i < form1.elements.length ; i++){
-		 //console.log(form1.elements[i].value);
-		 console.log(form1.elements[i].name);
-	 }
+	var formData = new FormData(document.getElementById('insertForm2'));
 	
-    for(var i =0 ; i < form1.elements.length ; i++){
-        if(form1.elements[i].value==""){
-        	
-        	if(form1.elements[i].name =="resume_email"){ //임시로 해놓음
-            	continue;
-            }else if(form1.elements[i].name =="inertviewImage"){ //사진을 안바꿀 수도 있기 때문
-            	continue;
-            }else if(form1.elements[i].id=='bt1'||form1.elements[i].id=='bt2'||
-            	form1.elements[i].id=='bt3'||form1.elements[i].id=='bt4'||
-            	form1.elements[i].id=='bt5'||form1.elements[i].id=='bt6'||form1.elements[i].id=='noFor'){
-            	continue;
-            }
-        	
-            alert("작성이 안된 부분이 있습니다.");
-            form1.elements[i].style.borderColor="red";
-            return;
-        }else{
-        	form1.elements[i].style.borderColor="";
-        }
-        
-        if(form1.elements[i].value.indexOf(",") > -1){
-        	alert(form1.elements[i].title+",는 값에서 제외해 주세요" );
-        	form1.elements[i].style.borderColor="red";
-        }
-        
-        
-    }
-	
-	
-	
-    var form = $('#insertForm')[0];
-    var data = new FormData(form);
-
-    $.ajax({
-        type: "POST",
-        enctype: 'multipart/form-data',
-        url: "/insertResume.do",
-        data: data,
-        processData: false,
-        contentType: false,
-        cache: false,
-        timeout: 600000,
-        success: function (data) {
-        	alert("complete");
-            $("#btnSubmit").prop("disabled", false);
-        },
-        error: function (e) {
-            console.log("ERROR : ", e);
-            alert("fail");
-        }
-    });
+	var totalForm ={
+			"detail":detail,
+			"edu":edu,
+			"experience":experience,
+			"license":license,
+			"pofol":pofol,
+			"cram":cram,
+			"language":language,
+			"selfintro":selfintro,
+	};
+	console.log(formData);
+    
+    	$.ajax({
+	    	url : "/insertResume.do",
+	    	data : totalForm,
+	    	//traditional: true ,
+	    	contentType:"application/json; charset=UTF-8",
+	    	type : 'POST',
+	    	dataType:'JSON',
+	    	success:function(data){
+	    	}
+    	});
+    	
 
 }
 </script>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,7 +29,6 @@ public class ResumeController {
 	public String ResiResum(HttpServletRequest request,Model model) {
 		UserVo user = (UserVo) request.getSession().getAttribute("USER");
 		UserVo selectUser = service.selectUserDetail(user);
-		
 		model.addAttribute("userDetail", selectUser);
 		
 		return "/resume/resiResume";
@@ -36,10 +36,12 @@ public class ResumeController {
 	
 	@ResponseBody
 	@PostMapping("/insertResume.do")
-	public String insertResume(ResumeVo resume,MultipartHttpServletRequest upfile,HttpServletRequest request) {
+	public String insertResume(Map<String,Object> info
+	/* ,MultipartHttpServletRequest upfile,HttpServletRequest request */) {
 		String result =null;
-		System.out.println("이력서 정보"+resume.toString()+"\\n");
 		
+		System.out.println("이력서 정보"+info.toString());
+	    //result=service.insertResume(resume, upfile, request);
 		return result;
 	}
 

@@ -736,7 +736,7 @@ function addPoForm(type){
 }
 
 
-
+//다음 주소검색 api
 function openZipSearch() {
 	new daum.Postcode({
 		oncomplete: function(data) {
@@ -750,35 +750,16 @@ function openZipSearch() {
 function insert(event){
 	event.preventDefault();
 	var detail=$("#insertForm1").serialize();
-	var edu =$("#insertForm2").serialize();
-	var experience=$("#insertForm3").serialize(); 
-	var license=$("#insertForm4").serialize();
-	var pofol=$("#insertForm5").serialize() ;
-	var cram =$("#insertForm6").serialize() ;
-	var language=$("#insertForm7").serialize(); 
-	var selfintro=$("#insertForm8").serialize(); 
+	var edu =$("#insertForm2").serializeArray();
+	var experience=$("#insertForm3").serializeArray(); 
+	var license=$("#insertForm4").serializeArray();
+	var pofol=$("#insertForm5").serializeArray() ;
+	var cram =$("#insertForm6").serializeArray() ;
+	var language=$("#insertForm7").serializeArray(); 
+	var selfintro=$("#insertForm8").serializeArray(); 
 	
-	var totalForm ={
-			"detail":detail,
-			"edu":edu,
-			"experience":experience,
-			"license":license,
-			"pofol":pofol,
-			"cram":cram,
-			"language":language,
-			"selfintro":selfintro,
-	};
-    
-    	$.ajax({
-	    	url : "/insertResume.do",
-	    	data :edu+"@@"+experience,
-	    	//traditional: true ,
-		    contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
-	        dataType: 'html',
-	    	success:function(data){
-	    	}
-    	});
-    	
+	console.log(edu);
+
 
 }
 </script>

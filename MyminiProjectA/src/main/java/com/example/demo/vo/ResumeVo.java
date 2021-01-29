@@ -31,6 +31,7 @@ public class ResumeVo {
 	private String resume_cr_start;  // 시작
 	private String resume_cr_end;    //종료
 	private String resume_cr_content;  //상세내용
+	private String useCramForm;      //학원/교육 form 사용여부
 	
 	// resume_educate    [학력]
 	private int resume_ed_id;  //pk

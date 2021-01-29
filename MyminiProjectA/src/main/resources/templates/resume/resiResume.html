@@ -5,7 +5,12 @@
 <!-- 해더 css -->
 <th:block th:replace="common/header :: headerCss"></th:block>
 
+<style>
+.plusTag{
+ cursor: pointer
+}
 
+</style>
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -55,7 +60,7 @@
 						</div>
                      </td>
                      <td>
-                       <div class="input-group mb-3" style="width:200px">
+                       <div class="input-group mb-3" style="width:160px">
 						  <div class="input-group-prepend">
 						    <span class="input-group-text" id="basic-addon1">나이</span>
 						  </div>
@@ -64,7 +69,7 @@
                      </td>
                      
                      <td>
-                        <div class="input-group mb-3" style="width:300px">
+                        <div class="input-group mb-3" style="width:350px">
 						  <div class="input-group-prepend">
 						    <span class="input-group-text" id="basic-addon1">이메일</span>
 						  </div>
@@ -89,12 +94,12 @@
 						</div>
                      </td>
                      <td>
-                       <div class="input-group mb-3" style="width:200px">
+                       <div class="input-group mb-3" style="width:160px">
 						  <input type="text" placeholder="전화번호" class="form-control"  name="resume_phone" th:value="${userDetail.user_phone}">
 						</div>
                      </td>
                      <td>
-                       <div class="input-group mb-3" style="width:300px">
+                       <div class="input-group mb-3" style="width:350px">
 						  <div class="input-group-prepend">
 						    <span class="input-group-text" id="basic-addon1" >주소</span>
 						  </div>
@@ -115,12 +120,13 @@
        <br>
        
        <div>
-           <h3><strong>학력</strong> <span id="eduCheckBox" onclick="controllEducateBox()">+</span> </h3>
-           <div style="background-color: white;padding: 5%;border-radius: 25px;display:none" id="educateDivBox" >
+           <h3><strong>학력</strong> <span id="eduCheckBox" class="plusTag" onclick="controllEducateBox()">-</span> </h3>
+           <div style="background-color: white;padding: 5%;border-radius: 25px;" id="educateDivBox" >
               <!-- 기본은 false로 두고 사용원할 시 true -->
-             <input type="hidden" name="useEducateForm" value="false">  
-             
-                <table>
+             <input type="hidden" name="useEducateForm" value="true">  
+               
+               <div id="inputEdForm">
+                <table id="educateForm">
                   <tr>
                      <td>
                         <div class="input-group mb-3">
@@ -177,9 +183,9 @@
                       <td colspan="1">
                         <div class="input-group mb-3" style="width:230px">
 						  <div class="input-group-prepend">
-						    <span class="input-group-text" id="basic-addon1">전공명</span>
+						    <span class="input-group-text" id="basic-addon1">전공</span>
 						  </div>
-						  <input type="text" class="form-control" placeholder="ex:사회경제과" name="resume_ed_major">
+						  <input type="text" class="form-control" name="resume_ed_major">
 						</div>
                       </td>
                       <td colspan="3">
@@ -193,19 +199,20 @@
                   </tr>
                 </table>
                 
-                <br>
-                <div>
-                   <button type="button" class="btn btn-light btn-sm btn-block" onclick="addEducate()" >추가</button>
-                </div>
                 
+                <br>
+                
+             </div>
+            <div>
+                   <button type="button" class="btn btn-light btn-sm btn-block" onclick="addEducate()" >추가</button>
            </div>
        </div>
        <br>
        
        <div >
-           <h3><strong>경력</strong><span id="experienceCheckBox" onclick="controllExperienceBox()">+</span></h3>
-           <div style="background-color: white;padding: 5%;border-radius: 25px;display:none" id="experienceDivBox">
-             <input type="hidden" name="useExperienceForm" value="false">
+           <h3><strong>경력</strong><span id="experienceCheckBox"  class="plusTag" onclick="controllExperienceBox()">-</span></h3>
+           <div style="background-color: white;padding: 5%;border-radius: 25px;" id="experienceDivBox">
+             <input type="hidden" name="useExperienceForm" value="true">
               <table>
                  <tr>
                    <td>
@@ -213,7 +220,7 @@
 						  <div class="input-group-prepend">
 						    <span class="input-group-text" id="basic-addon1">회사명</span>
 						  </div>
-						  <input type="text" class="form-control" placeholder="ex:삼성" name="resume_ex_company">
+						  <input type="text" class="form-control" name="resume_ex_company">
 						</div>
                    </td>
                    <td>
@@ -221,7 +228,7 @@
 						  <div class="input-group-prepend">
 						    <span class="input-group-text" id="basic-addon1">부서명</span>
 						  </div>
-						  <input type="text" class="form-control" placeholder="ex:개발팀"   name="resume_ex_job">
+						  <input type="text" class="form-control"  name="resume_ex_job">
 						</div>
                    </td>
                    <td>
@@ -250,7 +257,7 @@
 						  <div class="input-group-prepend">
 						    <span class="input-group-text" id="basic-addon1">직급직책</span>
 						  </div>
-						  <input type="text" class="form-control"   placeholder="ex:사원" name="resume_ex_job">
+						  <input type="text" class="form-control"  name="resume_ex_job">
 						</div>                   
                    </td>
                    <td>
@@ -293,16 +300,19 @@
                    </td>
                  </tr>
               </table>
-           
+           <br>
+                <div>
+                   <button type="button" class="btn btn-light btn-sm btn-block" onclick="1()" >추가</button>
+                </div>
            
            </div>
        </div>
        <br>
        
        <div >
-           <h3><strong>자격증</strong><span id="licenseCheckBox" onclick="controllLicense()">+</span></h3>
-           <div style="background-color: white;padding: 4%;border-radius: 25px;display:none" id="licenseDivBox">
-           <input type="hidden" name='uselicenseForm' value="false">
+           <h3><strong>자격증</strong><span id="licenseCheckBox" class="plusTag" onclick="controllLicense()">-</span></h3>
+           <div style="background-color: white;padding: 4%;border-radius: 25px;" id="licenseDivBox">
+           <input type="hidden" name='uselicenseForm' value="true">
               <table>
                 <tr>
                    <td>
@@ -310,7 +320,7 @@
 						  <div class="input-group-prepend">
 						    <span class="input-group-text" id="basic-addon1">자격증 이름</span>
 						  </div>
-						  <input type="text" class="form-control"   placeholder="ex:운전면허" name="resume_li_name">
+						  <input type="text" class="form-control"  name="resume_li_name">
 						</div>
                    </td>
                    <td>
@@ -318,7 +328,7 @@
 						  <div class="input-group-prepend">
 						    <span class="input-group-text" id="basic-addon1">발행처</span>
 						  </div>
-						  <input type="text" class="form-control"   placeholder="ex:경찰청" name="resume_li_from">
+						  <input type="text" class="form-control"   name="resume_li_from">
 						</div>
                    </td>
                    <td>
@@ -331,12 +341,17 @@
                    </td>
                 </tr>
               </table>
+              
+              <br>
+                <div>
+                   <button type="button" class="btn btn-light btn-sm btn-block" onclick="1()" >추가</button>
+                </div>
            </div>
        </div>
        <br>
        
        <div>
-           <h3><strong>포트폴리오</strong>  <span onclick="">파일</span> <span onclick="">url</span></h3>
+           <h3><strong>포트폴리오</strong>  <span class="btn btn-info" onclick="">파일</span> <span onclick="">url</span></h3>
            <div style="background-color: white;padding: 5%;border-radius: 25px">
                  	 <div class="input-group mb-3" >
 						  <div class="input-group-prepend">
@@ -358,9 +373,9 @@
        
        
        <div >
-           <h3><strong>교육</strong></h3>
-           <div style="background-color: white;padding: 5%;border-radius: 25px">
-           
+           <h3><strong>교육</strong><span id="cramCheckBox" class="plusTag" onclick="controllCram()">-</span></h3>
+           <div style="background-color: white;padding: 5%;border-radius: 25px;" id="cramDivBox">
+             <input type="hidden" name="useCramForm" value="true">
            		<table>
            		   <tr>
            		   	   <td>
@@ -368,7 +383,7 @@
 						  <div class="input-group-prepend">
 						    <span class="input-group-text" id="basic-addon1">학원명</span>
 						  </div>
-						  <input type="text" class="form-control"   placeholder="ex:비트캠프" name="resume_cr_name">
+						  <input type="text" class="form-control"    name="resume_cr_name">
 						</div>
            		   	    </td>
            		   	   <td> 
@@ -376,7 +391,7 @@
 						  <div class="input-group-prepend">
 						    <span class="input-group-text" id="basic-addon1">교육과목</span>
 						  </div>
-						  <input type="text" class="form-control"  width="170px" placeholder="ex:java프로그래밍" name="resume_cr_subject">
+						  <input type="text" class="form-control"  width="170px" name="resume_cr_subject">
 						</div>
            		   	   </td>
            		   	   <td> 
@@ -407,14 +422,19 @@
            		        </td>
            		   </tr>
            		</table>
+           		
+           		<br>
+                <div>
+                   <button type="button" class="btn btn-light btn-sm btn-block" onclick="1()" >추가</button>
+                </div>
            </div>
        </div>
        <br>
        
        <div>
-           <h3><strong>언어능력</strong></h3>
-           
-	           <div style="background-color: white;padding: 5%;border-radius: 25px">
+           <h3><strong>언어능력</strong><span id="langCheckBox" class="plusTag" onclick="controllLang()">-</span></h3>
+	           <div style="background-color: white;padding: 5%;border-radius: 25px;" id="langDivBox">    
+	             <input type="hidden" name="useLanguageForm" value="true">
            <table>
            	<tr>	
 	           <td width="400px">
@@ -441,9 +461,14 @@
 						    <option value="low">간단한 주문</option>
 						  </select>
 						</div>
-	           </td>
-           	</tr>
-           </table>
+			           </td>
+		           	</tr>
+		           </table>
+		           
+		           <br>
+                <div>
+                   <button type="button" class="btn btn-light btn-sm btn-block" onclick="1()" >추가</button>
+                </div>
 	           </div>
        </div>
        <br>
@@ -470,25 +495,25 @@
     <!-- 오른쪽 사이드 영역 -->
     <div class="col-2">
        <div style="padding: 5%;border-radius: 25px;position: fixed;">
-		       <div class="alert alert-primary" role="alert" id="eduAlert" style="display:none">
+		       <div class="alert alert-primary" role="alert" id="eduAlert" >
 				  <strong>학력</strong>
 				</div>
-				<div class="alert alert-primary" role="alert" id="exAlert" style="display:none">
+				<div class="alert alert-primary" role="alert" id="exAlert" >
 				  <strong>경력</strong>
 				</div>
-				<div class="alert alert-primary" role="alert" id="liAlert" style="display:none">
+				<div class="alert alert-primary" role="alert" id="liAlert" >
 				 <strong>자격증</strong>
 				</div>
-				<div class="alert alert-primary" role="alert" id="poAlert" style="display:none">
+				<div class="alert alert-primary" role="alert" id="poAlert" >
 				  포트폴리오
 				</div>
-				<div class="alert alert-primary" role="alert" id="crAlert" style="display:none">
+				<div class="alert alert-primary" role="alert" id="crAlert" >
 				  교육
 				</div>
-				<div class="alert alert-primary" role="alert" id="laAlert" style="display:none">
+				<div class="alert alert-primary" role="alert" id="laAlert" >
 				  언어능력
 				</div>
-				<div class="alert alert-primary" role="alert" id="selAlert" style="display:none">
+				<div class="alert alert-primary" role="alert" id="selAlert" >
 				  자기소개
 				</div>
 	    </div>
@@ -527,6 +552,12 @@ function controllEducateBox(){
 	}
 }
 
+function addEducate(){
+	var test= document.getElementById("educateForm").cloneNode(true);
+	var div = document.getElementById("inputEdForm");
+	div.append(test);
+}
+
 
 
 
@@ -551,7 +582,6 @@ function controllExperienceBox(){
 
 //자격증 박스
 function controllLicense(){
-	
 	var use = document.insertForm.uselicenseForm;
 	var check = document.getElementById("licenseCheckBox");
 	
@@ -563,6 +593,45 @@ function controllLicense(){
 	}else if(use.value='true'){
 		$("#licenseDivBox").slideUp();
 		$("#liAlert").slideUp();
+		use.value="false";   //사용여부를 false로 바꿔줬음
+		check.innerHTML ="+";
+	}
+}
+
+
+
+//학원교육 박스
+function controllCram(){
+	var use = document.insertForm.useCramForm;
+	var check = document.getElementById("cramCheckBox");
+	
+	if(use.value=='false'){
+	   $("#cramDivBox").slideDown();
+	   $("#crAlert").slideDown();
+	   use.value="true";   //사용여부를 true로 바꿔줬음
+	   check.innerHTML ="-";
+	}else if(use.value='true'){
+		$("#cramDivBox").slideUp();
+		$("#crAlert").slideUp();
+		use.value="false";   //사용여부를 false로 바꿔줬음
+		check.innerHTML ="+";
+	}
+}
+
+
+//언어능력 박스
+function controllLang(){
+	var use = document.insertForm.useLanguageForm;
+	var check = document.getElementById("langCheckBox");
+	
+	if(use.value=='false'){
+	   $("#langDivBox").slideDown();
+	   $("#laAlert").slideDown();
+	   use.value="true";   //사용여부를 true로 바꿔줬음
+	   check.innerHTML ="-";
+	}else if(use.value='true'){
+		$("#langDivBox").slideUp();
+		$("#laAlert").slideUp();
 		use.value="false";   //사용여부를 false로 바꿔줬음
 		check.innerHTML ="+";
 	}

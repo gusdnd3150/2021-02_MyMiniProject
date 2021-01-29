@@ -8,11 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.example.demo.dao.CommonDao;
 import com.example.demo.dao.ResumeDao;
 import com.example.demo.util.ResumeUtil;
 import com.example.demo.vo.ResumeVo;

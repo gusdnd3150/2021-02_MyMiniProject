@@ -36,7 +36,7 @@ public class ResumeController {
 	
 	@ResponseBody
 	@PostMapping("/insertResume.do")
-	public String insertResume(Map<String,Object> info
+	public String insertResume(@RequestParam Map<String,Object> info
 	/* ,MultipartHttpServletRequest upfile,HttpServletRequest request */) {
 		String result =null;
 		

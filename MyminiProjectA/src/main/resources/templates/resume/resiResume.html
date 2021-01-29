@@ -758,8 +758,6 @@ function insert(event){
 	var language=$("#insertForm7").serialize(); 
 	var selfintro=$("#insertForm8").serialize(); 
 	
-	var formData = new FormData(document.getElementById('insertForm2'));
-	
 	var totalForm ={
 			"detail":detail,
 			"edu":edu,
@@ -770,15 +768,13 @@ function insert(event){
 			"language":language,
 			"selfintro":selfintro,
 	};
-	console.log(formData);
     
     	$.ajax({
 	    	url : "/insertResume.do",
-	    	data : totalForm,
+	    	data :edu+"@@"+experience,
 	    	//traditional: true ,
-	    	contentType:"application/json; charset=UTF-8",
-	    	type : 'POST',
-	    	dataType:'JSON',
+		    contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
+	        dataType: 'html',
 	    	success:function(data){
 	    	}
     	});

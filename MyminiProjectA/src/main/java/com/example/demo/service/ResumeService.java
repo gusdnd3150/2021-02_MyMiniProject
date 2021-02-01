@@ -82,7 +82,7 @@ public class ResumeService {
 		   dao.insertResume(resume);  // resume 테이블에  insert
 		   resumeId =resume.getResume_id();  //pk
 		   
-		   insertDetail(detail,resumeId);   //인적사항  insert
+		   insertDetail(detail,resumeId,request);   //인적사항  insert
 		   insertSelfInfo(selfIntro,resumeId); //자기소개서 insert
 		   
 		   // 학력
@@ -243,9 +243,9 @@ public class ResumeService {
 				
 				
 				//이력서 인적사항 insert
-				public void insertDetail(JsonObject detail, int resumeId) {
+				public void insertDetail(JsonObject detail, int resumeId,HttpServletRequest request) {
 					ResumeVo resumeInfo = new ResumeVo();
-					
+					HttpSession session= request.getSession();
 					System.out.println("디테일:"+detail.toString());
 					resumeInfo.setResume_id(resumeId);
 					resumeInfo.setResume_name(detail.get("resume_name").getAsString());
@@ -253,7 +253,7 @@ public class ResumeService {
 					resumeInfo.setResume_email(detail.get("resume_email").getAsString());
 					resumeInfo.setResume_phone(detail.get("resume_phone").getAsString());
 					resumeInfo.setResume_address1(detail.get("resume_address1").getAsString());
-					resumeInfo.setResume_profile(detail.get("resume_profile").getAsString());
+					resumeInfo.setResume_profile((String) request.getAttribute("tempImage"));
 					
 					dao.insertResumeDetial(resumeInfo);
 				}

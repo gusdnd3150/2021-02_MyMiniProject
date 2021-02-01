@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +21,7 @@ public class FileService {
 
 	public String addImageFile(MultipartHttpServletRequest upfile,HttpServletRequest request) throws Exception {
 					String result = null;
+					
 					
 					MultipartFile imageFile = upfile.getFile("file");  //photo라는 이름으로 넘어오는 파일을 전부 받는다
 
@@ -49,6 +51,8 @@ public class FileService {
 				        System.out.println(file.getAbsolutePath()); 
 				        imageFile.transferTo(file); 
 				        result=storedFileName;
+				        
+				        
 				        }else {
 				        	result="emptyImage";
 				        }
@@ -63,6 +67,7 @@ public class FileService {
 	
 	public String insertProfile(MultipartHttpServletRequest upfile,HttpServletRequest request) throws Exception {
 		String result = null;
+		HttpSession session= request.getSession();
 		
 		MultipartFile imageFile = upfile.getFile("profileImage");  //photo라는 이름으로 넘어오는 파일을 전부 받는다
 
@@ -92,6 +97,7 @@ public class FileService {
 	        System.out.println(file.getAbsolutePath()); 
 	        imageFile.transferTo(file); 
 	        result=storedFileName;
+	        session.setAttribute("tempImage", storedFileName);
 	        }else {
 	        	result="emptyImage";
 	        }
@@ -103,8 +109,8 @@ public class FileService {
 		return result;
 	}
 	
-			public static String getRandomString() { // 파일업로드 시 랜덤값을 만들어줌
-				return UUID.randomUUID().toString().replaceAll("-", "");
-				}
+	public static String getRandomString() { // 파일업로드 시 랜덤값을 만들어줌
+		return UUID.randomUUID().toString().replaceAll("-", "");
+	}
 
 }

@@ -15,5 +15,6 @@
 	    <mappers>
 		<mapper resource="mybatis/model/user-mapper.xml"/>
 		<mapper resource="mybatis/model/resume-mapper.xml"/>
+		<mapper resource="mybatis/model/mypage-mapper.xml"/>
 		</mappers>        
 </configuration> 

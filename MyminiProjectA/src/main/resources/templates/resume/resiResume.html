@@ -769,12 +769,8 @@ function openZipSearch() {
 }
 
 
-
-function insert(event){
-	event.preventDefault();
-	
-	
-    var form5 = $('#fileUploadForm')[0];
+function uploadImage(){
+	var form5 = $('#fileUploadForm')[0];
     var data2 = new FormData(form5);
 		
     $.ajax({
@@ -788,12 +784,16 @@ function insert(event){
         dataType: "text",
         timeout: 600000,
         success: function (imageValue) {
-       	 document.insertForm1.resume_profile.value=imageValue;
         },
         error: function (e) {
         }
     });
+}
+
+function insert(event){
+	event.preventDefault();
 	
+	uploadImage();
 	
 	$.fn.serializeObject = function() {
 		  var result = {}
@@ -844,8 +844,12 @@ function insert(event){
 					traditional: true ,
 		            contentType: 'application/json',
 		            success: function( responseData, status , xhr ){
-		                
-						alert("성공");
+		                if(responseData=='success'){
+						alert("등록되었습니다.");
+						location.href="/main.do";
+					}else{
+						alert("실패");
+					}
 		            },error:function(){
 						alert("실패");
 		 			}

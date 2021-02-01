@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+
+<!-- 해더 css -->
+<th:block th:replace="common/header :: headerCss"></th:block>
+
+
+<style>
+
+#profileBox{
+border-style:solid;border-radius: 25px;border-color:gray;
+    border-top-width: thin;
+    border-bottom-width: thin;
+    border-left-width: thin;
+    border-right-width: thin;
+}
+</style>
+
+<meta charset="UTF-8">
+<title>왼쪽 사이드바</title>
+</head>
+<body>
+
+<th:block th:fragment="side">
+
+<div class="container">
+  <div class="row">
+  
+	<div align="center" id="profileBox">
+	
+	<img th:if="${userDetail.user_profile == null}" src="/image/person.png" width="130px" height="130px">
+	<img th:if="${userDetail.user_profile != null}" src="/user/${userDetail.user_profile}" width="130px" height="130px">
+	<p> <strong><span th:text="${userDetail.user_name}"></span></strong>님</p>
+	 <button onclick="changeImage()">수정</button>
+	
+	</div>
+	<br>
+	
+	<div>
+	<ul>
+	  <li>이력서</li>
+	  <li>이력서</li>
+	</ul>
+	  
+	
+	</div>
+
+ </div>
+</div>
+
+
+</th:block>
+
+</body>
+
+<script>
+
+</script>
+</html>

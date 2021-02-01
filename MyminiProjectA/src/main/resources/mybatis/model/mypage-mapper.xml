@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="myPage">
+	
+	<select id="selectResume" parameterType="int" resultType="resumeVo">
+	  	SELECT *
+      	FROM resume r, resume_detail d
+		WHERE r.resume_id=d.resume_id
+		AND r.id=#{id}
+	</select>
+	
+</mapper>

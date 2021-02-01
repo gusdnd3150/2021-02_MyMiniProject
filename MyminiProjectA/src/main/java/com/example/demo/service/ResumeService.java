@@ -14,8 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dao.ResumeDao;
+import com.example.demo.file.FileService;
+import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.UserVo;
 
@@ -25,12 +28,29 @@ public class ResumeService {
 	@Autowired
 	private ResumeDao dao;
 	
-	//@Autowired
-	//private ResumeFunction resumeFunction;
-	
+	@Autowired
+	private FileService fileService;
 	
 	public UserVo selectUserDetail(UserVo user) {
 		return dao.selectDefualtInfoById(user.getId());
+	}
+	
+	public List<PortfolioFileVo> selectUserFile(UserVo user) {
+		return dao.selectUserFile(user.getId());
+	}
+	
+	public String insertImage(MultipartHttpServletRequest upfile,HttpServletRequest request) {
+		UserVo user= (UserVo) request.getSession().getAttribute("USER");
+		String image=null;
+		try {
+			 image =fileService.insertProfile(upfile, request);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			image="";
+		}
+		
+		return image;
 	}
 	
 	// 이력서 등록
@@ -226,12 +246,14 @@ public class ResumeService {
 				public void insertDetail(JsonObject detail, int resumeId) {
 					ResumeVo resumeInfo = new ResumeVo();
 					
+					System.out.println("디테일:"+detail.toString());
 					resumeInfo.setResume_id(resumeId);
 					resumeInfo.setResume_name(detail.get("resume_name").getAsString());
 					resumeInfo.setResume_gender(detail.get("resume_gender").getAsString());
 					resumeInfo.setResume_email(detail.get("resume_email").getAsString());
 					resumeInfo.setResume_phone(detail.get("resume_phone").getAsString());
 					resumeInfo.setResume_address1(detail.get("resume_address1").getAsString());
+					resumeInfo.setResume_profile(detail.get("resume_profile").getAsString());
 					
 					dao.insertResumeDetial(resumeInfo);
 				}

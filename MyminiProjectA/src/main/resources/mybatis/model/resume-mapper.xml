@@ -12,6 +12,12 @@
 		WHERE d.id=u.id
 		AND d.id=#{id}
 	</select>
+	
+	<select id="selectUserFile" parameterType="int" resultType="portfolioFileVo">
+	  	SELECT *
+		FROM user_portfolio_file
+		WHERE id=#{id}
+	</select>
     
     <!-- 이력서 insert -->
     <insert id="insertResume" parameterType="resumeVo" useGeneratedKeys="true" keyProperty="resume_id">
@@ -43,7 +49,8 @@
        resume_gender,
        resume_email,
        resume_phone,
-       resume_address1
+       resume_address1,
+       resume_profile
        )
       VALUES (
       #{resume_id},
@@ -51,7 +58,8 @@
       #{resume_gender},
       #{resume_email},
       #{resume_phone},
-      #{resume_address1}
+      #{resume_address1},
+      #{resume_profile}
       )
 	</insert>
 	

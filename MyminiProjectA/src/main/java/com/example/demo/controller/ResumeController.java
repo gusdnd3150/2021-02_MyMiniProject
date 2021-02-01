@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.service.ResumeService;
+import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.UserVo;
 import com.google.gson.JsonArray;
@@ -32,7 +33,11 @@ public class ResumeController {
 	@RequestMapping("/resiResume.do")
 	public String ResiResum(HttpServletRequest request,Model model) {
 		UserVo user = (UserVo) request.getSession().getAttribute("USER");
+		
 		UserVo selectUser = service.selectUserDetail(user);
+		List<PortfolioFileVo> fileList=service.selectUserFile(user);
+		
+		model.addAttribute("fileList", fileList);
 		model.addAttribute("userDetail", selectUser);
 		
 		return "/resume/resiResume";
@@ -48,5 +53,13 @@ public class ResumeController {
 		
 		return result;
 	}
-
+	
+	@PostMapping("/uploadProfileImage.do")
+	@ResponseBody
+	public String uploadProfile(MultipartHttpServletRequest upfile,HttpServletRequest request) {
+		String result=null;
+		
+		result=service.insertImage(upfile,request);
+		return result;
+	}
 }

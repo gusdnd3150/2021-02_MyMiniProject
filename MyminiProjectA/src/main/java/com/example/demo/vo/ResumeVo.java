@@ -26,6 +26,7 @@ public class ResumeVo {
 	private String resume_email;  // 이메일
 	private String resume_phone;  // 전화번호
 	private String resume_address1;  // 주소	
+	private String resume_profile; //이미지
 	
 	//resume_cram  [학원/교육]
 	private int resume_cr_id;   //pk 

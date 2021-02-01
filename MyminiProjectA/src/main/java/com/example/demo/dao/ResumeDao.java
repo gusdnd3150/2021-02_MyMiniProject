@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.UserVo;
 
@@ -18,6 +19,9 @@ public class ResumeDao {
 	//유저 디테일 select
 	public UserVo selectDefualtInfoById(int id) {
 		return session.selectOne("resume.selectDefualtInfoById",id);
+	}
+	public List<PortfolioFileVo> selectUserFile(int id) {
+		return session.selectList("resume.selectUserFile",id);
 	}
 	
 	// 이력서 insert

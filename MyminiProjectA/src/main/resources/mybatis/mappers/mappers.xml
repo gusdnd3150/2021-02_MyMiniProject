@@ -8,6 +8,7 @@
 	<!-- <typeAlias alias="boardVO" type="com.example.demo.voGroup.BoardVO" /> -->
 	<typeAlias alias="userVo" type="com.example.demo.vo.UserVo" />
 	<typeAlias alias="resumeVo" type="com.example.demo.vo.ResumeVo" />
+	<typeAlias alias="portfolioFileVo" type="com.example.demo.vo.PortfolioFileVo" />
 	</typeAliases> 
 	
 	<!-- mapper .xmp 파일 정의 - 실제 SQL Query 가 선언되어 있는 부분 -->

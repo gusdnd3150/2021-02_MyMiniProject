@@ -79,9 +79,11 @@
                      <td rowspan="2" >
                         <div id="profileImage" >
                            <img id="inertviewImage" th:if="${userDetail.user_profile==null}" src="/image/person.png" width="130px" height="130px">
-                          <!--  <img id="inertviewImage" th:if="${userDetail.user_profile!=null}" src="/profile/"> -->
+                           <img id="inertviewImage" th:if="${userDetail.user_profile!=null}" th:src="|/profile/${userDetail.user_profile}">
+                           
+                          <input th:if="${userDetail.user_profile!=null}" type="hidden" name="resume_profile" th:value="${userDetail.user_profile}">
+                          <input th:if="${userDetail.user_profile==null}" type="hidden" name="resume_profile" > 
                           
-                          <input type="file" id="setProfile" style="display:none" name="inertviewImage" onchange="previewImage(event)">
                         </div>
                      </td>
                     </tr>	
@@ -120,6 +122,10 @@
        </div>
        <br>
 		</form>
+		
+       <form enctype="multipart/form-data" id="fileUploadForm">
+       <input type="file" id="setProfile" style="display:none" name="profileImage" onchange="previewImage(event)">
+       </form>
        
        <form name="insertForm2" id="insertForm2" action="requestupload1" method="post">
        <div>
@@ -367,13 +373,18 @@
        
        <form name="insertForm5" id="insertForm5" action="requestupload1" method="post">
        <div>
-           <h3><strong>포트폴리오</strong>  &nbsp;<span class="plusTag btn btn-primary" onclick="addPoForm('f')">파일</span>&nbsp;or&nbsp;<span class="plusTag btn btn-primary" onclick="addPoForm('u')">주소</span></h3>
+           <h3><strong>포트폴리오</strong> <span class="plusTag btn btn-primary" onclick="addPoForm('u')">주소</span>
+           <!-- &nbsp;or&nbsp; -->
+           <!-- <button type="button"  class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
+           파일보관함</button> -->
+           </h3>
+          
            <div style="background-color: white;padding: 5%;border-radius: 25px" id="inputPoForm">
                   <!-- 포폴 form 동적추가 -->
            </div>
        </div>
        <br>
-       <input type="hidden" name="usePofolForm" value="false">
+       <input type="hidden" id="usePofolForm"name="usePofolForm" value="false">
        </form>
        
        <input type="file" id="pofolFile" name="pofolFile" style="display:none" onchange="">
@@ -543,8 +554,6 @@
 </div>
  
 
-
-
 <br>
 <br>
 <br>
@@ -560,8 +569,6 @@ $(document).ready(function () {
 		$("#setProfile").click();
 	});
 });
-
-
 
 
 //미리보기
@@ -725,7 +732,7 @@ function addPoForm(type){
 	var div =$("#inputPoForm");
 	var tag ="";
 
-	document.getElemnetById("usePofolForm").value="true";
+	document.getElementById("usePofolForm").value="true";
 	
 	
 	switch(type){
@@ -744,7 +751,7 @@ function addPoForm(type){
 	     tag +="<span class='input-group-text' >포트폴리오(url)</span>";
 	     tag +="</div>";
 	     tag +="<input type='hidden'  name='resume_po_type' value='U'>";
-	     tag +="<input type='text' class='form-control' placeholder='ex:http://.' name='resume_po_url'>";
+	     tag +="<input type='text' class='form-control' placeholder='ex:http://주소' name='resume_po_url'>";
 	     tag +="</div>";
 		break;
 	}
@@ -765,6 +772,27 @@ function openZipSearch() {
 
 function insert(event){
 	event.preventDefault();
+	
+	
+    var form5 = $('#fileUploadForm')[0];
+    var data2 = new FormData(form5);
+		
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "/uploadProfileImage.do",
+        data: data2,
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: "text",
+        timeout: 600000,
+        success: function (imageValue) {
+       	 document.insertForm1.resume_profile.value=imageValue;
+        },
+        error: function (e) {
+        }
+    });
 	
 	
 	$.fn.serializeObject = function() {

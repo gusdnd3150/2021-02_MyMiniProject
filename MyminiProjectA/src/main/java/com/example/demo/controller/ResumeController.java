@@ -38,14 +38,13 @@ public class ResumeController {
 		return "/resume/resiResume";
 	}
 	
+	/* ,MultipartHttpServletRequest upfile,HttpServletRequest request */
 	@ResponseBody
 	@PostMapping("/insertResume.do")
-	public String insertResume(@RequestBody String info
-	/* ,MultipartHttpServletRequest upfile,HttpServletRequest request */) {
+	public String insertResume(@RequestBody String info,HttpServletRequest request ) {
 		String result ="success";
 		
-		System.out.println(info);
-	    result=service.insertResume(info);
+	    result=service.insertResume(info,request);
 		
 		return result;
 	}

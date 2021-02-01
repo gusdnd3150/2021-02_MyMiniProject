@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,19 +24,22 @@ public class ResumeService {
 	@Autowired
 	private ResumeDao dao;
 	
+	//@Autowired
+	//private ResumeFunction resumeFunction;
+	
 	
 	public UserVo selectUserDetail(UserVo user) {
 		return dao.selectDefualtInfoById(user.getId());
 	}
 	
-	
-	
 	// 이력서 등록
 	@Transactional
-	public String insertResume(String info) {
+	public String insertResume(String info,HttpServletRequest request) {
 	   String result =null;	
 	   int resumeId =0;
-	   
+	   //HttpSession session= request.getSession();
+	   UserVo user= (UserVo) request.getSession().getAttribute("USER");
+	   ResumeVo resume = new ResumeVo();
 	   JsonParser jsonParser = new JsonParser();
 	   JsonArray jsonArray = (JsonArray) jsonParser.parse(info);
 	   
@@ -48,6 +52,10 @@ public class ResumeService {
 	   JsonObject language = (JsonObject) jsonArray.get(6); // 언어능력
 	   JsonObject selfIntro = (JsonObject) jsonArray.get(7);  //자기소개
 	   
+	   resume.setId(user.getId());
+	   resume.setResume_title(detail.get("resume_title").getAsString());
+	   resume.setResume_state("N");
+	   
 	   
 	   try {
 		   dao.insertResumeDetail(resume);
@@ -55,27 +63,25 @@ public class ResumeService {
 		   
 		   
 		   if(edu.get("useEducateForm").getAsString().equals("true")) {
-			   System.out.println("학력");
+			   insertEducate(edu,resumeId);
 			   
 		   } 
 		   if(experience.get("useExperienceForm").getAsString().equals("true")) {
-			   System.out.println("경력");
-			   
+			   insertExperience(experience, resumeId);
 		   } 
 		   if(license.get("uselicenseForm").getAsString().equals("true")) {
-			   System.out.println("자격증");
 			   
 		   } 
 		   if(pofol.get("usePofolForm").getAsString().equals("true")) {
-			   System.out.println("포폴");
 			   
 		   }
 		   
 		   if(cram.get("useCramForm").getAsString().equals("true")) {
-			   System.out.println("학원교육");
+			   
 		   } 
+		   
 		   if(language.get("useLanguageForm").getAsString().equals("true")) {
-			   System.out.println("언어능력");
+			   
 		   }
 		   result ="success";
 	} catch (Exception e) {
@@ -89,4 +95,87 @@ public class ResumeService {
 	}
 	
 	
+	
+	   //학력 insert
+		public void insertEducate(JsonObject edu, int resumeId) {
+			ResumeVo educate = null;
+			List<ResumeVo> educateList= new ArrayList<>();
+			
+			if(edu.get("resume_ed_type") instanceof JsonArray ) {
+				JsonArray types = edu.getAsJsonArray("resume_ed_type");
+				JsonArray schools = edu.getAsJsonArray("resume_ed_school");
+				JsonArray starts = edu.getAsJsonArray("resume_ed_start");
+				JsonArray ends = edu.getAsJsonArray("resume_ed_end");
+				JsonArray Gstates = edu.getAsJsonArray("resume_ed_Gstate");
+				JsonArray majors = edu.getAsJsonArray("resume_ed_major");
+				JsonArray scores = edu.getAsJsonArray("resume_ed_score");
+				
+				for(int i=0;i<types.size();i++) {
+					educate =new ResumeVo();
+					educate.setResume_id(resumeId);
+					educate.setResume_ed_type(types.get(i).getAsString());
+					educate.setResume_ed_school(schools.get(i).getAsString());
+					educate.setResume_ed_start(starts.get(i).getAsString());
+					educate.setResume_ed_end(ends.get(i).getAsString());
+					educate.setResume_ed_Gstate(Gstates.get(i).getAsString());
+					educate.setResume_ed_major(majors.get(i).getAsString());
+					educate.setResume_ed_score(scores.get(i).getAsString());
+					educateList.add(educate);
+				}
+			}else {
+				educate = new ResumeVo();
+				educate.setResume_id(resumeId);
+				educate.setResume_ed_type(edu.get("resume_ed_type").getAsString());
+				educate.setResume_ed_school(edu.get("resume_ed_school").getAsString());
+				educate.setResume_ed_start(edu.get("resume_ed_start").getAsString());
+				educate.setResume_ed_end(edu.get("resume_ed_end").getAsString());
+				educate.setResume_ed_Gstate(edu.get("resume_ed_Gstate").getAsString());
+				educate.setResume_ed_major(edu.get("resume_ed_major").getAsString());
+				educate.setResume_ed_score(edu.get("resume_ed_score").getAsString());
+				educateList.add(educate);
+			}
+			dao.insertResumeEducate(educateList);
+		}
+	
+		
+		 //경력 insert
+		public void insertExperience(JsonObject experience, int resumeId) {
+			ResumeVo resumeInfo = null;
+			List<ResumeVo> experienceList= new ArrayList<>();
+			
+			if(experience.get("resume_ex_company") instanceof JsonArray ) {
+				JsonArray company = experience.getAsJsonArray("resume_ex_company");
+				JsonArray jobs = experience.getAsJsonArray("resume_ex_job");
+				JsonArray jobTypes = experience.getAsJsonArray("resume_ex_jobType");
+				JsonArray contents = experience.getAsJsonArray("resume_ex_content");
+				JsonArray start = experience.getAsJsonArray("resume_ex_start");
+				JsonArray end = experience.getAsJsonArray("resume_ex_end");
+				JsonArray salary = experience.getAsJsonArray("resume_ex_salary");
+				
+				for(int i=0;i<company.size();i++) {
+					resumeInfo =new ResumeVo();
+					resumeInfo.setResume_id(resumeId);
+					resumeInfo.setResume_ex_company(company.get(i).getAsString());
+					resumeInfo.setResume_ex_job(jobs.get(i).getAsString());
+					resumeInfo.setResume_ex_jobType(jobTypes.get(i).getAsString());
+					resumeInfo.setResume_ex_content(contents.get(i).getAsString());
+					resumeInfo.setResume_ex_start(start.get(i).getAsString());
+					resumeInfo.setResume_ex_end(end.get(i).getAsString());
+					resumeInfo.setResume_ex_salary(salary.get(i).getAsInt());
+					experienceList.add(resumeInfo);
+				}
+			}else {
+				resumeInfo = new ResumeVo();
+				resumeInfo.setResume_id(resumeId);
+				resumeInfo.setResume_ex_company(experience.get("resume_ex_company").getAsString());
+				resumeInfo.setResume_ex_job(experience.get("resume_ex_job").getAsString());
+				resumeInfo.setResume_ex_jobType(experience.get("resume_ex_jobType").getAsString());
+				resumeInfo.setResume_ex_content(experience.get("resume_ex_content").getAsString());
+				resumeInfo.setResume_ex_start(experience.get("resume_ex_start").getAsString());
+				resumeInfo.setResume_ex_end(experience.get("resume_ex_end").getAsString());
+				resumeInfo.setResume_ex_salary(experience.get("resume_ex_salary").getAsInt());
+				experienceList.add(resumeInfo);
+			}
+			dao.insertResumeExperience(experienceList);
+		}
 }

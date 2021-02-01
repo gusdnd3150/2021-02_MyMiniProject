@@ -21,5 +21,55 @@
        resume_state)
       VALUES (#{id},#{resume_title},#{resume_state})
 	</insert>
+	
+	<!-- 학력 insert -->
+	<insert id="insertResumeEducate" parameterType="List">
+	  INSERT INTO resume_educate
+	  (resume_id,
+	  resume_ed_type,
+	  resume_ed_school,
+	  resume_ed_start,
+	  resume_ed_end,
+	  resume_ed_Gstate,
+	  resume_ed_major,
+	  resume_ed_score)
+	  VALUES
+	  <foreach collection="list" item="vo" separator=",">
+	     (#{vo.resume_id},
+	     #{vo.resume_ed_type},
+	     #{vo.resume_ed_school},
+	     #{vo.resume_ed_start},
+	     #{vo.resume_ed_end},
+	      #{vo.resume_ed_Gstate},
+	      #{vo.resume_ed_major},
+	      #{vo.resume_ed_score}) 
+	  </foreach>
+	</insert>
 
+
+
+
+<!-- 경력 insert -->
+	<insert id="insertResumeExperience" parameterType="List">
+	  INSERT INTO resume_experience
+	  (resume_id,
+	  resume_ex_company,
+	  resume_ex_job,
+	  resume_ex_jobType,
+	  resume_ex_content,
+	  resume_ex_start,
+	  resume_ex_end,
+	  resume_ex_salary)
+	  VALUES
+	  <foreach collection="list" item="vo" separator=",">
+	     (#{vo.resume_id},
+	     #{vo.resume_ex_company},
+	     #{vo.resume_ex_job},
+	     #{vo.resume_ex_jobType},
+	     #{vo.resume_ex_content},
+	     #{vo.resume_ex_start},
+	      #{vo.resume_ex_end},
+	      #{vo.resume_ex_salary}) 
+	  </foreach>
+	</insert>
 </mapper>

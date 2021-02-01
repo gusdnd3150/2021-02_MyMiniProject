@@ -1,5 +1,7 @@
 package com.example.demo.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,5 +26,16 @@ public class ResumeDao {
 		session.insert("resume.insertResumeDetail",resume);
 	}
 
-
+	// 이력서 학력 insert
+	public void insertResumeEducate(List<ResumeVo> list) {
+		session.insert("resume.insertResumeEducate",list);
+		
+	}
+	
+	// 이력서 경력 insert
+		public void insertResumeExperience(List<ResumeVo> list) {
+			session.insert("resume.insertResumeExperience",list);
+			
+		}
+	
 }

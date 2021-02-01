@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dao.ResumeDao;
@@ -33,7 +34,7 @@ public class ResumeService {
 	}
 	
 	// 이력서 등록
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED)
 	public String insertResume(String info,HttpServletRequest request) {
 	   String result =null;	
 	   int resumeId =0;
@@ -58,30 +59,36 @@ public class ResumeService {
 	   
 	   
 	   try {
-		   dao.insertResumeDetail(resume);
-		   resumeId =resume.getResume_id();  //pk값
+		   dao.insertResume(resume);  // resume 테이블에  insert
+		   resumeId =resume.getResume_id();  //pk
 		   
+		   insertDetail(detail,resumeId);   //인적사항  insert
+		   insertSelfInfo(selfIntro,resumeId); //자기소개서 insert
 		   
+		   // 학력
 		   if(edu.get("useEducateForm").getAsString().equals("true")) {
 			   insertEducate(edu,resumeId);
-			   
 		   } 
+		   //경력
 		   if(experience.get("useExperienceForm").getAsString().equals("true")) {
 			   insertExperience(experience, resumeId);
 		   } 
+		   //자격증
 		   if(license.get("uselicenseForm").getAsString().equals("true")) {
-			   
+			   insertLicense(license, resumeId);
 		   } 
+		   //포폴
 		   if(pofol.get("usePofolForm").getAsString().equals("true")) {
-			   
+			   insertPofol(pofol,resumeId);
 		   }
 		   
+		   //학원 등 이력
 		   if(cram.get("useCramForm").getAsString().equals("true")) {
-			   
+			   insertCram(cram,resumeId);
 		   } 
-		   
+		   // 언어능력
 		   if(language.get("useLanguageForm").getAsString().equals("true")) {
-			   
+			   insertLanguage(language,resumeId);
 		   }
 		   result ="success";
 	} catch (Exception e) {
@@ -151,6 +158,7 @@ public class ResumeService {
 				JsonArray start = experience.getAsJsonArray("resume_ex_start");
 				JsonArray end = experience.getAsJsonArray("resume_ex_end");
 				JsonArray salary = experience.getAsJsonArray("resume_ex_salary");
+				JsonArray departName = experience.getAsJsonArray("resume_ex_departName");
 				
 				for(int i=0;i<company.size();i++) {
 					resumeInfo =new ResumeVo();
@@ -162,6 +170,8 @@ public class ResumeService {
 					resumeInfo.setResume_ex_start(start.get(i).getAsString());
 					resumeInfo.setResume_ex_end(end.get(i).getAsString());
 					resumeInfo.setResume_ex_salary(salary.get(i).getAsInt());
+					resumeInfo.setResume_ex_departName(departName.get(i).getAsString());
+					
 					experienceList.add(resumeInfo);
 				}
 			}else {
@@ -174,8 +184,158 @@ public class ResumeService {
 				resumeInfo.setResume_ex_start(experience.get("resume_ex_start").getAsString());
 				resumeInfo.setResume_ex_end(experience.get("resume_ex_end").getAsString());
 				resumeInfo.setResume_ex_salary(experience.get("resume_ex_salary").getAsInt());
+				resumeInfo.setResume_ex_departName(experience.get("resume_ex_departName").getAsString());
 				experienceList.add(resumeInfo);
 			}
 			dao.insertResumeExperience(experienceList);
 		}
+		
+		
+		
+		//자격증 insert
+				public void insertLicense(JsonObject license, int resumeId) {
+					ResumeVo resumeInfo = null;
+					List<ResumeVo> licenseList= new ArrayList<>();
+					
+					if(license.get("resume_li_name") instanceof JsonArray ) {
+						JsonArray names = license.getAsJsonArray("resume_li_name");
+						JsonArray froms = license.getAsJsonArray("resume_li_from");
+						JsonArray getDay = license.getAsJsonArray("resume_li_getDay");
+						
+						for(int i=0;i<names.size();i++) {
+							resumeInfo =new ResumeVo();
+							resumeInfo.setResume_id(resumeId);
+							resumeInfo.setResume_li_name(names.get(i).getAsString());
+							resumeInfo.setResume_li_from(froms.get(i).getAsString());
+							resumeInfo.setResume_li_getDay(getDay.get(i).getAsString());
+							licenseList.add(resumeInfo);
+						}
+					}else {
+						resumeInfo = new ResumeVo();
+						resumeInfo.setResume_id(resumeId);
+						resumeInfo.setResume_li_name(license.get("resume_li_name").getAsString());
+						resumeInfo.setResume_li_from(license.get("resume_li_from").getAsString());
+						resumeInfo.setResume_li_getDay(license.get("resume_li_getDay").getAsString());
+						licenseList.add(resumeInfo);
+					}
+					dao.insertResumeLicense(licenseList);
+				}
+				
+				
+				//이력서 인적사항 insert
+				public void insertDetail(JsonObject detail, int resumeId) {
+					ResumeVo resumeInfo = new ResumeVo();
+					
+					resumeInfo.setResume_id(resumeId);
+					resumeInfo.setResume_name(detail.get("resume_name").getAsString());
+					resumeInfo.setResume_gender(detail.get("resume_gender").getAsString());
+					resumeInfo.setResume_email(detail.get("resume_email").getAsString());
+					resumeInfo.setResume_phone(detail.get("resume_phone").getAsString());
+					resumeInfo.setResume_address1(detail.get("resume_address1").getAsString());
+					
+					dao.insertResumeDetial(resumeInfo);
+				}
+				
+				//이력서 자기소개서 insert
+				public void insertSelfInfo(JsonObject selfinfo, int resumeId) {
+					ResumeVo resumeInfo = new ResumeVo();
+					
+					resumeInfo.setResume_id(resumeId);
+					resumeInfo.setResume_self_content(selfinfo.get("resume_self_content").getAsString());
+					
+					dao.insertResumeSelfInfo(resumeInfo);
+				}
+				
+				//이력서 포트폴리오 insert
+				public void insertPofol(JsonObject pofol, int resumeId) {
+					ResumeVo resumeInfo = null;
+					List<ResumeVo> pofolList= new ArrayList<>();
+					
+					
+					if(pofol.get("resume_po_type") instanceof JsonArray ) {
+						JsonArray types = pofol.getAsJsonArray("resume_po_type");
+						JsonArray urls = pofol.getAsJsonArray("resume_po_url");
+						
+						for(int i=0;i<types.size();i++) {
+							resumeInfo =new ResumeVo();
+							resumeInfo.setResume_id(resumeId);
+							resumeInfo.setResume_po_type(types.get(i).getAsString());
+							resumeInfo.setResume_po_url(urls.get(i).getAsString());
+							pofolList.add(resumeInfo);
+						}
+					}else {
+						resumeInfo = new ResumeVo();
+						resumeInfo.setResume_id(resumeId);
+						resumeInfo.setResume_po_type(pofol.get("resume_po_type").getAsString());
+						resumeInfo.setResume_po_url(pofol.get("resume_po_url").getAsString());
+						pofolList.add(resumeInfo);
+					}
+					dao.insertResumePortfolio(pofolList);
+				}
+				
+				//이력서 교육,학원등  insert
+				public void insertCram(JsonObject cram, int resumeId) {
+					ResumeVo resumeInfo = null;
+					List<ResumeVo> cramlList= new ArrayList<>();
+					
+					
+					if(cram.get("resume_cr_subject") instanceof JsonArray ) {
+						JsonArray subjects = cram.getAsJsonArray("resume_cr_subject");
+						JsonArray names = cram.getAsJsonArray("resume_cr_name");
+						JsonArray start = cram.getAsJsonArray("resume_cr_start");
+						JsonArray end = cram.getAsJsonArray("resume_cr_end");
+						JsonArray contents = cram.getAsJsonArray("resume_cr_content");
+						
+						
+						for(int i=0;i<subjects.size();i++) {
+							resumeInfo =new ResumeVo();
+							resumeInfo.setResume_id(resumeId);
+							
+							resumeInfo.setResume_cr_subject(subjects.get(i).getAsString());
+							resumeInfo.setResume_cr_name(names.get(i).getAsString());
+							resumeInfo.setResume_cr_start(start.get(i).getAsString());
+							resumeInfo.setResume_cr_end(end.get(i).getAsString());
+							resumeInfo.setResume_cr_content(contents.get(i).getAsString());
+							cramlList.add(resumeInfo);
+						}
+					}else {
+						resumeInfo = new ResumeVo();
+						resumeInfo.setResume_id(resumeId);
+						resumeInfo.setResume_cr_subject(cram.get("resume_cr_subject").getAsString());
+						resumeInfo.setResume_cr_name(cram.get("resume_cr_name").getAsString());
+						resumeInfo.setResume_cr_start(cram.get("resume_cr_start").getAsString());
+						resumeInfo.setResume_cr_end(cram.get("resume_cr_end").getAsString());
+						resumeInfo.setResume_cr_content(cram.get("resume_cr_content").getAsString());
+						cramlList.add(resumeInfo);
+					}
+					dao.insertResumeCram(cramlList);
+				}
+				
+				
+				//이력서 언어능력  insert
+				public void insertLanguage(JsonObject language, int resumeId) {
+					ResumeVo resumeInfo = null;
+					List<ResumeVo> languageList= new ArrayList<>();
+					
+					
+					if(language.get("resume_la_type") instanceof JsonArray ) {
+						JsonArray types = language.getAsJsonArray("resume_la_type");
+						JsonArray levels = language.getAsJsonArray("resume_la_level");
+						
+						for(int i=0;i<types.size();i++) {
+							resumeInfo =new ResumeVo();
+							resumeInfo.setResume_id(resumeId);
+							resumeInfo.setResume_la_type(types.get(i).getAsString());
+							resumeInfo.setResume_la_level(levels.get(i).getAsString());
+							languageList.add(resumeInfo);
+						}
+					}else {
+						resumeInfo = new ResumeVo();
+						resumeInfo.setResume_id(resumeId);
+						resumeInfo.setResume_la_type(language.get("resume_la_type").getAsString());
+						resumeInfo.setResume_la_level(language.get("resume_la_level").getAsString());
+						languageList.add(resumeInfo);
+					}
+					dao.insertResumeLanguage(languageList);
+				}
 }

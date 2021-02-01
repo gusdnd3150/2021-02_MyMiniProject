@@ -57,6 +57,7 @@ public class ResumeVo {
 	private String resume_ex_start;  // 입사일
 	private String resume_ex_end;  // 퇴사일
 	private int resume_ex_salary;  // 연봉
+	private String resume_ex_departName; //부서이름
 	private String useExperienceForm;  // form 사용여부 기본값은 fasle
 	
 	//resume_language  [언어능력]

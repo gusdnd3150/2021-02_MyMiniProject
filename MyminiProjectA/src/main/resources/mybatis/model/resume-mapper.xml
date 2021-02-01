@@ -13,13 +13,46 @@
 		AND d.id=#{id}
 	</select>
     
-    <!-- 인적사항 insert -->
-    <insert id="insertResumeDetail" parameterType="resumeVo" useGeneratedKeys="true" keyProperty="resume_id">
+    <!-- 이력서 insert -->
+    <insert id="insertResume" parameterType="resumeVo" useGeneratedKeys="true" keyProperty="resume_id">
       INSERT INTO resume
        (id,
        resume_title,
        resume_state)
       VALUES (#{id},#{resume_title},#{resume_state})
+	</insert>
+	
+	 <!-- 이력서 자기소개서 insert -->
+    <insert id="insertResumeSelfInfo" parameterType="resumeVo">
+      INSERT INTO resume_selfintro
+       (
+       resume_id,
+       resume_self_content
+       )
+      VALUES (
+      #{resume_id},
+      #{resume_self_content}
+      )
+	</insert>
+	
+	<!-- 인적사항 insert -->
+    <insert id="insertResumeDetail" parameterType="resumeVo">
+      INSERT INTO resume_detail
+       (resume_id,
+       resume_name,
+       resume_gender,
+       resume_email,
+       resume_phone,
+       resume_address1
+       )
+      VALUES (
+      #{resume_id},
+      #{resume_name},
+      #{resume_gender},
+      #{resume_email},
+      #{resume_phone},
+      #{resume_address1}
+      )
 	</insert>
 	
 	<!-- 학력 insert -->
@@ -59,7 +92,9 @@
 	  resume_ex_content,
 	  resume_ex_start,
 	  resume_ex_end,
-	  resume_ex_salary)
+	  resume_ex_salary,
+	  resume_ex_departName
+	  )
 	  VALUES
 	  <foreach collection="list" item="vo" separator=",">
 	     (#{vo.resume_id},
@@ -69,7 +104,93 @@
 	     #{vo.resume_ex_content},
 	     #{vo.resume_ex_start},
 	      #{vo.resume_ex_end},
-	      #{vo.resume_ex_salary}) 
+	      #{vo.resume_ex_salary},
+	      #{vo.resume_ex_departName}
+	      ) 
+	  </foreach>
+	</insert>
+	
+	
+	
+
+<!-- 자격증 insert -->
+	<insert id="insertResumeLicense" parameterType="List">
+	  INSERT INTO resume_license
+	  (resume_id,
+	  resume_li_name,
+	  resume_li_from,
+	  resume_li_getDay)
+	  VALUES
+	  <foreach collection="list" item="vo" separator=",">
+	     (#{vo.resume_id},
+	     #{vo.resume_li_name},
+	      #{vo.resume_li_from},
+	      #{vo.resume_li_getDay}) 
+	  </foreach>
+	</insert>
+	
+	
+<!-- 포트폴리오 insert -->
+	<insert id="insertResumePortfolio" parameterType="List">
+	  INSERT INTO resume_portfolio
+	  (
+	  resume_id,
+	  resume_po_type,
+	  resume_po_url
+	  )
+	  VALUES
+	  <foreach collection="list" item="vo" separator=",">
+	     (
+	     #{vo.resume_id},
+	     #{vo.resume_po_type},
+	      #{vo.resume_po_url}
+	      ) 
+	  </foreach>
+	</insert>
+	
+	
+	
+<!-- 학원/교육 등 insert -->
+	<insert id="insertResumeCram" parameterType="List">
+	  INSERT INTO resume_cram
+	  (
+	  resume_id,
+	  resume_cr_subject,
+	  resume_cr_name,
+	  resume_cr_start,
+	  resume_cr_end,
+	  resume_cr_content
+	  )
+	  VALUES
+	  <foreach collection="list" item="vo" separator=",">
+	     (
+	     #{vo.resume_id},
+	     #{vo.resume_cr_subject},
+	      #{vo.resume_cr_name},
+	      #{vo.resume_cr_start},
+	      #{vo.resume_cr_end},
+	      #{vo.resume_cr_content}
+	      ) 
+	  </foreach>
+	</insert>
+	
+	
+	
+<!-- 언어능력 등 insert -->
+	<insert id="insertResumeLanguage" parameterType="List">
+	  INSERT INTO resume_language
+	  (
+	  resume_id,
+	  resume_la_type,
+	  resume_la_level
+	  )
+	  VALUES
+	  <foreach collection="list" item="vo" separator=",">
+	     (
+	     #{vo.resume_id},
+	     #{vo.resume_la_type},
+	      #{vo.resume_la_level}
+	      ) 
 	  </foreach>
 	</insert>
 </mapper>

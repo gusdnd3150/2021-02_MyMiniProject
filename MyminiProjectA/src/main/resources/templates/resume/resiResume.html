@@ -237,7 +237,7 @@
 						  <div class="input-group-prepend">
 						    <span class="input-group-text" id="basic-addon1">부서명</span>
 						  </div>
-						  <input type="text" class="form-control"  name="resume_ex_job">
+						  <input type="text" class="form-control"  name="resume_ex_departName">
 						</div>
                    </td>
                    <td>
@@ -373,7 +373,7 @@
            </div>
        </div>
        <br>
-       <input type="hidden" name="usePofolForm" value="true">
+       <input type="hidden" name="usePofolForm" value="false">
        </form>
        
        <input type="file" id="pofolFile" name="pofolFile" style="display:none" onchange="">
@@ -724,7 +724,8 @@ function inputFileName(){
 function addPoForm(type){
 	var div =$("#inputPoForm");
 	var tag ="";
-	
+
+	document.getElemnetById("usePofolForm").value="true";
 	
 	
 	switch(type){
@@ -794,7 +795,6 @@ function insert(event){
 		var language=$("#insertForm7").serializeObject(); 
 		var selfintro=$("#insertForm8").serializeObject();
 		
-		console.log(pofol);
 		
 		var test2=[];
 		test2.push(detail);  //따로 인설트?
@@ -806,9 +806,7 @@ function insert(event){
 		test2.push(language);
 		test2.push(selfintro);
 		
-		console.dir(test2);
 		var info =JSON.stringify(test2);
-		console.dir(info);
 		
 		$.ajax({
 		            type: "post",

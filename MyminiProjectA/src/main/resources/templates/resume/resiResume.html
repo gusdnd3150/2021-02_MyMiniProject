@@ -31,7 +31,7 @@
   <div class="row">
   <!-- 왼쪽 이력서 작성 영역 -->
     <div class="col-10">
-      <form name="insertForm1" id="insertForm1" action="requestupload1" method="post" enctype="multipart/form-data">
+      <form name="insertForm1" id="insertForm1" action="requestupload1" method="post">
       <div>
            <div>
               <div>
@@ -373,7 +373,10 @@
            </div>
        </div>
        <br>
+       <input type="hidden" name="usePofolForm" value="true">
        </form>
+       
+       <input type="file" id="pofolFile" name="pofolFile" style="display:none" onchange="">
        
        <form name="insertForm6" id="insertForm6" action="requestupload1" method="post">
        <div >
@@ -707,10 +710,23 @@ function controllLang(){
 	}
 }
 
+
+
+function uploadPofol(){
+	$("#pofolFile").click();
+}
+
+function inputFileName(){
+	
+}
+
 //포폴 추가 
 function addPoForm(type){
 	var div =$("#inputPoForm");
 	var tag ="";
+	
+	
+	
 	switch(type){
 	case "f":  //파일
 	     tag +="<div class='input-group mb-3' >";
@@ -718,7 +734,7 @@ function addPoForm(type){
 	     tag +="<span class='input-group-text' >포트폴리오(파일)</span>";
 	     tag +="</div>";
 	     tag +="<input type='hidden'  name='resume_po_type' value='F'>";
-	     tag +="<input type='file' class='form-control' name='resumeFile'>";
+	     tag +="<input type='text' class='form-control' name='resume_po_file' readOnly='readOnly' value='파일선택' onclick='uploadPofol()'>";
 	     tag +="</div>";
 		break;
 	case "u":  //url
@@ -729,7 +745,6 @@ function addPoForm(type){
 	     tag +="<input type='hidden'  name='resume_po_type' value='U'>";
 	     tag +="<input type='text' class='form-control' placeholder='ex:http://.' name='resume_po_url'>";
 	     tag +="</div>";
-	 
 		break;
 	}
 	div.append(tag);
@@ -749,36 +764,66 @@ function openZipSearch() {
 
 function insert(event){
 	event.preventDefault();
-	var detail=$("#insertForm1").serialize();
-	var edu =$("#insertForm2").serialize();
-	var experience=$("#insertForm3").serialize(); 
-	var license=$("#insertForm4").serialize();
-	var pofol=$("#insertForm5").serialize() ;
-	var cram =$("#insertForm6").serialize() ;
-	var language=$("#insertForm7").serialize(); 
-	var selfintro=$("#insertForm8").serialize(); 
 	
-	var totalForm ={
-			"detail":detail,
-			"edu":edu,
-			"experience":experience,
-			"license":license,
-			"pofol":pofol,
-			"cram":cram,
-			"language":language,
-			"selfintro":selfintro,
-	};
-    
-    	$.ajax({
-	    	url : "/insertResume.do",
-	    	data :edu+"@@"+experience,
-	    	//traditional: true ,
-		    contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
-	        dataType: 'html',
-	    	success:function(data){
-	    	}
-    	});
-    	
+	
+	$.fn.serializeObject = function() {
+		  var result = {}
+		  var extend = function(i, element) {
+		    var node = result[element.name]
+		    if ("undefined" !== typeof node && node !== null) {
+		      if ($.isArray(node)) {
+		        node.push(element.value)
+		      } else {
+		        result[element.name] = [node, element.value]
+		      }
+		    } else {
+		      result[element.name] = element.value
+		    }
+		  }
+
+		  $.each(this.serializeArray(), extend)
+		  return result
+		}
+
+		var detail=$("#insertForm1").serializeObject();
+		var edu =$("#insertForm2").serializeObject();
+		var experience=$("#insertForm3").serializeObject(); 
+		var license=$("#insertForm4").serializeObject();
+		var pofol=$("#insertForm5").serializeObject() ;
+		var cram =$("#insertForm6").serializeObject() ;
+		var language=$("#insertForm7").serializeObject(); 
+		var selfintro=$("#insertForm8").serializeObject();
+		
+		console.log(pofol);
+		
+		var test2=[];
+		test2.push(detail);  //따로 인설트?
+		test2.push(edu);
+		test2.push(experience);
+		test2.push(license);
+		test2.push(pofol); 
+		test2.push(cram);
+		test2.push(language);
+		test2.push(selfintro);
+		
+		console.dir(test2);
+		var info =JSON.stringify(test2);
+		console.dir(info);
+		
+		$.ajax({
+		            type: "post",
+		            url: "insertResume.do",
+		            data:info,
+		            dataType: "text",
+					traditional: true ,
+		            contentType: 'application/json',
+		            success: function( responseData, status , xhr ){
+		                
+						alert("성공");
+		            },error:function(){
+						alert("실패");
+		 			}
+		        });
 
 }
 </script>

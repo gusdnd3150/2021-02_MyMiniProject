@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.example.demo.service.ResumeService;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.UserVo;
+import com.google.gson.JsonArray;
 
 @Controller
 public class ResumeController {
@@ -36,12 +40,13 @@ public class ResumeController {
 	
 	@ResponseBody
 	@PostMapping("/insertResume.do")
-	public String insertResume(@RequestParam Map<String,Object> info
+	public String insertResume(@RequestBody String info
 	/* ,MultipartHttpServletRequest upfile,HttpServletRequest request */) {
-		String result =null;
+		String result ="success";
 		
-		System.out.println("이력서 정보"+info.toString());
-	    //result=service.insertResume(resume, upfile, request);
+		System.out.println(info);
+	    result=service.insertResume(info);
+		
 		return result;
 	}
 

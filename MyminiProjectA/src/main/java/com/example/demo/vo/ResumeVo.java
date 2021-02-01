@@ -76,6 +76,7 @@ public class ResumeVo {
 	private int resume_po_id;  //pk
 	private String resume_po_type;  // 파일 혹은 url F  U
 	private String resume_po_url;  // 파일주소 혹은 url주소
+	private String usePofolForm;
 	
 	//resume_selfintro  [자기소개서]
 	private String resume_self_content;  // 자기소개서

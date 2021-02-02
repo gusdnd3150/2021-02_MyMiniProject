@@ -8,6 +8,7 @@
 	<!-- <typeAlias alias="boardVO" type="com.example.demo.voGroup.BoardVO" /> -->
 	<typeAlias alias="userVo" type="com.example.demo.vo.UserVo" />
 	<typeAlias alias="resumeVo" type="com.example.demo.vo.ResumeVo" />
+	<typeAlias alias="pagingVo" type="com.example.demo.vo.PagingVo" />
 	<typeAlias alias="portfolioFileVo" type="com.example.demo.vo.PortfolioFileVo" />
 	</typeAliases> 
 	

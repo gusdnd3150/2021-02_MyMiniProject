@@ -5,6 +5,8 @@
 <th:block th:replace="common/header :: headerCss"></th:block>
 
 <head>
+
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -15,23 +17,133 @@
 
 <!-- <p th:text="${resumeList}"></p> -->
 
+
  <hr>
  <br>
  <br><br>
  <div class="container">
   <div class="row">
     <div class="col-2">
-       <th:block th:replace="common/side :: side"></th:block>
+       <th:block th:replace="common/side :: side"></th:block>  <!-- 사이드바 -->
     </div>
-    <div class="col-8" >
-      Variable width content
+    
+    <div class="col-10" >    <!-- 메인컨텐츠 영역 -->
+    <div>
+    <h3 align="center"><strong>이력서 보관함</strong></h3>
+    <br>
+     <table class="table table-striped ">
+		  <thead>
+		    <tr class="table-info">
+		      <th scope="col" style="width:40%">이력서 제목</th>
+		      <th scope="col" style="width:10%">상태</th>
+		      <th scope="col" style="width:10%"></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each="info : ${resumeList}">
+		      <td>&nbsp;<strong th:text="${info.resume_title}"></strong></td>
+		      
+		      <td th:if="${info.resume_state=='Y'}">
+		      <select class="custom-select" th:onchange="'javascript:change(event,\''+ ${info.resume_id} +'\');'" id="state" style="width:100%">
+			    <option selected>공개</option>
+			    <option value="N">비공개</option>
+			  </select>
+		      </td>
+		      
+		      <td th:if="${info.resume_state=='N'}">
+		      <select class="custom-select" th:onchange="'javascript:change(event,\''+ ${info.resume_id} +'\');'" id="state" style="width:100%">
+			    <option selected>비공개</option>
+			    <option value="Y">공개</option>
+			  </select>
+		      </td>
+		      
+		      <td>
+		      <button class="btn btn-outline-primary" th:onclick="'javascript:mod(\''+ ${info.resume_id} +'\');'">수정</button>
+		      <button class="btn btn-outline-primary" th:onclick="'javascript:deleteResume(\''+ ${info.resume_id} +'\');'">삭제</button>
+		      </td>
+		     
+		    </tr>
+		  </tbody>
+		</table>
+		
+			<div align="center">
+					<ul class="pagination">
+						<li class="page-item" th:if="${paging.startPage > 1}">
+						<a class="page-link" aria-label="Previous" th:href="@{/main.do?(nowPage=${paging.startPage-1})}" th:text="'<'">
+					    <span aria-hidden="true">&laquo;</span>
+				        <span class="sr-only">Previous</span>
+				       </a>
+				      </li>
+						 
+						<li class="page-item" th:each="page: ${#numbers.sequence(paging.startPage, paging.endPage)}">
+						<a class="page-link" th:href="@{/myPage.do?(nowPage=${page})}" th:text="${page}"></a></li>
+							
+						 <li class="page-item" th:if="${paging.endPage != paging.lastPage}">
+						 <a class="page-link" th:href="@{/myPage.do?(nowPage=${paging.endPage+1})}"  aria-label="Next">
+						  <span aria-hidden="true">&raquo;</span>
+						  <span class="sr-only">Next</span>
+						  </a>
+						</li>
+					</ul>
+		 	</div>
+		</div>
     </div>
-    <div class="col-2">
-      3 of 3
-    </div>
+    
   </div>
  </div>
 
 
 </body>
+
+<script>
+
+//상태전환
+function change(event,resume_id){
+	
+	var target = event.target;
+	var value =target.options[target.selectedIndex].value;
+	
+	
+	if(value=="Y"){
+		if(!window.confirm("공개로 전환하시겠습니까?")){
+			location.reload();
+			return;
+		}
+	}else if(value=="N"){
+		if(!window.confirm("비공개로 전환하시겠습니까?")){
+			location.reload();
+			return;	
+		}
+	}
+	
+	
+	$.ajax({
+	type: "post",
+	url: "modResumeState.do",
+	data: {
+	resume_state:value
+	},
+	dataType: "text",
+	success: function( responseData, status , xhr ){
+		                
+	 },
+	error:function(xhr, status, error){
+	}
+	});
+	
+}
+
+//수정
+function mod(resume_id){
+	
+	alert(resume_id);
+}
+//삭제
+function deleteResume(resume_id){
+	
+	alert(resume_id);
+}
+</script>
+
+
 </html>

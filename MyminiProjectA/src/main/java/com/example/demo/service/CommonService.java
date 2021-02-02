@@ -49,7 +49,8 @@ public class CommonService  implements UserDetailsService{
 			}else if(!encoder.matches(user.getUser_password(), selectUser.getUser_password())) {
 				result="noMachPassword";
 			}else {
-				session.setAttribute("USER", selectUser);
+				UserVo loginUser =dao.selectUserWithDetail(selectUser);
+				session.setAttribute("USER", loginUser);
 				result="success";
 			}
 			

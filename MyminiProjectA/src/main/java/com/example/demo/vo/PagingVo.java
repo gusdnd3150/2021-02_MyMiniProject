@@ -17,6 +17,7 @@ public class PagingVo {
 	private int listType;
 	private int listType2;
 	private int search;
+	private int id;
 
 	private String searchType;
 	private String searchContent;
@@ -78,14 +79,14 @@ public class PagingVo {
 		this.starD=starD;
 	}
 
-	public PagingVo(int listType, int total, int nowPage, int cntPerPage) {
+	public PagingVo(int id, int total, int nowPage, int cntPerPage) {
 		setNowPage(nowPage);
 		setCntPerPage(cntPerPage);
 		setTotal(total);
 		calcLastPage(getTotal(), getCntPerPage());
 		calcStartEndPage(getNowPage(), cntPage);
 		calcStartEnd(getNowPage(), getCntPerPage());
-		this.listType = listType;
+		this.id = id;
 	}
 
 	public PagingVo(int total, int nowPage, int cntPerPage) {
@@ -116,8 +117,8 @@ public class PagingVo {
 
 	// DB 쿼리에서 사용할 limit, offset값 계산
 	public void calcStartEnd(int nowPage, int cntPerPage) {
-		setLimit((nowPage-1) * cntPerPage);   //limit 시작
-		setOffset(cntPerPage);  //offset 
+		setOffset((nowPage-1) * cntPerPage);   //offset 시작
+		setLimit(cntPerPage);  //limit 
 	}
 
 	

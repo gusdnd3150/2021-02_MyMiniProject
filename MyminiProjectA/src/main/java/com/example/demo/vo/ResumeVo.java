@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 @Data
 @Component
-public class ResumeVo {
+public class ResumeVo extends PagingVo {
 	
 	//테이블 정보
 	//resume

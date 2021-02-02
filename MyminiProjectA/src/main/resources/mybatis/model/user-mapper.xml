@@ -12,11 +12,24 @@
 		 where user_id=#{user_id}
 	</select>
 	
+	<select id="selectUserWithDetail" resultType="userVo" parameterType="userVo">
+		SELECT *
+		 FROM users u
+		    <choose>
+		       <when test="autho=='USER'">
+		            ,users_detail ud
+		       </when>
+		    <when test="autho=='COMPANY'">
+		            ,user_company_detail ud
+		       </when>
+		    </choose>
+		 	where u.id=ud.id
+		    and u.id=#{id}
+	</select>
+	
 	<select id="all" resultType="map">
 	SELECT * FROM boards
 	</select>
-	
-	
       
        <select id="selectUserById" parameterType="String" resultType="userVo">
         select *

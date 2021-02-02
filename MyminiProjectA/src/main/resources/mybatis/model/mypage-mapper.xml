@@ -6,11 +6,21 @@
 
 <mapper namespace="myPage">
 	
-	<select id="selectResume" parameterType="int" resultType="resumeVo">
-	  	SELECT *
-      	FROM resume r, resume_detail d
-		WHERE r.resume_id=d.resume_id
-		AND r.id=#{id}
+	<select id="selectResume" parameterType="pagingVo" resultType="resumeVo">
+		select R1.*
+		   from
+			     (select *
+			    from resume
+			    where id=#{id}
+			    order by resume_id asc
+			    )R1
+		    limit #{limit} offset #{offset}
+		    
 	</select>
 	
+	<select id="totalUserResume" resultType="int" parameterType="int">
+	   select count(*)
+	   from resume
+	   where id=#{id}
+	</select>
 </mapper>

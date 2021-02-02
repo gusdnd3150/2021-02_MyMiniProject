@@ -37,7 +37,7 @@
       <a class="nav-item nav-link active" href="/main.do">Home <span class="sr-only">(current)</span></a>
       <!-- <a class="nav-item nav-link" href="/addConfidence.do">등록</a> -->
       
-      <a th:if="${session.USER!=null&&session.USER.autho=='USER'}"class="nav-item nav-link" href="/resiResume.do">이력서 등록</a>
+      <!-- <a th:if="${session.USER!=null&&session.USER.autho=='USER'}"class="nav-item nav-link" href="/resiResume.do">이력서 등록</a> -->
       <a th:if="${session.USER!=null&&session.USER.autho=='COMPANY'}"class="nav-item nav-link" href="/addConfidence.do">채용공고 등록</a>
     </div>
   </div>

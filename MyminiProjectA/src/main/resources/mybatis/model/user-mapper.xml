@@ -14,9 +14,9 @@
 	
 	<select id="sickJobList" resultType="resumeVo">
 		SELECT *
-		FROM resume r, users_detail d
-		WHERE r.id=d.id
-		AND r.resume_state = "Y"
+		FROM resume r, resume_detail d
+        WHERE r.resume_id=d.resume_id
+		AND r.resume_state = 'Y'
 		ORDER BY r.resume_update
 		LIMIT 9 OFFSET 0
 	</select>

@@ -11,7 +11,7 @@ import lombok.ToString;
 @Data
 @Component
 public class ResumeVo extends PagingVo {
-	
+			
 	//테이블 정보
 	//resume
 	private int id; //유저 fk

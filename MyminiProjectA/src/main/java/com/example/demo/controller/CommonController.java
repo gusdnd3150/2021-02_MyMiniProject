@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,20 +25,22 @@ import com.example.demo.vo.UserVo;
 
 import lombok.extern.java.Log;
 
-@Log
+
 @Controller
 public class CommonController {
-	
 	
 	@Autowired
 	CommonService service;
 	
 	//메인화면
 	@RequestMapping("/main.do")
-	public String main() {
-		
+	public String main(Model model) {
 		
 		List<ResumeVo> sickJobList = service.sickJobList(); //9개만
+		
+		System.out.println(sickJobList.toString());
+		
+		model.addAttribute("sickJobList", sickJobList);
 		
 		return "main";
 	}

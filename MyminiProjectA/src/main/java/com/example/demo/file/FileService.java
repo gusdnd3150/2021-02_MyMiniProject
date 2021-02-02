@@ -19,15 +19,19 @@ public class FileService {
     private String originalFileExtension = null;
     private String storedFileName = null;
 
-	public String addImageFile(MultipartHttpServletRequest upfile,HttpServletRequest request) throws Exception {
+	public String addImageFile(MultipartHttpServletRequest upfile,HttpServletRequest request,String type) throws Exception {
 					String result = null;
 					
 					
 					MultipartFile imageFile = upfile.getFile("file");  //photo라는 이름으로 넘어오는 파일을 전부 받는다
-
+					String imagePath =null;
+					
 					try {
-
-					String imagePath = "/companyLogo/"; 
+						if(type.equals("user")) {
+							imagePath = "/user/";
+						}else {
+							 imagePath = "/company/"; 
+						}
 					String path = request.getSession().getServletContext().getRealPath("/");// locallhost8080/
 					String savePath = path + imagePath;   //
 			        
@@ -97,7 +101,6 @@ public class FileService {
 	        System.out.println(file.getAbsolutePath()); 
 	        imageFile.transferTo(file); 
 	        result=storedFileName;
-	        session.setAttribute("tempImage", storedFileName);
 	        }else {
 	        	result="emptyImage";
 	        }

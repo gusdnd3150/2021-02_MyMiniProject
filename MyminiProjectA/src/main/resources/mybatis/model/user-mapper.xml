@@ -38,9 +38,10 @@
         user_gender,
         user_zip,
         user_address1,
-        user_address2
+        user_address2,
+        user_profile
         )
-        VALUES(#{id},#{user_phone},#{user_age},#{user_gender},#{user_zip},#{user_address1},#{user_address2})
+        VALUES(#{id},#{user_phone},#{user_age},#{user_gender},#{user_zip},#{user_address1},#{user_address2},#{user_profile})
     </insert>
     
     <insert id="insertCompanyDetail" parameterType="userVo">

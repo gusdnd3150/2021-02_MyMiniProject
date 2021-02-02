@@ -28,6 +28,12 @@ public class ResumeDao {
 	public void insertResume(ResumeVo resume) {
 		session.insert("resume.insertResume",resume);
 	}
+	
+	public void updateUserDetail(UserVo user) {
+		session.update("resume.updateUserDetail",user);
+		
+	}
+	
 	// 이력서 자기소개서 insert
 	public void insertResumeSelfInfo(ResumeVo resume) {
 		session.insert("resume.insertResumeSelfInfo",resume);

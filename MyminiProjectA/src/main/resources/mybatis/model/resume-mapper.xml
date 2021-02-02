@@ -13,6 +13,12 @@
 		AND d.id=#{id}
 	</select>
 	
+	<update id="updateUserDetail" parameterType="userVo">
+	   update users_detail
+	   set user_profile = #{user_profile}
+	   where id=#{id}
+	</update>
+	
 	<select id="selectUserFile" parameterType="int" resultType="portfolioFileVo">
 	  	SELECT *
 		FROM user_portfolio_file

@@ -79,7 +79,7 @@
                      <td rowspan="2" >
                         <div id="profileImage" >
                            <img id="inertviewImage" th:if="${userDetail.user_profile==null}" src="/image/person.png" width="130px" height="130px">
-                           <img id="inertviewImage" th:if="${userDetail.user_profile!=null}" th:src="|/profile/${userDetail.user_profile}">
+                           <img id="inertviewImage" th:if="${userDetail.user_profile!=null}" th:src="|/user/${userDetail.user_profile}"  width="130px" height="130px">
                            
                           <input th:if="${userDetail.user_profile!=null}" type="hidden" name="resume_profile" th:value="${userDetail.user_profile}">
                           <input th:if="${userDetail.user_profile==null}" type="hidden" name="resume_profile" > 
@@ -566,7 +566,10 @@
 
 $(document).ready(function () {
 	$("#inertviewImage").click(function(){
-		$("#setProfile").click();
+		
+		if(window.confirm("프로필을 바꾸시겠습니까?(기본프로필도 바뀌게 됩니다)")){
+			$("#setProfile").click();
+		}
 	});
 });
 
@@ -581,6 +584,8 @@ function previewImage(event){
         };
         reader.readAsDataURL(image);
     }
+  
+    uploadImage();
     
 }
 
@@ -784,7 +789,13 @@ function uploadImage(){
         cache: false,
         dataType: "text",
         timeout: 600000,
-        success: function (imageValue) {
+        success: function (data) {
+        	if(data=='success'){
+        	alert("수정완료");
+        	}else{
+        		alert("실패");	
+        	}
+        		
         },
         error: function (e) {
         }
@@ -794,7 +805,7 @@ function uploadImage(){
 function insert(event){
 	event.preventDefault();
 	
-	uploadImage();
+	//uploadImage();
 	
 	$.fn.serializeObject = function() {
 		  var result = {}

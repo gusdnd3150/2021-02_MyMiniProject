@@ -59,7 +59,7 @@ public class ResumeController {
 	public String uploadProfile(MultipartHttpServletRequest upfile,HttpServletRequest request) {
 		String result=null;
 		
-		result=service.insertImage(upfile,request);
+		result=service.updateImage(upfile,request);
 		return result;
 	}
 }

@@ -20,7 +20,7 @@
   <div class="row" style="background-color:white;border-radius:25px;width:50%">
     <div  class="col" style="width:50%;padding-top: 12%;padding-bottom: 12%">
 	
-	 <form name="joinForm" id="joinForm">
+	 <form name="joinForm" id="joinForm" enctype="multipart/form-data">
 	  <div class="form-group" align="left">
 	  <label><strong>아이디 생성</strong></label>
 	    <input type="text" id="idInput" class="form-control"  placeholder="your ID" name="user_id">
@@ -33,6 +33,18 @@
 	    <input type="password" id="PasswordInput" class="form-control" placeholder="Password" name="user_password">
 	  </div>
 	  
+	  <div class="input-group mb-3">
+		  <div class="input-group-prepend">
+		    <span class="input-group-text">프로필 이미지</span>
+		  </div>
+		  <div class="custom-file">
+		    <input type="file" class="custom-file-input" onchange="setPreview(event)" name="file">
+		    <label class="custom-file-label" for="inputGroupFile01">이미지 파일</label>
+		  </div>
+		</div>
+	  <!-- 이미지 프리뷰 -->
+		<div  id="userProfile">
+		</div>
 	  <div class="form-group" align="left">
 	  <label><strong>이름</strong></label>
 	    <input type="text" class="form-control" placeholder="ex:홍길동" name="user_name">
@@ -115,15 +127,22 @@ function join(){
 		alert("이름 입력은 필수 입니다.");
 	}else if(form.user_email.value=null){
 		alert("이메일 입력은 필수 입니다.");
+	}else if(form.file.value==null){
+		alert("프로필 이미지는 필수 입니다.");
 	}
 	
-	var params = $("#joinForm").serialize(); 
+    var form2 = $('#joinForm')[0];
+    var data = new FormData(form2);
+	
 	    $.ajax({
 	        url: '/userJoin.do',
-	        type: 'POST',
-	        data:params,
-	        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
-	        dataType: 'text',
+			type:"post",
+	 		enctype: 'multipart/form-data',
+	        data: data,
+		    processData: false,
+		    contentType: false,
+		    cache: false,
+		    timeout: 600000,
 	        success: function (data) {
 		          if(data=='success'){
 		        	  alert("회원가입을 축하 드립니다");
@@ -164,6 +183,27 @@ function checkDup(event){
 					}
 		        }
 		    });
+}
+
+
+
+function setPreview(event){
+	
+	var input= document.querySelector("div#userProfile");
+	$("#userProfile").empty();
+	
+    for(var image of event.target.files) {
+        var reader = new FileReader();
+
+        reader.onload = function (event) {
+            var img = document.createElement("img");// 이미지 tag를 생성하는 과정
+            img.setAttribute("src", event.target.result);
+            img.style.width="150px";
+            img.style.height="150px";
+            input.appendChild(img);
+        };
+        reader.readAsDataURL(image);
+    }
 }
 
 function openZipSearch() {

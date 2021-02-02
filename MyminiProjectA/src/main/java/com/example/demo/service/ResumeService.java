@@ -39,18 +39,23 @@ public class ResumeService {
 		return dao.selectUserFile(user.getId());
 	}
 	
-	public String insertImage(MultipartHttpServletRequest upfile,HttpServletRequest request) {
+	// 프로필이미지 수정
+	public String updateImage(MultipartHttpServletRequest upfile,HttpServletRequest request) {
 		UserVo user= (UserVo) request.getSession().getAttribute("USER");
 		String image=null;
+		String result =null;
 		try {
 			 image =fileService.insertProfile(upfile, request);
+			 user.setUser_profile(image);
 			
+			 dao.updateUserDetail(user);
+			 result="success";
 		} catch (Exception e) {
 			e.printStackTrace();
-			image="";
+			result="fail";
 		}
 		
-		return image;
+		return result;
 	}
 	
 	// 이력서 등록
@@ -253,7 +258,7 @@ public class ResumeService {
 					resumeInfo.setResume_email(detail.get("resume_email").getAsString());
 					resumeInfo.setResume_phone(detail.get("resume_phone").getAsString());
 					resumeInfo.setResume_address1(detail.get("resume_address1").getAsString());
-					resumeInfo.setResume_profile((String) request.getAttribute("tempImage"));
+					resumeInfo.setResume_profile(detail.get("resume_profile").getAsString());
 					
 					dao.insertResumeDetial(resumeInfo);
 				}

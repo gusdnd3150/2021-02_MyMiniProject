@@ -147,11 +147,11 @@ function join(){
     var form = $('#joinForm')[0];
     var data = new FormData(form);
 	
-	   $.ajax({
+
+        data: data,	   $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: "/companyJoin.do",
-        data: data,
+        url: "/userJoin.do",
         processData: false,
         contentType: false,
         cache: false,

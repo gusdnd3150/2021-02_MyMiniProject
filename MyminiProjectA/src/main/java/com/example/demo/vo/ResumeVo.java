@@ -18,7 +18,7 @@ public class ResumeVo extends PagingVo {
 	private int resume_id;   //pk
 	private String resume_title;  // 이력서 제목
 	private String resume_state;   // 공개여부   "Y","N"
-	
+	private String resume_update;
 	
 	//resume_detail   이력서 [인적 상세정보]
 	private String resume_name;  // 이름

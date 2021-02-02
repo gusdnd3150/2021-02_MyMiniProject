@@ -12,6 +12,15 @@
 		 where user_id=#{user_id}
 	</select>
 	
+	<select id="sickJobList" resultType="resumeVo">
+		SELECT *
+		FROM resume r, users_detail d
+		WHERE r.id=d.id
+		AND r.resume_state = "Y"
+		ORDER BY r.resume_update
+		LIMIT 9 OFFSET 0
+	</select>
+	
 	<select id="selectUserWithDetail" resultType="userVo" parameterType="userVo">
 		SELECT *
 		 FROM users u

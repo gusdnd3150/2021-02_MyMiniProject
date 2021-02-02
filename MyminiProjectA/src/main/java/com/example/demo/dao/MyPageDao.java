@@ -22,4 +22,12 @@ public class MyPageDao {
 	public int totalUserResume(int id) {
 		return session.selectOne("myPage.totalUserResume",id);
 	}
+	
+	public int modResumeState(ResumeVo resume) {
+		return session.update("myPage.modResumeState",resume);
+	}
+	
+	public void deleteResume(int resume_id) {
+		session.delete("myPage.deleteResume",resume_id);
+	}
 }

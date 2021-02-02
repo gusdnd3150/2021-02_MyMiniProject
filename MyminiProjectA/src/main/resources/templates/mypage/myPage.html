@@ -17,17 +17,19 @@
 
 <!-- <p th:text="${resumeList}"></p> -->
 
-
- <hr>
+<hr>
  <br>
  <br><br>
  <div class="container">
   <div class="row">
+  
+    <!-- 사이드바 -->
     <div class="col-2">
-       <th:block th:replace="common/side :: side"></th:block>  <!-- 사이드바 -->
+       <th:block th:replace="common/side :: side"></th:block>
     </div>
     
-    <div class="col-10" >    <!-- 메인컨텐츠 영역 -->
+    <!-- 메인컨텐츠 영역 -->
+    <div class="col-10" >  
     <div>
     <h3 align="center"><strong>이력서 보관함</strong></h3>
     <br>
@@ -65,7 +67,7 @@
 		    </tr>
 		  </tbody>
 		</table>
-		
+		</div>
 			<div align="center">
 					<ul class="pagination">
 						<li class="page-item" th:if="${paging.startPage > 1}">
@@ -86,7 +88,6 @@
 						</li>
 					</ul>
 		 	</div>
-		</div>
     </div>
     
   </div>
@@ -101,15 +102,15 @@
 function change(event,resume_id){
 	
 	var target = event.target;
-	var value =target.options[target.selectedIndex].value;
+	var resume_state =target.options[target.selectedIndex].value;
 	
 	
-	if(value=="Y"){
+	if(resume_state=="Y"){
 		if(!window.confirm("공개로 전환하시겠습니까?")){
 			location.reload();
 			return;
 		}
-	}else if(value=="N"){
+	}else if(resume_state=="N"){
 		if(!window.confirm("비공개로 전환하시겠습니까?")){
 			location.reload();
 			return;	
@@ -121,11 +122,14 @@ function change(event,resume_id){
 	type: "post",
 	url: "modResumeState.do",
 	data: {
-	resume_state:value
+		resume_state:resume_state,
+		resume_id:resume_id
 	},
 	dataType: "text",
-	success: function( responseData, status , xhr ){
-		                
+	success: function( data, status , xhr ){
+		 	if(data=='success'){
+		 		alert("수정이 완료되었습니다.");
+		 	}     
 	 },
 	error:function(xhr, status, error){
 	}
@@ -141,7 +145,29 @@ function mod(resume_id){
 //삭제
 function deleteResume(resume_id){
 	
-	alert(resume_id);
+	if(!window.confirm("삭제하면 되돌릴 수 없습니다 진행합니까?")){
+		return;
+	}
+	
+	$.ajax({
+		type: "post",
+		url: "deleteResume.do",
+		data: {
+			resume_id:resume_id
+		},
+		dataType: "text",
+		success: function( data, status , xhr ){
+			 	if(data=='success'){
+			 		alert("삭제 완료되었습니다.");
+			 		location.reload();
+			 	}else{
+			 		alert("실패");
+			 	}     
+		 },
+		error:function(xhr, status, error){
+		}
+		});
+	
 }
 </script>
 

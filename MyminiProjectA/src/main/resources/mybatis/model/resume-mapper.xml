@@ -31,8 +31,10 @@
       INSERT INTO resume
        (id,
        resume_title,
-       resume_state)
-      VALUES (#{id},#{resume_title},#{resume_state})
+       resume_state,
+       resume_update
+       )
+      VALUES (#{id},#{resume_title},#{resume_state},NOW())
 	</insert>
 	
 	 <!-- 이력서 자기소개서 insert -->

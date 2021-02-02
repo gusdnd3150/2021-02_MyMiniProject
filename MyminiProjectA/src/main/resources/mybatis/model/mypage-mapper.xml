@@ -18,9 +18,24 @@
 		    
 	</select>
 	
+	<update id="modResumeState" parameterType="resumeVo">
+	  update resume
+	  set resume_state =#{resume_state}
+	  where resume_id =#{resume_id}
+	</update>
+	
 	<select id="totalUserResume" resultType="int" parameterType="int">
 	   select count(*)
 	   from resume
 	   where id=#{id}
 	</select>
+	
+	
+	<delete id="deleteResume" parameterType="int">
+	  delete from resume
+	  where resume_id=#{resume_id}
+	</delete>
+	
+	
+	
 </mapper>

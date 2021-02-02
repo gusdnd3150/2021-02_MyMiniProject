@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.service.CommonService;
+import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.UserVo;
 
 import lombok.extern.java.Log;
@@ -32,6 +35,10 @@ public class CommonController {
 	//메인화면
 	@RequestMapping("/main.do")
 	public String main() {
+		
+		
+		List<ResumeVo> sickJobList = service.sickJobList(); //9개만
+		
 		return "main";
 	}
 	

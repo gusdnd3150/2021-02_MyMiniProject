@@ -22,4 +22,35 @@ public class MyPageService {
 	public int totalUserResume(int id) {
 		return dao.totalUserResume(id);
 	}
+	
+	//이력서 상태전환
+	public String modResumeState(ResumeVo resume) {
+		String result =null;
+		int value=0;
+		try {
+			value=dao.modResumeState(resume);
+			if(value > 0) {
+				result="success";
+			}else {
+				result="fail";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="fail";
+		}
+		return result;
+	}
+	
+	//이력서 삭제
+	public String deleteResume(int resume_id) {
+		String result =null;
+		try {
+			dao.deleteResume(resume_id);
+		    result="success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="fail";
+		}
+		return result;
+	}
 }

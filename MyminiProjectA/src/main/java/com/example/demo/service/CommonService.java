@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dao.CommonDao;
 import com.example.demo.file.FileService;
+import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.UserSecurityVo;
 import com.example.demo.vo.UserVo;
 
@@ -35,6 +36,13 @@ public class CommonService  implements UserDetailsService{
 	
 	@Autowired
 	private FileService fileService;
+	
+	
+	// 구직 게시판
+	public List<ResumeVo> sickJobList(){
+		return dao.sickJobList();
+	}
+	
 	
 	//로그인
 	public String loginUserCheck(UserVo user,HttpServletRequest request) {

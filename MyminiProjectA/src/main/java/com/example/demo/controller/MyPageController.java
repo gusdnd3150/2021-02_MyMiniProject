@@ -8,8 +8,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.MyPageService;
 import com.example.demo.vo.PagingVo;
@@ -43,6 +45,22 @@ public class MyPageController {
 		model.addAttribute("userDetail", user);
 				
 		return "/mypage/myPage";
+	}
+	
+	@ResponseBody
+	@PostMapping("/modResumeState.do")
+	public String modResumeState(ResumeVo resume) {
+		String result=null;
+		result =service.modResumeState(resume);
+		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/deleteResume.do")
+	public String deleteResume(@RequestParam("resume_id") int resume_id) {
+		String result=null;
+		result =service.deleteResume(resume_id);
+		return result;
 	}
 
 }

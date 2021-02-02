@@ -15,6 +15,8 @@ border-style:solid;border-radius: 25px;border-color:gray;
     border-bottom-width: thin;
     border-left-width: thin;
     border-right-width: thin;
+    padding-bottom: 4%;
+   
 }
 </style>
 
@@ -31,23 +33,28 @@ border-style:solid;border-radius: 25px;border-color:gray;
 	<div align="center" id="profileBox">
 	
 	<img th:if="${userDetail.user_profile == null}" src="/image/person.png" width="130px" height="130px">
-	<img th:if="${userDetail.user_profile != null}" src="/user/${userDetail.user_profile}" width="130px" height="130px">
+	<img th:if="${userDetail.user_profile != null}" th:src="|/user/${userDetail.user_profile}" width="130px" >
 	<p> <strong><span th:text="${userDetail.user_name}"></span></strong>님</p>
 	 <button onclick="changeImage()">수정</button>
-	
+	<i class="fas fa-cogs"></i>
 	</div>
-	<br>
+	<hr>
 	
-	<div>
-	<ul>
-	  <li>이력서</li>
-	  <li>이력서</li>
-	</ul>
-	  
-	
-	</div>
 
  </div>
+ <br><br>
+ <div class="row">
+ <div>
+	<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+  <a class="nav-link active" id="resumeMenu" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">이력서 관리</a>
+  <a class="nav-link" id="1" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">제안서 관리</a>
+  <a class="nav-link" id="2" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">나의 알림</a>
+  <a class="nav-link" id="3" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">면접 관리</a>
+  <a class="nav-link" id="3" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">개인 정보</a>
+	</div>
+	</div>
+ </div>
+ 
 </div>
 
 

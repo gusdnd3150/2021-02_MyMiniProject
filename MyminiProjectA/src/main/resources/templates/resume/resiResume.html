@@ -79,7 +79,7 @@
                      <td rowspan="2" >
                         <div id="profileImage" >
                            <img id="inertviewImage" th:if="${userDetail.user_profile==null}" src="/image/person.png" width="130px" height="130px">
-                           <img id="inertviewImage" th:if="${userDetail.user_profile!=null}" th:src="|/user/${userDetail.user_profile}"  width="130px" height="130px">
+                           <img id="inertviewImage" th:if="${userDetail.user_profile!=null}" th:src="|/user/${userDetail.user_profile}"  width="130px">
                            
                           <input th:if="${userDetail.user_profile!=null}" type="hidden" name="resume_profile" th:value="${userDetail.user_profile}">
                           <input th:if="${userDetail.user_profile==null}" type="hidden" name="resume_profile" > 

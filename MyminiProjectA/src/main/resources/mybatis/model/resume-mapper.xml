@@ -13,6 +13,7 @@
 		AND d.id=#{id}
 	</select>
 	
+	<!-- 프로필이미지 수정 -->
 	<update id="updateUserDetail" parameterType="userVo">
 	   update users_detail
 	   set user_profile = #{user_profile}

@@ -198,9 +198,16 @@ public class FileService {
 		
 		File file = new File(downLoadPath);
 		
+		String name = new String(fileVo.getFile_original_name().getBytes("UTF-8"),"ISO-8859-1");
+		
+		response.setContentType("application/ISO-8859-1; charset=UTF-8");
 		response.setHeader("Cache-Control", "no-cache");
-		response.addHeader("Content-disposition", "attachment; fileName=" +fileVo.getFile_original_name());
+		//response.setHeader("Content-Disposition", "attachment;filename=\""+fileVo.getFile_original_name()+"\";");
+		response.setHeader("Content-Disposition", "attachment;filename=\""+name+"\";");
+		//response.addHeader("Content-disposition", "attachment; fileName=" +fileVo.getFile_original_name());
+		
 		FileInputStream in = new FileInputStream(file);
+		
 		byte[] buffer = new byte[1024 * 8];    
 		while (true) {
 			int count = in.read(buffer); // 버퍼에 읽어들인 문자개수

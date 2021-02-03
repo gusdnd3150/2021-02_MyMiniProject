@@ -31,6 +31,17 @@
 <!-- 해더 공통 -->
 <th:block th:replace="common/header :: header"></th:block>
 
+<div class="container">
+  <div class="row">
+       <div class="input-group" style="width:100%">
+		  <input type="text" name="search" class="form-control" placeholder="기업,채용정보"  style="width:90%;border-color:#4e61ff">
+		  <button class="btn btn-primary">검색 </button>
+	</div>
+	</div>
+</div>
+<hr>
+<br>
+<br>
 <div class="container" id="mainTopImage"  >
   <div class="row">
     <div align="center">
@@ -45,23 +56,63 @@
 <br>
 
 
+
 <div class="container">
-   <h3><strong>구직 게시판</strong></h3>
+   <h3><strong>기업</strong></h3>
    <br>
   <div class="row" >
      <div class="col">
      
      
      <!-- Swiper -->
-  <div class="swiper-container">
+  <div class="swiper-container companies">
+    <div class="swiper-wrapper">
+    
+       <div class="swiper-slide" th:each="info : ${sickJobList}">
+       
+       <img class="card-img-top" src="/image/innospeechLogo.png" alt="Card image cap" style="width:150px;">
+      <div class="card" style="width: 18rem;">
+		  <div class="card-body">
+		    <p><strong class="card-text" th:text="${info.resume_title}" style="color:blue"></strong></p>
+		    
+			    <div>
+				    <p><span>정규직</span>&nbsp;&nbsp; <span>2300</span></p>
+			    </div>
+		  </div>
+		</div>
+		
+      </div>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Add Arrows -->
+    <!-- <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div> -->
+  </div>
+    </div>
+  </div>
+</div>
+
+<br><br><br><br>
+
+
+<div class="container">
+   <h3><strong>최신 구직</strong></h3>
+   <br>
+  <div class="row" >
+     <div class="col">
+     
+     
+     <!-- Swiper -->
+  <div class="swiper-container getJob">
     <div class="swiper-wrapper">
     
        <div class="swiper-slide" th:each="info : ${sickJobList}">
       <div class="card" style="width: 18rem;">
-		  <img th:if="${info.resume_profile!=null}" class="card-img-top" th:src="|/user/${info.resume_profile}" alt="Card image cap">
-		  <img th:if="${info.resume_profile==''||info.resume_profile==null}" class="card-img-top" src="/image/person.png" alt="Card image cap">
+		  <img th:if="${info.resume_profile!=null}" class="card-img-top" th:src="|/user/${info.resume_profile}" style="width:150px">
+		  <img th:if="${info.resume_profile==''||info.resume_profile==null}" class="card-img-top" src="/image/person.png" style="width:150px">
 		  <div class="card-body">
-		    <p class="card-text" th:text="${info.resume_title}"></p>
+		    <p><strong class="card-text" th:text="${info.resume_title}"></strong></p>
 		  </div>
 		</div>
       </div>
@@ -73,8 +124,6 @@
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </div>
-	
-	
     </div>
   </div>
 </div>
@@ -90,20 +139,37 @@
 	 header.setAttribute("class","active");
 } */
 
-var swiper = new Swiper('.swiper-container', {
+
+//기업 리스트
+ var swiper = new Swiper('.companies', {
     slidesPerView: 3,
+    slidesPerColumn:1,
     spaceBetween: 30,
     slidesPerGroup: 3,
-    loop: true,
     loopFillGroupWithBlank: true,
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
     },
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+      /* nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev', */
     },
+  }); 
+
+//구직 리스트
+var swiper = new Swiper('.getJob', {
+    slidesPerView: 3,
+    slidesPerColumn: 2,
+    spaceBetween: 30,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      }
   });
 </script>
 

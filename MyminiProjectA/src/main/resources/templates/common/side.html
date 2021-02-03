@@ -35,7 +35,7 @@ border-style:solid;border-radius: 25px;border-color:gray;
 	<img th:if="${userDetail.user_profile == null}" src="/image/person.png" width="130px" height="130px"style="border-radius: 70%">
 	<img th:if="${userDetail.user_profile != null}" th:src="|/user/${userDetail.user_profile}" width="130px" style="border-radius: 70%">
 	<p> <strong><span th:text="${userDetail.user_name}"></span></strong>님</p>
-	 <button onclick="changeImage()">수정</button>
+	 <button class="btn btn-light" onclick="changeImage()">수정</button>
 	<i class="fas fa-cogs"></i>
 	</div>
 	<hr>

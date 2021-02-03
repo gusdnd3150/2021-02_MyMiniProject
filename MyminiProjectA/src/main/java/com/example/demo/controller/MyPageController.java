@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.service.MyPageService;
+import com.example.demo.service.ResumeService;
 import com.example.demo.vo.PagingVo;
 import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
@@ -32,6 +33,8 @@ public class MyPageController {
 	@Autowired
 	private MyPageService service;
 	
+	@Autowired
+	private ResumeService resumeService;
 	
 	//마이페이지 이동 기본은 이력서 페이지
 	@RequestMapping("/myPage.do")
@@ -113,6 +116,16 @@ public class MyPageController {
 		service.downLoadFile(fileVo,request,response);
 	}
 	
+	
+	
+	@GetMapping("/resumeDetail.do")
+	public String resumeDetail(ResumeVo resume) {
+		String result="";
+		
+		result=resumeService.selectResumeDetail(resume);
+		
+		return result;
+	}
 	
 	
 }

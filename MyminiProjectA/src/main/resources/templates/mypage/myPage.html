@@ -45,7 +45,9 @@
 		  </thead>
 		  <tbody>
 		    <tr th:each="info : ${resumeList}">
-		      <td style="padding: 10px">&nbsp;<strong th:text="${info.resume_title}"></strong></td>
+		      <td style="padding: 10px">&nbsp;
+		      <a th:href="@{/resumeDetail.do(resume_id=${info.resume_id})}" th:text="${info.resume_title}"></a>
+		      </td>
 		      
 		      <td th:if="${info.resume_state=='Y'}">
 		      <select class="custom-select" th:onchange="'javascript:change(event,\''+ ${info.resume_id} +'\');'" id="state" style="width:100%">

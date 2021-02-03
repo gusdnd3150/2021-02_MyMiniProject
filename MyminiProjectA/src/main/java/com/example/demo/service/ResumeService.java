@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dao.ResumeDao;
 import com.example.demo.file.FileService;
+import com.example.demo.resumeVo.ResumeMultiVo;
 import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.UserVo;
@@ -53,6 +54,24 @@ public class ResumeService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			result="fail";
+		}
+		
+		return result;
+	}
+	
+	
+	// 이력서 상세페이지
+	public String selectResumeDetail(ResumeVo resume) {
+		String result ="";
+		ResumeMultiVo selectResume =null;
+		
+		try {
+			
+			selectResume= dao.selectResumeDetail(resume);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		return result;

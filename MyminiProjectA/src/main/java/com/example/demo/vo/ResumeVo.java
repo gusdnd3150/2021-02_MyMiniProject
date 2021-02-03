@@ -1,6 +1,6 @@
 package com.example.demo.vo;
 
-import java.util.List;
+
 
 import org.springframework.stereotype.Component;
 
@@ -83,7 +83,6 @@ public class ResumeVo extends PagingVo {
 	//resume_selfintro  [자기소개서]
 	private String resume_self_content;  // 자기소개서
 	
-	private List<ResumeVo> list;
 }
 
 

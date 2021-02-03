@@ -6,6 +6,15 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.resumeVo.CramVo;
+import com.example.demo.resumeVo.DetailVo;
+import com.example.demo.resumeVo.EducateVo;
+import com.example.demo.resumeVo.ExperienceVo;
+import com.example.demo.resumeVo.LanguageVo;
+import com.example.demo.resumeVo.LicenceVo;
+import com.example.demo.resumeVo.PortfolioVo;
+import com.example.demo.resumeVo.ResumeMultiVo;
+import com.example.demo.resumeVo.SelfintroVo;
 import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.UserVo;
@@ -72,6 +81,31 @@ public class ResumeDao {
 	// 이력서 언어능력
 	public void insertResumeLanguage(List<ResumeVo> list) {
 		session.insert("resume.insertResumeLanguage",list);
+	}
+	
+	// 이력서 디테일 select
+	public ResumeMultiVo selectResumeDetail(ResumeVo resume) {
+		ResumeMultiVo multipleVo= new ResumeMultiVo();
+		
+		DetailVo detail =session.selectOne("resume.selectResumeDetail",resume);  //인적사항
+		SelfintroVo selfInfo =session.selectOne("resume.selectResumeSelfInfo",resume);  // 자기소개서
+		List<EducateVo> educate =session.selectList("resume.selectResumeEducate",resume);  // 학력
+		List<ExperienceVo> experience =session.selectList("resume.selectResumeExperience",resume);  // 경력
+		List<LicenceVo> licence =session.selectList("resume.selectResumeLicence",resume);  // 자격증
+		List<PortfolioVo> portfolio =session.selectList("resume.selectResumePortfolio",resume);  // 포폴
+		List<CramVo> cram =session.selectList("resume.selectResumeCram",resume);  // 교육
+		List<LanguageVo> language =session.selectList("resume.selectResumeLanguage",resume);  // 언어
+		
+		multipleVo.setDetailVo(detail);
+		multipleVo.setSelfintroVo(selfInfo);
+		multipleVo.setCramVo(cram);
+		multipleVo.setEducateVo(educate);
+		multipleVo.setExperienceVo(experience);
+		multipleVo.setLicenceVo(licence);
+		multipleVo.setPortfolioVo(portfolio);
+		multipleVo.setLanguageVo(language);
+		
+		return multipleVo;
 	}
 	
 }

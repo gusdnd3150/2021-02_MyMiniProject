@@ -195,12 +195,11 @@ public class FileService {
 		String filePath = "/userPofol/"; 
 		String path = request.getSession().getServletContext().getRealPath("/");// locallhost8080/
 		String downLoadPath = path + filePath+ fileVo.getFile_saved_name();
-		System.out.println("다운로드 시작: "+downLoadPath);
 		
 		File file = new File(downLoadPath);
 		
 		response.setHeader("Cache-Control", "no-cache");
-		response.addHeader("Content-disposition", "attachment; fileName=" + fileVo.getFile_original_name());
+		response.addHeader("Content-disposition", "attachment; fileName=" +fileVo.getFile_original_name());
 		FileInputStream in = new FileInputStream(file);
 		byte[] buffer = new byte[1024 * 8];    
 		while (true) {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.vo.PagingVo;
+import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
 
 @Repository
@@ -29,5 +30,17 @@ public class MyPageDao {
 	
 	public void deleteResume(int resume_id) {
 		session.delete("myPage.deleteResume",resume_id);
+	}
+	
+	public List<PortfolioFileVo> selectFileList(int id){
+		return session.selectList("myPage.selectFileList",id);
+	}
+	
+	public void insertFileUserFile(PortfolioFileVo filevo) {
+		session.insert("myPage.insertFileUserFile",filevo);
+	}
+	
+	public void deleteFileUserFile(PortfolioFileVo fileVo) {
+		session.delete("myPage.deleteFileUserFile",fileVo);
 	}
 }

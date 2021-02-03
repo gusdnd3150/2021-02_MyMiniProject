@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+
+<!-- 해더 css -->
+<th:block th:replace="common/header :: headerCss"></th:block>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 해더 공통 -->
+<th:block th:replace="common/header :: header"></th:block>
+
+<hr>
+ <br>
+ <br><br>
+
+<div class="container">
+  <div class="row">
+  
+  				<!-- 사이드 -->
+		       <div class="col-2">
+		      <th:block th:replace="common/side :: side"></th:block>
+				</div>
+       
+       			<!-- 메인 -->
+		       <div class="col-10">
+		 			 <h3 align="center"><strong>파일 보관함</strong></h3>
+					   
+					    <div align="right">
+					    <button class="btn btn-info" onclick="clickupload()">파일업로드</button>
+					    </div>
+					    <br>
+		 			 <table class="table table-striped ">
+					  <thead>
+					    <tr class="table-info">
+					      <th scope="col" style="width:40%">파일이름</th>
+					      <th scope="col" style="width:10%"></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  
+					    <tr th:each="info : ${fileList}">
+					      <td>&nbsp;<strong th:text="${info.file_original_name}"></strong></td>
+					      
+					      <td>
+					      <input type="hidden" name="file_saved_name" th:value="${info.file_saved_name}">
+					      <input type="hidden" name="file_id" th:value="${info.file_id}">
+					      <input type="hidden" name="file_original_name" th:value="${info.file_original_name}">
+					      <button class="btn btn-outline-primary" name="downloadButton">다운로드</button>
+					      <button class="btn btn-outline-primary" name="deleteButton">삭제</button>
+					      </td>
+					    </tr>
+					    
+					  </tbody>
+					</table>
+		 			 
+		 			 <br><br>
+		 			 <hr>
+		 			 <br><br>
+		 			 
+		 			 <div style="display:none">
+		 			  <form id="fileUpload" name="fileUpload" enctype="multipart/form-data">
+					         <div class="input-group mb-3" style="width:30%">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text">파일업로드</span>
+							  </div>
+							  <div class="custom-file">
+							    <input type="file" name="pofolFile"  class="custom-file-input" id="inputFile" onchange="uploadFile(event)">
+							    <label class="custom-file-label" for="inputGroupFile01"></label>
+							  </div>
+							</div>
+					     </form>
+		 			 </div>
+				</div>
+  </div>
+</div>
+
+
+</body>
+
+<script>
+
+window.onload=function(){
+	document.getElementById("fileTap").setAttribute("class","nav-link active");
+	
+	
+	$("button[name=deleteButton]").click(function() {           //삭제 클릭 시
+   	 
+		var index = $("button[name=deleteButton]").index(this); //인덱스 값 (이벤트를 발생시킨 태그의 index)
+	    console.log(index);
+	    var file_saved_name =$("input[name=file_saved_name]").slice(index).val();
+	    var file_id =$("input[name=file_id]").slice(index).val();
+	    
+	    console.log(file_saved_name);
+	    console.log(file_id);
+	    
+	    if(!window.confirm("파일을 삭제 하시겠습니까?")){
+	    	return;
+	    }
+	    
+	    $.ajax({
+	    	            type: "post",
+	    	            url: "deletePofolFile.do",
+	    	            data: {file_saved_name:file_saved_name,
+	    		               file_id:file_id
+	    	            },
+	    	            dataType: "text",
+	    	            success: function( data, status , xhr ){
+	    	                if(data=='success'){
+	    						alert("삭제완료");
+	    						location.reload();
+	    					}
+	    	            },
+	    	            error:function(xhr, status, error){
+	    	                console.log(error);
+	    	            }
+	    	        });	    
+	    
+	  
+  	});
+	
+	  $("button[name=downloadButton]").click(function() {           //삭제 클릭 시
+		   	 
+			var index = $("button[name=downloadButton]").index(this); //인덱스 값 (이벤트를 발생시킨 태그의 index)
+		    var file_saved_name =$("input[name=file_saved_name]").slice(index).val();
+		    var file_id =$("input[name=file_id]").slice(index).val();
+		    var file_original_name =$("input[name=file_original_name]").slice(index).val();
+		    
+		    $.ajax({
+		    	            type: "post",
+		    	            url: "downLoadPofolFile.do",
+		    	            data: {
+		    					   file_saved_name:file_saved_name,
+		    		               file_id:file_id,
+		    		               file_original_name:file_original_name
+		    	            },
+		    	            dataType: "text",
+		    	            success: function( data, status , xhr ){
+		    	                if(data=='success'){
+		    						alert("삭제완료");
+		    						location.reload();
+		    					}
+		    	            },
+		    	            error:function(xhr, status, error){
+		    	                console.log(error);
+		    	            }
+		    	        });
+		    
+	  });
+}
+		
+
+
+function clickupload(){
+	$("#inputFile").click();
+}
+
+function uploadFile(event){
+	event.preventDefault();
+	
+	if(!window.confirm("파일을 업로드 하시겠습니까?")){
+		return;
+	}
+	
+	var form = $('#fileUpload')[0];
+	var data = new FormData(form);
+
+	$.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "/uploadUserFile.do",
+        data: data,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+        	if(data=='success'){
+        		alert("업로드 완료");
+        		location.reload();
+        	}
+        },
+        error: function (e) {
+        }
+    });
+
+	
+}
+
+</script>
+</html>

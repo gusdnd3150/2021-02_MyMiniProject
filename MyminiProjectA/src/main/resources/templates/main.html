@@ -55,6 +55,8 @@
 <br>
 <br>
 
+<hr style="width:50%">
+<br><br>
 
 
 <div class="container">
@@ -62,6 +64,7 @@
    <br>
   <div class="row" >
      <div class="col">
+     
      
      
      <!-- Swiper -->
@@ -93,8 +96,9 @@
   </div>
 </div>
 
-<br><br><br><br>
-
+<br><br>
+<hr style="width:50%">
+<br><br>
 
 <div class="container">
    <h3><strong>최신 구직</strong></h3>
@@ -108,11 +112,12 @@
     <div class="swiper-wrapper">
     
        <div class="swiper-slide" th:each="info : ${sickJobList}">
-      <div class="card" style="width: 18rem;">
-		  <img th:if="${info.resume_profile!=null}" class="card-img-top" th:src="|/user/${info.resume_profile}" style="width:150px">
-		  <img th:if="${info.resume_profile==''||info.resume_profile==null}" class="card-img-top" src="/image/person.png" style="width:150px">
+		<div class="card" style="width: 18rem;">
+		  <img th:if="${info.resume_profile!=null}" class="card-img-top" th:src="|/user/${info.resume_profile}" style="width:150px;border-radius: 70%">
+		  <img th:if="${info.resume_profile==''||info.resume_profile==null}" class="card-img-top" src="/image/person.png" style="width:150px;border-radius: 70%">
 		  <div class="card-body">
 		    <p><strong class="card-text" th:text="${info.resume_title}"></strong></p>
+		    <a href="#" class="btn btn-primary">이력서 보기</a>
 		  </div>
 		</div>
       </div>
@@ -142,8 +147,8 @@
 
 //기업 리스트
  var swiper = new Swiper('.companies', {
-    slidesPerView: 3,
-    slidesPerColumn:1,
+    slidesPerView: 4,
+    slidesPerColumn:2,
     spaceBetween: 30,
     slidesPerGroup: 3,
     loopFillGroupWithBlank: true,
@@ -159,8 +164,8 @@
 
 //구직 리스트
 var swiper = new Swiper('.getJob', {
-    slidesPerView: 3,
-    slidesPerColumn: 2,
+    slidesPerView: 2,
+    slidesPerColumn: 1,
     spaceBetween: 30,
     pagination: {
       el: '.swiper-pagination',

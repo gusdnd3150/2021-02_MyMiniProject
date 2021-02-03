@@ -1,15 +1,30 @@
 package com.example.demo.file;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.example.demo.vo.PortfolioFileVo;
+import com.example.demo.vo.UserVo;
 
 
 @Service
@@ -114,6 +129,96 @@ public class FileService {
 	
 	public static String getRandomString() { // 파일업로드 시 랜덤값을 만들어줌
 		return UUID.randomUUID().toString().replaceAll("-", "");
+	}
+	
+	
+	// 마이페이지 파일 업로드
+	public PortfolioFileVo uploadUserFile(MultipartHttpServletRequest upfile,HttpServletRequest request) {
+		PortfolioFileVo fileVo = new PortfolioFileVo();
+		UserVo user = (UserVo) request.getSession().getAttribute("USER");
+		
+		fileVo.setId(user.getId());
+		MultipartFile imageFile = upfile.getFile("pofolFile"); 
+		
+		try {
+			
+			String imagePath = "/userPofol/"; 
+			String path = request.getSession().getServletContext().getRealPath("/");// locallhost8080/
+			String savePath = path + imagePath;   
+	        
+			File file = new File(savePath);    
+
+	        if(file.exists() == false){
+	            file.mkdirs(); 
+	        }
+		        originalFileName = imageFile.getOriginalFilename();
+		        originalFileExtension = imageFile.getOriginalFilename().substring(originalFileName.lastIndexOf("."));
+		        storedFileName = getRandomString() + originalFileExtension;   //위에 랜덤값을 뽑아주는 매소드 + 
+
+				file = new File(savePath + storedFileName);
+		        System.out.println(file.getAbsolutePath()); 
+		        imageFile.transferTo(file); 
+		        
+		        fileVo.setFile_original_name(originalFileName);
+		        fileVo.setFile_saved_name(storedFileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return fileVo;
+	}
+	
+	
+	public void deleteFile(PortfolioFileVo fileVo,HttpServletRequest request) {
+		
+		String filePath = "/userPofol/"; 
+		String path = request.getSession().getServletContext().getRealPath("/");// locallhost8080/
+		String savePath = path + filePath;
+		
+		File deleteFolder = new File(savePath);
+		File[] folder =deleteFolder.listFiles();
+		
+		for(int i=0;i<folder.length ;i++) {
+			System.out.println(folder[i].getName());
+			if(folder[i].getName().equals(fileVo.getFile_saved_name())) {
+				folder[i].delete();
+			}
+		}
+	}
+	
+	//파일다운로드
+	public ResponseEntity<Resource> downloadFile(PortfolioFileVo fileVo,HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		OutputStream out =response.getOutputStream();
+		
+		String filePath = "/userPofol/"; 
+		String path = request.getSession().getServletContext().getRealPath("/");// locallhost8080/
+		String downLoadPath = path + filePath+fileVo.getFile_saved_name();
+		System.out.println("다운로드 시작: "+downLoadPath);
+		
+		File file = new File(downLoadPath);
+		
+		HttpHeaders header = new HttpHeaders();
+		Resource rs = null;
+		
+		if(file.exists()) {
+			
+				
+				String mimeType = Files.probeContentType(Paths.get(file.getAbsolutePath()));
+				if(mimeType == null) {
+					mimeType = "octet-stream";
+				
+					rs = new UrlResource(file.toURI());
+				
+					header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ rs.getFilename() +"\"");
+					header.setCacheControl("no-cache");
+					header.setContentType(MediaType.parseMediaType(mimeType));
+				}
+		
+		}
+		
+		return new ResponseEntity<Resource>(rs, header, HttpStatus.OK);
 	}
 
 }

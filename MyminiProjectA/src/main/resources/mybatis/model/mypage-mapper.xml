@@ -18,6 +18,40 @@
 		    
 	</select>
 	
+	
+	<select id="selectFileList" parameterType="int" resultType="portfolioFileVo">
+		select R1.*
+		   from
+			     (select *
+			    from user_portfolio_file
+			    where id=#{id}
+			    order by file_id asc
+			    )R1
+		    limit 8 offset 0
+	</select>
+	
+	<insert id="insertFileUserFile" parameterType="portfolioFileVo">
+	   insert into user_portfolio_file
+	   (
+	   id,
+	   file_original_name,
+	   file_saved_name
+	   )
+	   values
+	   (
+	   #{id},
+	   #{file_original_name},
+	   #{file_saved_name}
+	   )
+	 
+	</insert>
+	
+	<delete id="deleteFileUserFile" parameterType="portfolioFileVo">
+	  delete from user_portfolio_file
+	  where file_id =#{file_id}
+	   
+	</delete>
+	
 	<update id="modResumeState" parameterType="resumeVo">
 	  update resume
 	  set resume_state =#{resume_state}

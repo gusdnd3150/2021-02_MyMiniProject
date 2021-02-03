@@ -2,18 +2,28 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dao.MyPageDao;
+import com.example.demo.file.FileService;
 import com.example.demo.vo.PagingVo;
+import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
+import com.example.demo.vo.UserVo;
 
 @Service
 public class MyPageService {
 
 	@Autowired
 	private MyPageDao dao;
+	@Autowired
+	private FileService fileService;
+	
 	
 	public List<ResumeVo> selectResume(PagingVo paging){
 		return dao.selectResume(paging);
@@ -53,4 +63,63 @@ public class MyPageService {
 		}
 		return result;
 	}
+	
+	// 파일리스트
+	public List<PortfolioFileVo> selectFileList(int id){
+		
+		return dao.selectFileList(id);
+		
+	}
+	
+	//구직자 파일 insert
+	public String insertFileUserFile(MultipartHttpServletRequest upfile,HttpServletRequest request) {
+		String result="";
+		PortfolioFileVo fileVo= new PortfolioFileVo();
+		
+		try {
+			fileVo = fileService.uploadUserFile(upfile,request);
+			
+		    System.out.println("업로드 후 : "+fileVo.toString());
+		    
+		    dao.insertFileUserFile(fileVo);
+		    result="success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="fail";
+		}
+		return result;
+	}
+	
+	//파일삭제
+	public String deleteFileUserFile(PortfolioFileVo fileVo,HttpServletRequest request) {
+		String result ="";
+		try {
+			
+			fileService.deleteFile(fileVo,request); //파일삭제
+			dao.deleteFileUserFile(fileVo);
+			
+			result="success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="fail";
+		}
+		
+		return result;
+	}
+	
+	// 다운로드
+	public void downLoadFile(PortfolioFileVo fileVo,HttpServletRequest request
+			,HttpServletResponse response) {
+		try {
+			System.out.println(" 서비스 url 탄다");
+			fileService.downloadFile(fileVo,request,response); //파일삭제
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
 }

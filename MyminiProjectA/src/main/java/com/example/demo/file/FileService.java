@@ -188,37 +188,31 @@ public class FileService {
 	}
 	
 	//파일다운로드
-	public ResponseEntity<Resource> downloadFile(PortfolioFileVo fileVo,HttpServletRequest request,
+	public void downloadFile(PortfolioFileVo fileVo,HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		OutputStream out =response.getOutputStream();
 		
 		String filePath = "/userPofol/"; 
 		String path = request.getSession().getServletContext().getRealPath("/");// locallhost8080/
-		String downLoadPath = path + filePath+fileVo.getFile_saved_name();
+		String downLoadPath = path + filePath+ fileVo.getFile_saved_name();
 		System.out.println("다운로드 시작: "+downLoadPath);
 		
 		File file = new File(downLoadPath);
 		
-		HttpHeaders header = new HttpHeaders();
-		Resource rs = null;
-		
-		if(file.exists()) {
-			
-				
-				String mimeType = Files.probeContentType(Paths.get(file.getAbsolutePath()));
-				if(mimeType == null) {
-					mimeType = "octet-stream";
-				
-					rs = new UrlResource(file.toURI());
-				
-					header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ rs.getFilename() +"\"");
-					header.setCacheControl("no-cache");
-					header.setContentType(MediaType.parseMediaType(mimeType));
-				}
-		
+		response.setHeader("Cache-Control", "no-cache");
+		response.addHeader("Content-disposition", "attachment; fileName=" + fileVo.getFile_original_name());
+		FileInputStream in = new FileInputStream(file);
+		byte[] buffer = new byte[1024 * 8];    
+		while (true) {
+			int count = in.read(buffer); // 버퍼에 읽어들인 문자개수
+			if (count == -1) // 버퍼의 마지막에 도달했는지 체크
+				break;
+			out.write(buffer, 0, count);
 		}
+		in.close();
+		out.close();
 		
-		return new ResponseEntity<Resource>(rs, header, HttpStatus.OK);
+		
 	}
 
 }

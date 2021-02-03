@@ -110,7 +110,6 @@ public class MyPageController {
 			HttpServletResponse response) {
 		String result ="";
 		
-		System.out.println("url 탄다");
 		service.downLoadFile(fileVo,request,response);
 	}
 	

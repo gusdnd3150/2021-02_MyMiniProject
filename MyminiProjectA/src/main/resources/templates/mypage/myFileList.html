@@ -128,25 +128,7 @@ window.onload=function(){
 		    var file_id =$("input[name=file_id]").slice(index).val();
 		    var file_original_name =$("input[name=file_original_name]").slice(index).val();
 		    
-		    $.ajax({
-		    	            type: "post",
-		    	            url: "downLoadPofolFile.do",
-		    	            data: {
-		    					   file_saved_name:file_saved_name,
-		    		               file_id:file_id,
-		    		               file_original_name:file_original_name
-		    	            },
-		    	            dataType: "text",
-		    	            success: function( data, status , xhr ){
-		    	                if(data=='success'){
-		    						alert("삭제완료");
-		    						location.reload();
-		    					}
-		    	            },
-		    	            error:function(xhr, status, error){
-		    	                console.log(error);
-		    	            }
-		    	        });
+		    location.href="";
 		    
 	  });
 }

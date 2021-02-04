@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+
+<!-- 해더 css -->
+<th:block th:replace="common/header :: headerCss"></th:block>
+
+<style>
+
+
+.ResumeBoxArea{
+border-style:solid;border-radius: 20px;
+border-bottom: 1px;
+border-left: 1px;
+border-right: 1px;
+border-top: 1px;
+border-color: #d9dfeb;
+padding: 3%;
+border-style:solid;
+border-radius: 20px
+}
+
+</style>
+
+<meta charset="UTF-8">
+<title>구직자 이력서 상세</title>
+</head>
+<body>
+<!-- 해더 공통 -->
+<th:block th:replace="common/header :: header"></th:block>
+<hr>
+<br><br><br>
+
+<div class="container">
+   <div class="row">
+   
+   		<!-- 사이드바 -->
+       <div class="col-2">
+       <th:block th:replace="common/side :: side"></th:block> 
+       </div>
+   
+   	 	<!-- 메인 -->	    
+       <div class="col-10">
+           <div>
+           
+             <!-- 인적사항 -->
+             <div class="ResumeBoxArea">
+                <h><strong th:text="${userResume.detailVo.resume_title}"></strong></h>
+                
+             </div>
+             <br>
+             <div class="ResumeBoxArea">
+             </div>
+           
+           </div>
+       </div>
+   </div>
+</div>
+
+
+
+</body>
+<script>
+window.onload=function(){
+	document.getElementById("resumeMenu").setAttribute("class","nav-link active");
+}
+</script>
+</html>

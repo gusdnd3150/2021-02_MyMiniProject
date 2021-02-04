@@ -61,20 +61,14 @@ public class ResumeService {
 	
 	
 	// 이력서 상세페이지
-	public String selectResumeDetail(ResumeVo resume) {
-		String result ="";
+	public ResumeMultiVo selectResumeDetail(ResumeVo resume) {
 		ResumeMultiVo selectResume =null;
-		
 		try {
-			
 			selectResume= dao.selectResumeDetail(resume);
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return result;
+		return selectResume;
 	}
 	
 	// 이력서 등록

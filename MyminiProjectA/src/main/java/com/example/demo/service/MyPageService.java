@@ -66,8 +66,9 @@ public class MyPageService {
 	
 	// 파일리스트
 	public List<PortfolioFileVo> selectFileList(int id){
-		
-		return dao.selectFileList(id);
+		 List<PortfolioFileVo> list =dao.selectFileList(id);
+				 
+		return list;
 		
 	}
 	
@@ -111,13 +112,11 @@ public class MyPageService {
 	public void downLoadFile(PortfolioFileVo fileVo,HttpServletRequest request
 			,HttpServletResponse response) {
 		try {
-			System.out.println(" 서비스 url 탄다");
 			fileService.downloadFile(fileVo,request,response); //파일삭제
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		
 	}
 	

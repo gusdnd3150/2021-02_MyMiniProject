@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.example.demo.resumeVo.ResumeMultiVo;
 import com.example.demo.service.MyPageService;
 import com.example.demo.service.ResumeService;
 import com.example.demo.vo.PagingVo;
@@ -52,6 +53,7 @@ public class MyPageController {
 		model.addAttribute("total", total);
 		model.addAttribute("paging", paging);
 		model.addAttribute("resumeList", list);
+		
 		model.addAttribute("userDetail", user);
 				
 		return "/mypage/myPage";
@@ -81,9 +83,8 @@ public class MyPageController {
 		
 		List<PortfolioFileVo> fileList =service.selectFileList(user.getId());
 		
-		System.out.println("파일:"+fileList);
-		
 		model.addAttribute("fileList", fileList);
+		model.addAttribute("fileCount", fileList.size());
 		return "/mypage/myFileList";
 	}
 	
@@ -118,13 +119,16 @@ public class MyPageController {
 	
 	
 	
+	//이력서 상세페이지
 	@GetMapping("/resumeDetail.do")
-	public String resumeDetail(ResumeVo resume) {
-		String result="";
+	public String resumeDetail(ResumeVo resume,Model model,HttpServletRequest request) {
 		
-		result=resumeService.selectResumeDetail(resume);
+		UserVo user= (UserVo) request.getSession().getAttribute("USER");
+		ResumeMultiVo userResume =resumeService.selectResumeDetail(resume);
 		
-		return result;
+		model.addAttribute("userResume", userResume);
+		model.addAttribute("userDetail", user);
+		return "/mypage/resumeDetail";
 	}
 	
 	

@@ -210,4 +210,65 @@
 	      ) 
 	  </foreach>
 	</insert>
+	
+	
+	
+	<!-- 이력서 인적사항 -->
+	<select id="selectResumeDetail" parameterType="resumeVo" resultType="detailVo">
+    select *
+	from resume_detail d,resume r
+	WHERE d.resume_id=r.resume_id
+	AND r.resume_id= #{resume_id}
+	</select>
+	
+	<!-- 이력서 자기소개서 -->
+	<select id="selectResumeSelfInfo" parameterType="resumeVo" resultType="selfintroVo">
+	select *
+	from resume_selfintro
+	where resume_id =#{resume_id}
+	</select>
+	
+	<!-- 이력서 학력 -->
+	<select id="selectResumeEducate" parameterType="resumeVo"  resultType="educateVo"> 
+	select *
+	from resume_educate
+	where resume_id =#{resume_id}
+	</select>
+	
+	<!-- 이력서 경력 -->
+	<select id="selectResumeExperience" parameterType="resumeVo"  resultType="experienceVo">
+	select *
+	from resume_educate
+	where resume_id =#{resume_id}
+	</select>
+	
+	<!-- 이력서 자격증 -->
+	<select id="selectResumeLicence" parameterType="resumeVo"  resultType="licenceVo">
+	select *
+	from resume_license
+	where resume_id =#{resume_id}
+	</select>
+	
+	<!-- 이력서 포트폴리오 -->
+	<select id="selectResumePortfolio" parameterType="resumeVo" resultType="portfolioVo">
+	select *
+	from resume_portfolio
+	where resume_id =#{resume_id}
+	</select>
+	
+	<!-- 이력서 교육 -->
+	<select id="selectResumeCram" parameterType="resumeVo" resultType="cramVo" >
+	select *
+	from resume_cram
+	where resume_id =#{resume_id}
+	</select>
+	
+	<!-- 이력서 언어 -->
+	<select id="selectResumeLanguage" parameterType="resumeVo" resultType="languageVo">
+	select *
+	from resume_language
+	where resume_id =#{resume_id}
+	</select>
+	
+	
 </mapper>

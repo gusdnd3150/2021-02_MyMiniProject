@@ -147,11 +147,7 @@ public class MyPageController {
 	@PostMapping("/uploadOneIntro.do")
 	public String uploadOneIntro(MultipartHttpServletRequest upfile,HttpServletRequest request) {
 		String result="fail";
-		UserVo user= (UserVo) request.getSession().getAttribute("USER");
-		
-		result =service.insertOneSelfIntro(upfile,request,user);
-		
-		
+		result =service.insertMediaFileIntro(upfile,request);
 		return result;
 	}
 	

@@ -8,7 +8,7 @@ import lombok.ToString;
 @ToString
 @Data
 @Component
-public class OneminuteVo {
+public class MediaVo {
 	
 	private int oneminute_id; //pk
 	private int id;

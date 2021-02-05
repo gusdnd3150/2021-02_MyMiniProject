@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dao.MyPageDao;
 import com.example.demo.file.FileService;
+import com.example.demo.vo.MediaVo;
 import com.example.demo.vo.PagingVo;
 import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
@@ -120,12 +122,15 @@ public class MyPageService {
 		
 	}
 	
-	public String insertOneSelfIntro(MultipartHttpServletRequest file,HttpServletRequest request, UserVo user) {
+	public String insertMediaFileIntro(MultipartHttpServletRequest file,HttpServletRequest request) {
 		String result =null;
+		MediaVo media =null; 
+		UserVo user= (UserVo) request.getSession().getAttribute("USER");
 		
 		try {
-			
-			fileService.insertProfile(file, request);
+			media =fileService.insertMediaFileIntro(file, request);
+			media.setId(user.getId());
+			result="success";
 		} catch (Exception e) {
 			e.printStackTrace();
 			result="fail";

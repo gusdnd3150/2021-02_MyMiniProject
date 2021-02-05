@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.example.demo.vo.MediaVo;
 import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.UserVo;
 
@@ -222,13 +223,13 @@ public class FileService {
 	}
 
 	
-	public String insertOneSelfIntro(MultipartHttpServletRequest upfile,HttpServletRequest request) {
-		MultipartFile imageFile = upfile.getFile("pofolFile"); 
-		String result = null;
+	public MediaVo insertMediaFileIntro(MultipartHttpServletRequest upfile,HttpServletRequest request) {
+		MultipartFile mediaFile = upfile.getFile("oneselfIntro"); 
+		MediaVo media = new MediaVo();
+		
 		try {
-			
 			String imagePath = "/userOneSelfIntro/"; 
-			String path = request.getSession().getServletContext().getRealPath("/");// locallhost8080/
+			String path = request.getSession().getServletContext().getRealPath("/");
 			String savePath = path + imagePath;   
 	        
 			File file = new File(savePath);    
@@ -236,19 +237,22 @@ public class FileService {
 	        if(file.exists() == false){
 	            file.mkdirs(); 
 	        }
-		        originalFileName = imageFile.getOriginalFilename();
-		        originalFileExtension = imageFile.getOriginalFilename().substring(originalFileName.lastIndexOf("."));
-		        storedFileName = getRandomString() + originalFileExtension;   //위에 랜덤값을 뽑아주는 매소드 + 
+		        originalFileName = mediaFile.getOriginalFilename();
+		        originalFileExtension = mediaFile.getOriginalFilename().substring(originalFileName.lastIndexOf("."));
+		        storedFileName = getRandomString() + originalFileExtension;   
 
 				file = new File(savePath + storedFileName);
 		        System.out.println(file.getAbsolutePath()); 
-		        imageFile.transferTo(file); 
+		        mediaFile.transferTo(file); 
+		        media.setOneminute_original_name(originalFileName);
+		        media.setOneminute_saved_name(storedFileName);
+		        
 		        
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		
-		return fileVo;
+		return media;
 	}
 }

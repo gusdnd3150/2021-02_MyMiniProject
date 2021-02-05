@@ -63,7 +63,7 @@
 
 
 <div class="container">
-   <h3><strong>기업</strong></h3>
+   <h4><strong>기업</strong></h4>
    <br>
   <div class="row" >
      <div class="col">
@@ -104,7 +104,7 @@
 <br><br>
 
 <div class="container">
-   <h3><strong>최신 구직</strong></h3>
+   <h4><strong>최신 구직</strong></h4>
    <br>
   <div class="row" >
      <div class="col">
@@ -179,6 +179,19 @@ var swiper = new Swiper('.getJob', {
         prevEl: '.swiper-button-prev',
       }
   });
+  
+  
+const constraints = {
+	    'video': true,
+	    'audio': true
+	}
+	navigator.mediaDevices.getUserMedia(constraints)
+	    .then(stream => {
+	        console.log('Got MediaStream:', stream);
+	    })
+	    .catch(error => {
+	        console.error('Error accessing media devices.', error);
+	    });
 </script>
 
 

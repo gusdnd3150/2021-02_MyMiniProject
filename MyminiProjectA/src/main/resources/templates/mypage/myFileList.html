@@ -28,10 +28,10 @@
        
        			<!-- 메인 -->
 		       <div class="col-10">
-		 			 <h3 align="center"><strong>파일 보관함</strong></h3>
+		 			 <h4 align="center"><strong>파일 보관함</strong></h4>
 					   
 					    <div align="right">
-					    <button class="btn btn-info" onclick="clickupload()">파일업로드</button>
+					    <button class="btn btn-info btn-sm" onclick="clickupload()">파일업로드</button>
 					    </div>
 					    <br>
 		 			 <table class="table table-sm ">
@@ -50,8 +50,8 @@
 					      <input type="hidden" name="file_saved_name" th:value="${info.file_saved_name}">
 					      <input type="hidden" name="file_id" th:value="${info.file_id}">
 					      <input type="hidden" name="file_original_name" th:value="${info.file_original_name}">
-					      <button class="btn btn-outline-primary" name="downloadButton">다운로드</button>
-					      <button class="btn btn-outline-primary" name="deleteButton">삭제</button>
+					      <button class="btn btn-outline-primary btn-sm" name="downloadButton">다운로드</button>
+					      <button class="btn btn-outline-primary btn-sm" name="deleteButton">삭제</button>
 					      </td>
 					    </tr>
 					    

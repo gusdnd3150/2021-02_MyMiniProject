@@ -221,4 +221,34 @@ public class FileService {
 		
 	}
 
+	
+	public String insertOneSelfIntro(MultipartHttpServletRequest upfile,HttpServletRequest request) {
+		MultipartFile imageFile = upfile.getFile("pofolFile"); 
+		String result = null;
+		try {
+			
+			String imagePath = "/userOneSelfIntro/"; 
+			String path = request.getSession().getServletContext().getRealPath("/");// locallhost8080/
+			String savePath = path + imagePath;   
+	        
+			File file = new File(savePath);    
+
+	        if(file.exists() == false){
+	            file.mkdirs(); 
+	        }
+		        originalFileName = imageFile.getOriginalFilename();
+		        originalFileExtension = imageFile.getOriginalFilename().substring(originalFileName.lastIndexOf("."));
+		        storedFileName = getRandomString() + originalFileExtension;   //위에 랜덤값을 뽑아주는 매소드 + 
+
+				file = new File(savePath + storedFileName);
+		        System.out.println(file.getAbsolutePath()); 
+		        imageFile.transferTo(file); 
+		        
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return fileVo;
+	}
 }

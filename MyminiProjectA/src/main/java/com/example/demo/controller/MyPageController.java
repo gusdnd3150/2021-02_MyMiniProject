@@ -140,6 +140,20 @@ public class MyPageController {
 			model.addAttribute("userDetail", user);
 			return "/mypage/oneMinuteIntro";
 		}
+		
+		
+	//1분 자기소개 영상 업로드
+	@ResponseBody
+	@PostMapping("/uploadOneIntro.do")
+	public String uploadOneIntro(MultipartHttpServletRequest upfile,HttpServletRequest request) {
+		String result="fail";
+		UserVo user= (UserVo) request.getSession().getAttribute("USER");
+		
+		result =service.insertOneSelfIntro(upfile,request,user);
+		
+		
+		return result;
+	}
 	
 	
 }

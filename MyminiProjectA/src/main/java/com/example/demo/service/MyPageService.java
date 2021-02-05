@@ -120,5 +120,20 @@ public class MyPageService {
 		
 	}
 	
+	public String insertOneSelfIntro(MultipartHttpServletRequest file,HttpServletRequest request, UserVo user) {
+		String result =null;
+		
+		try {
+			
+			fileService.insertProfile(file, request);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="fail";
+		}
+		
+		
+		return result;
+	}
+	
 	
 }

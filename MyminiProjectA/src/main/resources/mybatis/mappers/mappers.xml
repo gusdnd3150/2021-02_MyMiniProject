@@ -10,6 +10,7 @@
 	<typeAlias alias="resumeVo" type="com.example.demo.vo.ResumeVo" />
 	<typeAlias alias="pagingVo" type="com.example.demo.vo.PagingVo" />
 	<typeAlias alias="portfolioFileVo" type="com.example.demo.vo.PortfolioFileVo" />
+	<typeAlias alias="oneminuteVo" type="com.example.demo.vo.OneminuteVo" />
 	
 	<typeAlias alias="cramVo" type="com.example.demo.resumeVo.CramVo" />
 	<typeAlias alias="detailVo" type="com.example.demo.resumeVo.DetailVo" />
@@ -19,6 +20,8 @@
 	<typeAlias alias="licenceVo" type="com.example.demo.resumeVo.LicenceVo" />
 	<typeAlias alias="portfolioVo" type="com.example.demo.resumeVo.PortfolioVo" />
 	<typeAlias alias="selfintroVo" type="com.example.demo.resumeVo.SelfintroVo" />
+	
+	
 	</typeAliases> 
 	
 	<!-- mapper .xmp 파일 정의 - 실제 SQL Query 가 선언되어 있는 부분 -->

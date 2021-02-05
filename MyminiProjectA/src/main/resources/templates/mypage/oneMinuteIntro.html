@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+
+<!-- 해더 css -->
+<th:block th:replace="common/header :: headerCss"></th:block>
+
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<!-- 해더 공통 -->
+<th:block th:replace="common/header :: header"></th:block>
+
+
+<hr>
+ <br>
+ <br><br>
+ 
+ 
+ <div class="container">
+  <div class="row">
+  
+    <!-- 사이드바 -->
+    <div class="col-2">
+       <th:block th:replace="common/side :: side"></th:block>
+    </div>
+    
+    <div class="col-10">
+	       <div>
+	         <h4 align="center"><strong>1분영상 등록</strong></h4>
+	       </div>
+	       
+	        <div align="center">
+	           
+	            <video id="gum" playsinline autoplay muted></video>
+			    <video id="recorded" playsinline loop></video>
+			
+			    <div align="center">
+			        <button class="btn btn-primary btn-sm" id="start">카메라 연결</button>
+			        <button class="btn btn-success btn-sm" id="record" disabled>촬영시작</button>
+			        <button class="btn btn-info btn-sm" id="play" disabled>재생</button>
+			        <button class="btn btn-info btn-sm"id="download" disabled>다운로드</button>
+			    </div>
+			 </div>
+		    <div style="display:none">
+		        <input type="checkbox" id="echoCancellation" checked="checked">
+		    </div>
+    </div>
+
+ </div>
+</div>
+
+</body>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+ <script src="/customJS/main.js"></script>
+
+
+
+</html>

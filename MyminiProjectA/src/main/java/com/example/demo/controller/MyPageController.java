@@ -132,4 +132,14 @@ public class MyPageController {
 	}
 	
 	
+	//1분 자기소개 페이지
+		@GetMapping("/oneMinuteIntro.do")
+		public String oneMinuteIntro(Model model,HttpServletRequest request) {
+			UserVo user= (UserVo) request.getSession().getAttribute("USER");
+			
+			model.addAttribute("userDetail", user);
+			return "/mypage/oneMinuteIntro";
+		}
+	
+	
 }

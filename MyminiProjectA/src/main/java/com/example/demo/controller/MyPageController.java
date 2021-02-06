@@ -171,4 +171,15 @@ public class MyPageController {
 	}
 	
 	
+	// 채용공고 insert
+	@RequestMapping("/insertHire.do")
+	public String insertHire(HttpServletRequest request,Model model) {
+		UserVo user= (UserVo) request.getSession().getAttribute("USER");
+		model.addAttribute("userDetail", user);
+		
+		
+		return "/companyPage/insertHire";
+	}
+	
+	
 }

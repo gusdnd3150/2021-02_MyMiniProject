@@ -46,7 +46,7 @@ public class FileService {
 						if(type.equals("user")) {
 							imagePath = "/user/";
 						}else {
-							 imagePath = "/company/"; 
+							 imagePath = "/companyLogo/"; 
 						}
 					String path = request.getSession().getServletContext().getRealPath("/");// locallhost8080/
 					String savePath = path + imagePath;   //
@@ -224,13 +224,13 @@ public class FileService {
 
 	
 	public MediaVo insertMediaFileIntro(MultipartHttpServletRequest upfile,HttpServletRequest request) {
-		MultipartFile mediaFile = upfile.getFile("oneselfIntro"); 
+		MultipartFile mediaFile = upfile.getFile("mediaIntro"); 
 		MediaVo media = new MediaVo();
 		
 		try {
-			String imagePath = "/userOneSelfIntro/"; 
+			String mediaPath = "/userMedia/"; 
 			String path = request.getSession().getServletContext().getRealPath("/");
-			String savePath = path + imagePath;   
+			String savePath = path + mediaPath;   
 	        
 			File file = new File(savePath);    
 
@@ -244,8 +244,9 @@ public class FileService {
 				file = new File(savePath + storedFileName);
 		        System.out.println(file.getAbsolutePath()); 
 		        mediaFile.transferTo(file); 
-		        media.setOneminute_original_name(originalFileName);
-		        media.setOneminute_saved_name(storedFileName);
+		        
+		        media.setMedia_original(originalFileExtension);
+		        media.setMedia_saved(storedFileName);
 		        
 		        
 		} catch (Exception e) {

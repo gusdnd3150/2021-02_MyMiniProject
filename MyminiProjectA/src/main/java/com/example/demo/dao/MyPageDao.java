@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.vo.MediaVo;
 import com.example.demo.vo.PagingVo;
 import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
@@ -40,7 +41,13 @@ public class MyPageDao {
 		session.insert("myPage.insertFileUserFile",filevo);
 	}
 	
+	//파일삭제
 	public void deleteFileUserFile(PortfolioFileVo fileVo) {
 		session.delete("myPage.deleteFileUserFile",fileVo);
+	}
+	
+	//1분 동영상 insert
+	public void insertMedia(MediaVo media) {
+		session.insert("myPage.insertMedia",media);
 	}
 }

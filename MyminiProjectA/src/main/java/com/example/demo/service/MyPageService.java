@@ -130,6 +130,8 @@ public class MyPageService {
 		try {
 			media =fileService.insertMediaFileIntro(file, request);
 			media.setId(user.getId());
+			
+			dao.insertMedia(media);
 			result="success";
 		} catch (Exception e) {
 			e.printStackTrace();

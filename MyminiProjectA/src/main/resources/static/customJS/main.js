@@ -109,8 +109,9 @@ async function init(constraints) {
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     handleSuccess(stream);
   } catch (e) {
-    console.error('navigator.getUserMedia error:', e);
-    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+    //console.error('navigator.getUserMedia error:', e);
+    alert("연결가능한 기기가 없습니다.");
+    //errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
   }
 }
 

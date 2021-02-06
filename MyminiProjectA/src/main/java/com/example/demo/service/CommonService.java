@@ -86,6 +86,7 @@ public class CommonService  implements UserDetailsService{
 						user.setUser_profile(fileService.addImageFile(upfile, request,"user"));
 						int id=dao.userJoin(user);   // users 기본정보만 insert
 						dao.insertUserDetail(user);
+						
 					}else if(user.getAutho().equals("COMPANY")) { 						// 기업
 						user.setCompany_logo(fileService.addImageFile(upfile, request,"company"));
 						int id=dao.userJoin(user);   // users 기본정보만 insert

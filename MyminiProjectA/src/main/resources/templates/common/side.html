@@ -27,7 +27,9 @@ border-style:solid;border-radius: 25px;border-color:gray;
 
 <th:block th:fragment="side">
 
-<div class="container">
+<!-- 일반유저 페이지 -->
+
+<div class="container" th:if="${userDetail.autho=='USER'}">
   <div class="row">
   
 	<div align="center" id="profileBox">
@@ -35,8 +37,8 @@ border-style:solid;border-radius: 25px;border-color:gray;
 	<img th:if="${userDetail.user_profile == null}" src="/image/person.png" width="130px" height="130px"style="border-radius: 70%">
 	<img th:if="${userDetail.user_profile != null}" th:src="|/user/${userDetail.user_profile}" width="130px" style="border-radius: 70%">
 	<p> <strong><span th:text="${userDetail.user_name}"></span></strong>님</p>
-	 <button class="btn btn-light" onclick="changeImage()">수정</button>
-	<i class="fas fa-cogs"></i>
+	 <button class="btn btn-light" onclick="changeImage()"><i class="fas fa-cogs"></i></button>
+	
 	</div>
 	<hr>
 	
@@ -59,6 +61,36 @@ border-style:solid;border-radius: 25px;border-color:gray;
 </div>
 
 
+ <!-- 기업페이지 -->
+
+
+<div class="container" th:if="${userDetail.autho=='COMPANY'}">
+  <div class="row">
+  
+	<div align="center" id="profileBox">
+	
+	<img th:if="${userDetail.company_logo == null}" src="/image/person.png" width="130px" height="130px"style="border-radius: 70%">
+	<img th:if="${userDetail.company_logo != null}" th:src="|/companyLogo/${userDetail.company_logo}" width="130px" style="border-radius: 70%">
+	<p><strong><span th:text="${userDetail.user_name}"></span></strong>님</p>
+	 <button class="btn btn-light" onclick="changeImage()"><i class="fas fa-cogs"></i></button>
+	</div>
+	<hr>
+	
+
+ </div>
+ <br><br>
+ <div class="row">
+ <div>
+	<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">      
+  <a class="nav-link" id="hireMenu" data-toggle="pill" href="/hirePage.do" role="tab" ><i class='far fa-file-alt'></i>&nbsp;채용 관리</a>
+  <a class="nav-link" id="resumeTap" data-toggle="pill" href="#v-pills-profile" role="tab" ><i class='far fa-star'></i>&nbsp;스크립트</a>
+  <a class="nav-link" id="2" data-toggle="pill" href="#v-pills-messages" role="tab" ><i class='far fa-bell'></i> &nbsp;알림</a>
+  <a class="nav-link" id="3" data-toggle="pill" href="#v-pills-settings" role="tab"><i class='fas fa-user-edit'></i>&nbsp;회사 정보</a>
+	</div>
+	</div>
+ </div>
+ 
+</div>
 </th:block>
 
 </body>

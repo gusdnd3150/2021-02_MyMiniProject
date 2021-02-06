@@ -61,15 +61,8 @@ public class CommonController {
 	}
 	
 	
-	@PostMapping("/login.do")
-	public void loginProcessing(String error) {
-	}
+
 	
-	//test
-	@RequestMapping("/test")
-	public String test() {
-		return "/common/slideCard";
-	}
 	//재능 등록
 	@GetMapping("/addConfidence.do")
 	public String confidence() {

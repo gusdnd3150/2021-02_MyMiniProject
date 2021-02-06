@@ -10,10 +10,10 @@ import lombok.ToString;
 @Component
 public class MediaVo {
 	
-	private int oneminute_id; //pk
+	private int media_id; //pk
 	private int id;
-	private String oneminute_original_name;
-	private String oneminute_saved_name;
-	private String oneminute_update;
+	private String media_original;
+	private String media_saved;
+	private String media_update;
 
 }

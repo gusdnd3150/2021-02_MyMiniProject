@@ -71,5 +71,23 @@
 	</delete>
 	
 	
+	<insert id="insertMedia" parameterType="mediaVo">
+	
+	insert into user_media_intro
+	(
+	 id,
+	 media_original,
+	 media_saved,
+	 media_update
+	)
+	values
+	(
+	#{id},
+	#{media_original},
+	#{media_saved},
+	NOW()
+	)
+	</insert>
+	
 	
 </mapper>

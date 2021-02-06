@@ -59,6 +59,15 @@ public class MyPageController {
 		return "/mypage/myPage";
 	}
 	
+	//기업 페이지
+	@RequestMapping("/companyPage.do")
+	public String companyPage(Model model,HttpServletRequest request) {
+		UserVo user= (UserVo) request.getSession().getAttribute("USER");
+		
+		model.addAttribute("userDetail", user);
+		return "/companyPage/companyPage";
+	}
+	
 	@ResponseBody
 	@PostMapping("/modResumeState.do")
 	public String modResumeState(ResumeVo resume) {
@@ -149,6 +158,16 @@ public class MyPageController {
 		String result="fail";
 		result =service.insertMediaFileIntro(upfile,request);
 		return result;
+	}
+	
+	
+	//채용 페이지
+	@RequestMapping("/hirePage.do")
+	public String hirePage(HttpServletRequest request,Model model) {
+		UserVo user= (UserVo) request.getSession().getAttribute("USER");
+		model.addAttribute("userDetail", user);
+		
+		return "/companyPage/hirePage";
 	}
 	
 	

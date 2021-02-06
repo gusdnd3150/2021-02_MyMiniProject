@@ -25,12 +25,61 @@
 	   
  	<!-- 메인 -->
 	 <div class="col-10">
-	 
-	 
+	    <h4 align="center"><strong>채용 공고</strong></h4>
+	    <div align="right">
+	    <a href="/resiResume.do"  class="btn btn-info btn-sm">채용공고 등록</a>
+	    </div>
+	    <br>
+	 <div>
+	 <table class="table table-hover">
+		  <thead>
+		    <tr class="table-info">
+		      <th scope="col" style="width:40%">채용 제목</th>
+		      <th scope="col" style="width:10%">상태</th>
+		      <th scope="col" style="width:10%"></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  <!-- 
+		    <tr th:each="info : ${resumeList}">
+		      <td style="padding: 10px">&nbsp;
+		      <a th:href="@{/resumeDetail.do(resume_id=${info.resume_id})}" th:text="${info.resume_title}"></a>
+		      </td>
+		      
+		      <td th:if="${info.resume_state=='Y'}">
+		      <select class="custom-select" th:onchange="'javascript:change(event,\''+ ${info.resume_id} +'\');'" id="state" style="width:100%">
+			    <option selected>공개</option>
+			    <option value="N">비공개</option>
+			  </select>
+		      </td>
+		      
+		      <td th:if="${info.resume_state=='N'}">
+		      <select class="custom-select" th:onchange="'javascript:change(event,\''+ ${info.resume_id} +'\');'" id="state" style="width:100%">
+			    <option selected>비공개</option>
+			    <option value="Y">공개</option>
+			  </select>
+		      </td>
+		      
+		      <td>
+		      <button class="btn btn-outline-primary btn-sm" th:onclick="'javascript:mod(\''+ ${info.resume_id} +'\');'">수정</button>
+		      <button class="btn btn-outline-primary btn-sm" th:onclick="'javascript:deleteResume(\''+ ${info.resume_id} +'\');'">삭제</button>
+		      </td>
+		    </tr>
+		  </tbody> -->
+		  
+		</table>
+		</div>
 	 </div>
  
  </div>
 </div>
 
 </body>
+
+<script>
+window.onload=function(){
+	document.getElementById("hireMenu").setAttribute("class","nav-link active");
+}
+
+</script>
 </html>

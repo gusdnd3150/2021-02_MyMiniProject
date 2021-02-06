@@ -12,6 +12,8 @@
 	<typeAlias alias="portfolioFileVo" type="com.example.demo.vo.PortfolioFileVo" />
 	<typeAlias alias="mediaVo" type="com.example.demo.vo.MediaVo" />
 	
+	<typeAlias alias="seoulJobInfoVo" type="com.example.demo.vo.SeoulJobInfoVo" />
+	
 	<typeAlias alias="cramVo" type="com.example.demo.resumeVo.CramVo" />
 	<typeAlias alias="detailVo" type="com.example.demo.resumeVo.DetailVo" />
 	<typeAlias alias="educateVo" type="com.example.demo.resumeVo.EducateVo" />

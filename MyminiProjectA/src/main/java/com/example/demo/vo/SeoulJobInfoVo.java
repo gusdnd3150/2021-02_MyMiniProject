@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import lombok.Data;
 import lombok.ToString;
 
+
+
 @ToString
 @Component
 public class SeoulJobInfoVo {
@@ -29,8 +31,8 @@ public class SeoulJobInfoVo {
 	
 	
 	private int list_total_count;
-	private String cmpny_nm; //기업명칭
-	private String bsns_jssfc_cmmn_code_se;
+	private String JO_REGIST_NO; //구인등록번호
+	private String CMPNY_NM; //기업명칭
 	private String BSNS_SUMRY_CN;	//사업요약내용
 	private String 	RCRIT_JSSFC_CMMN_CODE_SE;	//모집직종코드
 	private String JOBCODE_NM;//모집직종코드명
@@ -67,6 +69,8 @@ public class SeoulJobInfoVo {
 	private String MNGR_PHON_NO	;//담당 상담사 전화번호
 	private String 	MNGR_INSTT_NM;	//담당 상담사 소속기관명
 	private String BASS_ADRES_CN;	//기업 주소
+	
+	
 	
 	public String getKey() {
 		return key;
@@ -122,17 +126,17 @@ public class SeoulJobInfoVo {
 	public void setList_total_count(int list_total_count) {
 		this.list_total_count = list_total_count;
 	}
-	public String getCmpny_nm() {
-		return cmpny_nm;
+	public String getJO_REGIST_NO() {
+		return JO_REGIST_NO;
 	}
-	public void setCmpny_nm(String cmpny_nm) {
-		this.cmpny_nm = cmpny_nm;
+	public void setJO_REGIST_NO(String jO_REGIST_NO) {
+		JO_REGIST_NO = jO_REGIST_NO;
 	}
-	public String getBsns_jssfc_cmmn_code_se() {
-		return bsns_jssfc_cmmn_code_se;
+	public String getCMPNY_NM() {
+		return CMPNY_NM;
 	}
-	public void setBsns_jssfc_cmmn_code_se(String bsns_jssfc_cmmn_code_se) {
-		this.bsns_jssfc_cmmn_code_se = bsns_jssfc_cmmn_code_se;
+	public void setCMPNY_NM(String cMPNY_NM) {
+		CMPNY_NM = cMPNY_NM;
 	}
 	public String getBSNS_SUMRY_CN() {
 		return BSNS_SUMRY_CN;
@@ -308,6 +312,8 @@ public class SeoulJobInfoVo {
 	public void setBASS_ADRES_CN(String bASS_ADRES_CN) {
 		BASS_ADRES_CN = bASS_ADRES_CN;
 	}
+
+	
 	
 	
 	

@@ -20,7 +20,13 @@
 	height:300px;
 }
 
-
+div p h {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100px;
+  height: 20px;
+}
 </style>
 
 
@@ -63,7 +69,7 @@
 
 
 <div class="container">
-   <h4><strong>기업</strong></h4>
+   <h5><strong>기업</strong></h5>
    <br>
   <div class="row" >
      <div class="col">
@@ -103,8 +109,66 @@
 <hr style="width:50%">
 <br><br>
 
+
+
+
 <div class="container">
-   <h4><strong>최신 구직</strong></h4>
+   <h5><strong>서울시 일자리</strong></h5>
+   <br>
+   <br>
+  <div class="row" >
+     <div class="col">
+     <!-- Swiper -->
+  <div class="swiper-container seoulJob">
+    <div class="swiper-wrapper">
+    
+       <div class="swiper-slide" th:each="info : ${seoulJobList}">
+       
+       
+       <div>
+           
+		  <div >
+		    <h6 class="card-title" ><strong th:text="${info.CMPNY_NM}" ></strong></h6>
+		    <br>
+		    <p class="card-subtitle mb-2 text-muted" th:text="${info.BSNS_SUMRY_CN}" > </p>
+		    <br>
+		    <div class="card-text">
+		        <p th:if="${info.EMPLYM_STLE_CMMN_CODE_SE=='J01102'}">계약직  </p>
+		        <p th:if="${info.EMPLYM_STLE_CMMN_CODE_SE=='J01103'}">계약직 (시간제) </p>
+		        <p th:if="${info.EMPLYM_STLE_CMMN_CODE_SE=='J01105'}">상용직 (시간제) </p>
+		        <p th:if="${info.EMPLYM_STLE_CMMN_CODE_SE=='J01101'}">상용직  </p>
+		       
+				<p th:if="${info.CAREER_CND_CMMN_CODE_SE=='J01301'}">경력 :신입</p>
+				<p th:if="${info.CAREER_CND_CMMN_CODE_SE=='J01302'}">경력 :경력</p>
+				<p th:if="${info.CAREER_CND_CMMN_CODE_SE=='J01300'}">경력 :무관</p>
+		    </div>
+		  </div>
+		</div>
+       <!-- <img class="card-img-top" src="/image/innospeechLogo.png" alt="Card image cap" style="width:150px;"> -->
+   
+		
+      </div>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Add Arrows -->
+    <!-- <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div> -->
+  </div>
+    </div>
+  </div>
+</div>
+
+<br><br>
+<hr style="width:50%">
+<br><br>
+
+
+
+
+
+<div class="container">
+   <h5><strong>최신 구직</strong></h5>
    <br>
   <div class="row" >
      <div class="col">
@@ -129,8 +193,8 @@
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
     <!-- Add Arrows -->
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
+  <!--   <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div> -->
   </div>
     </div>
   </div>
@@ -146,6 +210,7 @@
 	 var header=document.getElementById("homeHeader");
 	 header.setAttribute("class","active");
 } */
+
 
 
 //기업 리스트
@@ -164,6 +229,25 @@
       prevEl: '.swiper-button-prev', */
     },
   }); 
+
+
+//서울시 일자리
+var swiper = new Swiper('.seoulJob', {
+   slidesPerView: 4,
+   slidesPerColumn:1,
+   spaceBetween: 30,
+   slidesPerGroup: 3,
+   loopFillGroupWithBlank: true,
+   pagination: {
+     el: '.swiper-pagination',
+     clickable: true,
+   },
+   navigation: {
+     /* nextEl: '.swiper-button-next',
+     prevEl: '.swiper-button-prev', */
+   },
+ }); 
+
 
 //구직 리스트
 var swiper = new Swiper('.getJob', {
@@ -196,3 +280,5 @@ const constraints = {
 
 
 </html>
+
+

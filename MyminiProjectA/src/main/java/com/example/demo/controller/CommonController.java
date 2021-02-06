@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.example.demo.service.ApiService;
 import com.example.demo.service.CommonService;
 import com.example.demo.vo.ResumeVo;
+import com.example.demo.vo.SeoulJobInfoVo;
 import com.example.demo.vo.UserVo;
 
 import lombok.extern.java.Log;
@@ -32,14 +34,17 @@ public class CommonController {
 	@Autowired
 	CommonService service;
 	
+	@Autowired
+	ApiService apiService;
+	
 	//메인화면
 	@RequestMapping("/main.do")
 	public String main(Model model) {
 		
 		List<ResumeVo> sickJobList = service.sickJobList(); //9개만
+		List<SeoulJobInfoVo> seoulJobList= apiService.getSeoulList();
 		
-		System.out.println(sickJobList.toString());
-		
+		model.addAttribute("seoulJobList", seoulJobList);
 		model.addAttribute("sickJobList", sickJobList);
 		
 		return "main";
@@ -81,6 +86,7 @@ public class CommonController {
 		}
 		return "/user/joinForm";
 	}
+	
 	
 	// 기업,유저 가입 페이지로 이동
 	@RequestMapping("/chooseJoinType.do")

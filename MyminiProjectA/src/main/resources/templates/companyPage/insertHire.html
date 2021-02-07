@@ -21,34 +21,113 @@
 <br>
 
 <div class="container">
-  <div align="center">
-  <h5><strong>채용정보</strong></h5>
+  <div>
+  <h5 align="center"><strong>채용정보</strong></h5>
   <br>
-  <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">지원자격</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>경력</td>
-      <td colspan="2"><input type="text" class="form-control" id="usr"></td>
-    </tr>
-    <tr>
-      <td>학력</td>
-     <td colspan="2"></td>
-    </tr>
-    <tr>
-      <td>우대</td>
-      <td colspan="2"></td>
-    </tr>
-  </tbody>
-</table>
+  
+    <form name="hireForm">
+    <div>
+  <div class="form-row">
+    <div class="form-group col-sm-4">
+      <label >경력조건</label>
+		     <select id="inputState" class="form-control" name="hire_condition">
+		        <option selected value="경력">경력</option>
+		        <option value="신입">신입</option>
+		        <option value="무관">무관</option>
+		      </select>      
+    </div>
+    <div class="form-group col-sm-4">
+      <label>학력</label>
+       <select id="inputState" class="form-control" name="hire_educate">
+		        <option selected value="2">2년재</option>
+		        <option value="3">3년재</option>
+		        <option value="4">4년재</option>
+		        <option value="etc">무관</option>
+		      </select>    
+    </div>
+    <div class="form-group col-sm-4">
+      <label>고용형태</label>
+       <select id="inputState" class="form-control" name="hire_state">
+		        <option selected value="정규">정규직</option>
+		        <option value="비정규">비정규직</option>
+		        <option value="상규">상규직</option>
+		        <option value="etc">기타</option>
+		      </select>  
+    </div>
+  </div>
+   <div class="form-row">
+    <div class="form-group col-sm-4">
+      <label >급여</label>
+		  <input type="text" class="form-control" placeholder="" name="hire_salary">
+    </div>
+    <div class="form-group col-sm-4">
+      <label>근무시간</label>
+       <select id="inputState" class="form-control" name="hire_workTime">
+		        <option selected value="week5">주5일</option>
+		        <option value="week6">주6일</option>
+		        <option value="week57">주7일</option>
+		      </select>  
+    </div>
+    <div class="form-group col-sm-4">
+      <label>직급</label>
+       <select id="inputState" class="form-control" name="hire_rank">
+		        <option selected value="사원">사원</option>
+		        <option value="대리">대리</option>
+		        <option value="팀장">팀장</option>
+		        <option value="etc">기타</option>
+		      </select>  
+    </div>
+  </div>
+  
+   <div class="form-row">
+    <div class="form-group col-sm-5">
+      <label >근무지</label>
+		  <input type="text" class="form-control" placeholder="" name="hire_address1">
+    </div>
+    <div class="form-group col-sm-2">
+      <label>우편번호</label>
+      <input type="text" class="form-control" placeholder="" name="hire_zip" readonly="readonly">
+    </div>
+    <div class="form-group col-sm-5">
+      <label>상세주소</label>
+      <input type="text" class="form-control" placeholder="" name="hire_address2">
+    </div>
+  </div>
+  </div>
+  <input type="hidden" name="hire_open" value="false">
+</form>
   </div>
 </div>
 
+
+
+
 </body>
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<script>
+$(document).ready(function(){
+	
+	$("input[name=hire_address1]").click(function(){
+		openZipSearch();
+	});
+	$("input[name=hire_zip]").click(function(){
+		openZipSearch();
+	});
+	
+	
+	
+});
+
+
+function openZipSearch() {
+	   new daum.Postcode({
+	       oncomplete: function(data) {
+	            $('[name=hire_zip]').val(data.zonecode); // 우편번호 (5자리)
+	            $('[name=hire_address1]').val(data.address);
+	       }
+	 }).open();
+	}
+
+</script>
+
 </html>

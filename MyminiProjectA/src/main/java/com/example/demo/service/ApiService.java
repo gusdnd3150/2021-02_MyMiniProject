@@ -49,11 +49,6 @@ public class ApiService {
 			connection.setRequestProperty("Content-Type", "application/json"); //해더설정
 			connection.connect();
 
-			//System.out.println("응답코드"+connection.getResponseCode());
-			//System.out.println("요청방식"+connection.getContentType());
-			//System.out.println("응답콘텐츠"+connection.getRequestMethod());
-			//System.out.println("응답메시지"+connection.getResponseMessage());
-			
 			StringBuilder sb = new StringBuilder();
 			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 				BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));

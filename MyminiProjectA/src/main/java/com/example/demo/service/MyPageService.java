@@ -138,7 +138,6 @@ public class MyPageService {
 			result="fail";
 		}
 		
-		
 		return result;
 	}
 	

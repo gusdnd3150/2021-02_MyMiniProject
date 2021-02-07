@@ -21,5 +21,10 @@ public class HireVo {
 	private String hire_location; // 회사위치 
 	private String hire_workTime; // 주5일 등등
 	private String hire_rank;  // 직급   사원, 등
+	
+	private String hire_address1;  // 주소
+	private String hire_address2;  // 상세주소
+	private String hire_zip;  // 우편
+	
 
 }

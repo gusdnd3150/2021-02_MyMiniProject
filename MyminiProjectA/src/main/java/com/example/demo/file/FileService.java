@@ -181,7 +181,6 @@ public class FileService {
 		File[] folder =deleteFolder.listFiles();
 		
 		for(int i=0;i<folder.length ;i++) {
-			System.out.println(folder[i].getName());
 			if(folder[i].getName().equals(fileVo.getFile_saved_name())) {
 				folder[i].delete();
 			}
@@ -203,9 +202,7 @@ public class FileService {
 		
 		response.setContentType("application/ISO-8859-1; charset=UTF-8");
 		response.setHeader("Cache-Control", "no-cache");
-		//response.setHeader("Content-Disposition", "attachment;filename=\""+fileVo.getFile_original_name()+"\";");
 		response.setHeader("Content-Disposition", "attachment;filename=\""+name+"\";");
-		//response.addHeader("Content-disposition", "attachment; fileName=" +fileVo.getFile_original_name());
 		
 		FileInputStream in = new FileInputStream(file);
 		

@@ -38,6 +38,10 @@ public class UserVo  {
 	private String company_address1;	//상세주소1
 	private String company_address2;	//상세주소2
 	private String company_zip;	//우편번호
+	private String company_startDay;	//설립일
+	private String company_sales;	//연매출
+	private String company_people;	//사원수
+	private String company_money;	//자본금
 	
 
 

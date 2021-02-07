@@ -76,9 +76,17 @@
        	company_homepage,
        	company_address1,
        	company_address2,
-       	company_zip
+       	company_zip,
+       	company_startDay,
+       	company_sales,
+       	company_people,
+       	company_money
         )
-        VALUES(#{id},#{company_logo},#{company_intro},#{company_owner},#{company_name},#{company_homepage},#{company_address1},#{company_address2},#{company_zip})
+        VALUES(
+        #{id},#{company_logo},#{company_intro},#{company_owner},#{company_name},
+        #{company_homepage},#{company_address1},#{company_address2},#{company_zip},
+        #{company_startDay},#{company_sales},#{company_people},#{company_money}
+        )
     </insert>
     
     

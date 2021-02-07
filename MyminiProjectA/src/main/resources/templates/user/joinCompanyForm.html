@@ -22,14 +22,14 @@
 	
 	 <form name="joinForm" id="joinForm" enctype="multipart/form-data">
 	  <div class="form-group" align="left">
-	  <label><strong>아이디 생성</strong></label>
+	  <label><strong>* 아이디 생성</strong></label>
 	    <input type="text" id="idInput" class="form-control"  placeholder="your ID" name="user_id">
 	    <small id="idBox" class="form-text text-muted"></small>
 	    <button class="btn btn-primary" onclick="checkDup(event)">중복검사</button>
 	  </div>
 	  
 	  <div class="form-group" align="left">
-	  <label><strong>비밀번호</strong></label>
+	  <label><strong>* 비밀번호</strong></label>
 	    <input type="password" id="PasswordInput" class="form-control" placeholder="Password" name="user_password">
 	  </div>
 	  
@@ -39,34 +39,56 @@
 	  </div>
 	  
 	  <div class="form-group" align="left">
-	  <label><strong>이메일</strong></label>
+	  <label><strong>* 이메일</strong></label>
 	    <input type="text"  class="form-control" placeholder="ex:text@gmail.com" name="user_email">
 	  </div>
 	  
 	  <div class="form-group" align="left">
-	  <label><strong>회사 대표</strong></label>
+	  <label><strong>* 회사 대표</strong></label>
 	    <input type="text"  class="form-control" placeholder="ex:이유섭" name="company_owner">
 	  </div>
 	  
 	  <div class="form-group" align="left">
-	  <label><strong>회사 이름</strong></label>
+	  <label><strong>* 회사 이름</strong></label>
 	    <input type="text"  class="form-control" placeholder="ex:이노스피치" name="company_name">
 	  </div>
 	  
+	  
 	  <div class="form-group" align="left">
-	  <label><strong>회사 홈페이지</strong></label>
+	  <label><strong>회사 설립일</strong></label>
+	    <input type="text"  class="form-control" placeholder="ex:2020-05-21" name="company_startDay">
+	  </div>
+	  
+	  <div class="form-group" align="left">
+	  <label><strong>회사 연매출</strong></label>
+	    <input type="text"  class="form-control" placeholder="ex:2020-05-21" name="company_sales">
+	  </div>
+	  
+	  <div class="form-group" align="left">
+	  <label><strong>사원수</strong></label>
+	    <input type="text"  class="form-control" placeholder="" name="company_people">
+	  </div>
+	  
+	  <div class="form-group" align="left">
+	  <label><strong>자본금</strong></label>
+	    <input type="text"  class="form-control" placeholder="" name="company_money">
+	  </div>
+	  
+	  
+	  <div class="form-group" align="left">
+	  <label><strong>* 회사 홈페이지</strong></label>
 	    <input type="text"  class="form-control" placeholder="ex:http://company.com" name="company_homepage">
 	  </div>
 	  
 	  <div class="form-group" align="left">
-	  <label><strong>회사 소개</strong></label>
+	  <label><strong>* 회사 소개</strong></label>
 	    <!-- <input type="text"  class="form-control" placeholder="" name="company_intro"> -->
 	    <textarea class="form-control" placeholder="간단한 소개" name="company_intro"></textarea>
 	  </div>
 	  
 	  	<div class="input-group mb-3">
 		  <div class="input-group-prepend">
-		    <span class="input-group-text">회사 로고</span>
+		    <span class="input-group-text">* 회사 로고</span>
 		  </div>
 		  <div class="custom-file">
 		    <input type="file" class="custom-file-input" id="" onchange="setPreview(event)" name="file">

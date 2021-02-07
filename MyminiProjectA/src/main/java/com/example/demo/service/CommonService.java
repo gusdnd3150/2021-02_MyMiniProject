@@ -130,9 +130,7 @@ public class CommonService  implements UserDetailsService{
 		UserVo user = dao.selectUserById(userId);
 		UserSecurityVo securityVo = new UserSecurityVo(user);
 		if(user.getUser_password().equals(securityVo.getPassword())) {
-			System.out.println("비번같음");
 		}else {
-			System.out.println("틀림");
 		}
 		System.out.println("password: "+securityVo.getPassword()+" 이름:"+securityVo.getUsername()+" 권한:"+securityVo.getAuthorities());
 		return securityVo;

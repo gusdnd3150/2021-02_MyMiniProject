@@ -3,17 +3,18 @@
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-    <!-- vo맵핑 -->
+    <!-- 일반 vo -->
 	 <typeAliases>
-	<!-- <typeAlias alias="boardVO" type="com.example.demo.voGroup.BoardVO" /> -->
 	<typeAlias alias="userVo" type="com.example.demo.vo.UserVo" />
 	<typeAlias alias="resumeVo" type="com.example.demo.vo.ResumeVo" />
 	<typeAlias alias="pagingVo" type="com.example.demo.vo.PagingVo" />
 	<typeAlias alias="portfolioFileVo" type="com.example.demo.vo.PortfolioFileVo" />
 	<typeAlias alias="mediaVo" type="com.example.demo.vo.MediaVo" />
 	
+	<!-- 서울시 일자리 -->
 	<typeAlias alias="seoulJobInfoVo" type="com.example.demo.vo.SeoulJobInfoVo" />
 	
+	<!-- 이력서 관련 -->
 	<typeAlias alias="cramVo" type="com.example.demo.resumeVo.CramVo" />
 	<typeAlias alias="detailVo" type="com.example.demo.resumeVo.DetailVo" />
 	<typeAlias alias="educateVo" type="com.example.demo.resumeVo.EducateVo" />
@@ -23,7 +24,10 @@
 	<typeAlias alias="portfolioVo" type="com.example.demo.resumeVo.PortfolioVo" />
 	<typeAlias alias="selfintroVo" type="com.example.demo.resumeVo.SelfintroVo" />
 	
-	
+	<!-- 채용관련 -->
+	<typeAlias alias="hireVo" type="com.example.demo.hireVo.HireVo" />
+	<typeAlias alias="hireInfoVo" type="com.example.demo.hireVo.HireInfoVo" />
+	<typeAlias alias="hireApplyVo" type="com.example.demo.hireVo.HireApplyVo" />
 	</typeAliases> 
 	
 	<!-- mapper .xmp 파일 정의 - 실제 SQL Query 가 선언되어 있는 부분 -->
@@ -31,5 +35,6 @@
 		<mapper resource="mybatis/model/user-mapper.xml"/>
 		<mapper resource="mybatis/model/resume-mapper.xml"/>
 		<mapper resource="mybatis/model/mypage-mapper.xml"/>
+		<mapper resource="mybatis/model/hire-mapper.xml"/>
 		</mappers>        
 </configuration> 

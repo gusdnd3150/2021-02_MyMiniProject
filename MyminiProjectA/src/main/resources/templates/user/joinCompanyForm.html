@@ -166,8 +166,8 @@ function join(){
 		alert("상세주소 입력은 필수 입니다.");
 	}
 	
-    var form = $('#joinForm')[0];
-    var data = new FormData(form);
+    var joinForm = $('#joinForm')[0];
+    var data = new FormData(joinForm);
 	
 
    $.ajax({
@@ -205,6 +205,7 @@ function setPreview(event){
         reader.onload = function (event) {
             var img = document.createElement("img");// 이미지 tag를 생성하는 과정
             img.setAttribute("src", event.target.result);
+            img.setAttribute("style", "width:200px");
             img.setAttribute("class","")
             input.appendChild(img);
         };

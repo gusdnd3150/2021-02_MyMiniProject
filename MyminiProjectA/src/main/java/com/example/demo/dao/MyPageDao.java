@@ -50,4 +50,9 @@ public class MyPageDao {
 	public void insertMedia(MediaVo media) {
 		session.insert("myPage.insertMedia",media);
 	}
+	
+	//1분영상 list
+	public List<MediaVo> selectMediaList(int id){
+		return session.selectList("myPage.selectMediaList",id);
+	}
 }

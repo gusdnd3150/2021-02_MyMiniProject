@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.example.demo.hireVo.HireMultipleVo;
 import com.example.demo.resumeVo.ResumeMultiVo;
 import com.example.demo.service.MyPageService;
 import com.example.demo.service.ResumeService;
+import com.example.demo.vo.MediaVo;
 import com.example.demo.vo.PagingVo;
 import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
@@ -50,12 +52,15 @@ public class MyPageController {
 		PagingVo paging = new PagingVo(user.getId(),total,nowPage,cntPage);
 		List<ResumeVo> list= service.selectResume(paging);
 		
-		model.addAttribute("total", total);
-		model.addAttribute("paging", paging);
-		model.addAttribute("resumeList", list);
+		
+		List<MediaVo> mediaList =service.selectMediaList(user.getId());
 		
 		model.addAttribute("userDetail", user);
-				
+		model.addAttribute("mediaList", mediaList);
+		model.addAttribute("resumeList", list);
+		
+		model.addAttribute("total", total);
+		model.addAttribute("paging", paging);
 		return "/mypage/myPage";
 	}
 	
@@ -179,6 +184,16 @@ public class MyPageController {
 		
 		
 		return "/companyPage/insertHire";
+	}
+	
+	
+	@PostMapping("/addHire.do")
+	@ResponseBody
+	public String addHire(HireMultipleVo multiple) {
+		
+		System.out.println(multiple.toString());
+		
+		return "";
 	}
 	
 	

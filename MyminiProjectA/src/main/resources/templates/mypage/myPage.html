@@ -103,17 +103,19 @@
 				    <table class="table table-hover">
 					  <thead>
 					    <tr class="table-info">
-					      <th scope="col" style="width:40%">자기소개서 제목</th>
+					      <th scope="col" style="width:40%">영상 파일이름</th>
+					      <th scope="col" style="width:10%">등록일</th>
 					      <th scope="col" style="width:10%"></th>
 					    </tr>
 					  </thead>
 					  <tbody>
 					    
-					    <tr>
-					      <td></td>
+					    <tr th:each="info : ${mediaList}">
+					      <td th:text="${info.media_original}"></td>
+						  <td th:text="${info.media_update}"></td>
 					      <td>
 					      <button class="btn btn-outline-primary btn-sm" >보기</button>
-					      <button class="btn btn-outline-primary btn-sm" >삭제</button>
+					      <button class="btn btn-outline-primary btn-sm" th:onclick="'javascript:deleteMedia(\''+ ${info.media_id} +'\');'">삭제</button>
 					      </td>
 					    </tr>
 					  </tbody>
@@ -210,6 +212,11 @@ function deleteResume(resume_id){
 		}
 		});
 	
+}
+
+
+function deleteMedia(media_id){
+	alert(media_id);
 }
 </script>
 

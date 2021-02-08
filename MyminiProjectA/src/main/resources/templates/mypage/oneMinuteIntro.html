@@ -100,7 +100,7 @@ function inertOneIntro(){
 	//event.preventDefault();
 	
 	
-	if($("input[name=oneselfIntro]").val()==null|| $("input[name=oneselfIntro]").val()==""){
+	if($("input[name=mediaIntro]").val()==null|| $("input[name=mediaIntro]").val()==""){
 		alert("파일을 선택해 주세요");
 		return;
 	}
@@ -124,6 +124,7 @@ function inertOneIntro(){
         success: function (data) {
         	if(data=='success'){
         		alert("업로드 되었습니다.");
+        		location.reload();
         	}
         },
         error: function (e) {

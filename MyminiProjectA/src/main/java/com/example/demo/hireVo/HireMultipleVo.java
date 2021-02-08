@@ -5,13 +5,15 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
+import lombok.ToString;
 
+@ToString
 @Data
 @Component
 public class HireMultipleVo {
 	
-	private List<HireVo> hireVoList;
+	private HireVo hireVo;
 	private List<HireInfoVo> hireInfoVoList;
-	private List<HireApplyVo> hireApplyVo;
+	private HireApplyVo hireApplyVo;
 
 }

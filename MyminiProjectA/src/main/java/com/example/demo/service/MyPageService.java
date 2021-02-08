@@ -26,13 +26,25 @@ public class MyPageService {
 	@Autowired
 	private FileService fileService;
 	
-	
+	//이력서 select
 	public List<ResumeVo> selectResume(PagingVo paging){
 		return dao.selectResume(paging);
 	}
 	
+	//토탈개수
 	public int totalUserResume(int id) {
 		return dao.totalUserResume(id);
+	}
+	
+	// 1분영상 list
+	public List<MediaVo> selectMediaList(int id){
+		List<MediaVo> list=null;
+		try {
+			list= dao.selectMediaList(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 	//이력서 상태전환

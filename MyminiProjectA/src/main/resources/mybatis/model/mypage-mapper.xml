@@ -18,6 +18,12 @@
 		    
 	</select>
 	
+	<select id="selectMediaList" parameterType="int" resultType="mediaVo">
+	 select *
+	 from user_media_intro
+	 where id=#{id}
+	</select>
+	
 	
 	<select id="selectFileList" parameterType="int" resultType="portfolioFileVo">
 		select R1.*

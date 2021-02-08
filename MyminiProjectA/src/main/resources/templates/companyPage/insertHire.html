@@ -21,16 +21,16 @@
 <br>
 
 <div class="container">
-  <div>
+  <div id="hireDiv">
   <h5 align="center"><strong>채용정보</strong></h5>
   <br>
   
-    <form name="hireForm">
+    <form name="hireForm" id="hireForm">
     <div>
   <div class="form-row">
     <div class="form-group col-sm-4">
       <label >경력조건</label>
-		     <select id="inputState" class="form-control" name="hire_condition">
+		     <select class="form-control" name="hire_condition">
 		        <option selected value="경력">경력</option>
 		        <option value="신입">신입</option>
 		        <option value="무관">무관</option>
@@ -38,7 +38,7 @@
     </div>
     <div class="form-group col-sm-4">
       <label>학력</label>
-       <select id="inputState" class="form-control" name="hire_educate">
+       <select class="form-control" name="hire_educate">
 		        <option selected value="2">2년재</option>
 		        <option value="3">3년재</option>
 		        <option value="4">4년재</option>
@@ -47,7 +47,7 @@
     </div>
     <div class="form-group col-sm-4">
       <label>고용형태</label>
-       <select id="inputState" class="form-control" name="hire_state">
+       <select class="form-control" name="hire_state">
 		        <option selected value="정규">정규직</option>
 		        <option value="비정규">비정규직</option>
 		        <option value="상규">상규직</option>
@@ -58,11 +58,11 @@
    <div class="form-row">
     <div class="form-group col-sm-4">
       <label >급여</label>
-		  <input type="text" class="form-control" placeholder="" name="hire_salary">
+		  <input type="text" class="form-control"  name="hire_salary">
     </div>
     <div class="form-group col-sm-4">
       <label>근무시간</label>
-       <select id="inputState" class="form-control" name="hire_workTime">
+       <select  class="form-control" name="hire_workTime">
 		        <option selected value="week5">주5일</option>
 		        <option value="week6">주6일</option>
 		        <option value="week57">주7일</option>
@@ -70,7 +70,7 @@
     </div>
     <div class="form-group col-sm-4">
       <label>직급</label>
-       <select id="inputState" class="form-control" name="hire_rank">
+       <select  class="form-control" name="hire_rank">
 		        <option selected value="사원">사원</option>
 		        <option value="대리">대리</option>
 		        <option value="팀장">팀장</option>
@@ -82,26 +82,126 @@
    <div class="form-row">
     <div class="form-group col-sm-5">
       <label >근무지</label>
-		  <input type="text" class="form-control" placeholder="" name="hire_address1">
+		  <input type="text" class="form-control"  name="hire_address1">
     </div>
     <div class="form-group col-sm-2">
       <label>우편번호</label>
-      <input type="text" class="form-control" placeholder="" name="hire_zip" readonly="readonly">
+      <input type="text" class="form-control"  name="hire_zip" readonly="readonly">
     </div>
     <div class="form-group col-sm-5">
       <label>상세주소</label>
-      <input type="text" class="form-control" placeholder="" name="hire_address2">
+      <input type="text" class="form-control"  name="hire_address2">
     </div>
   </div>
   </div>
   <input type="hidden" name="hire_open" value="false">
 </form>
   </div>
+  
+  <br>
+  <hr>
+  <br>
+  
+  <div>
+     <h5 align="center"><strong>모집 상세내용</strong></h5>
+     <br>
+	     <form id="hireInfoForm" name="hireInfoForm">
+	     <div  id="hireInfoDiv">
+	     
+			     <div id="hireInfoInput">
+			  <div class="form-group row">
+			    <label for="inputEmail3" class="col-sm-2 col-form-label">모집분야</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control"  name="hire_info_sector">
+			    </div>
+			  </div>
+			  <div class="form-group row">
+			    <label for="inputPassword3" class="col-sm-2 col-form-label">모집인원</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control"  style="width:200px" name="hire_info_count">
+			    </div>
+			  </div>
+			  <fieldset class="form-group">
+			    <div class="row">
+			      <legend class="col-form-label col-sm-2 pt-0">직무내용</legend>
+			      <div class="col-sm-10">
+			       <textarea class="form-control" name="hire_info_content"></textarea>
+			      </div>
+			    </div>
+			  </fieldset>
+			  <div class="form-group row">
+			    <div class="col-sm-2">우대사항</div>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control"name="hire_info_want">
+			    </div>
+			  </div>
+			  </div>
+	  </div>
+	</form>
+	
+  <br>
+  <button type="button" class="btn btn-outline-secondary btn-sm btn-block" onclick="addHireInfoForm()">추가</button>
+  </div>
+  
+  <br>
+  <hr>
+  <br>
+  
+  <div>
+     <h5 align="center"><strong>접수 방법</strong></h5>
+     <br>
+		<form name="hireApplyForm" id="hireApplyForm">
+		    <div>
+		  <div class="form-row">
+		    <div class="form-group col-sm-4">
+		      <label >담당자</label>
+				      <input type="text"class="form-control" name="hire_apply_charge" >   
+		    </div>
+		   <div class="form-group col-sm-4">
+		      <label >부서명</label>
+				      <input type="text"class="form-control" name="hire_apply_department">   
+		    </div>
+		    <div class="form-group col-sm-4">
+		      <label >연락처</label>
+				      <input type="text"class="form-control" name="hire_apply_phone">   
+		    </div>
+		  </div>
+		   <div class="form-row">
+		    <div class="form-group col-sm-4">
+		      <label >접수 마감일</label>
+				  <input type="text" class="form-control" placeholder="ex:2020-05-21" name="hire_apply_time">
+		    </div>
+		    <div class="form-group col-sm-4">
+		      <label>접수방법</label>
+		       <select id="inputState" class="form-control" name="hire_apply_way">
+				        <option selected value="week5">이력서</option>
+				        <option value="week6">이력서+1분 자기소개</option>
+				      </select>  
+		    </div>
+		    <div class="form-group col-sm-4">
+		      <label>화상면접</label>
+		       <select id="inputState" class="form-control" name="hire_apply_p2p">
+				        <option selected value="사원">사용</option>
+				        <option value="대리">비사용</option>
+				      </select>  
+		    </div>
+		  </div>
+		  </div>
+		</form>
+	
+  <br>
+  <hr>
+  </div>
+  <br>
+  <br>
+  <div align="center">
+  <button  type="button" class="btn btn-primary" onclick="insertHire()">채용 공고등록</button>
+  </div>
 </div>
 
 
 
-
+<br><br><br>
 </body>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script>
@@ -127,6 +227,88 @@ function openZipSearch() {
 	       }
 	 }).open();
 	}
+
+
+// 모집 상세 추가
+function addHireInfoForm(){
+	var div = $("#hireInfoDiv");
+	var clone = $("#hireInfoInput").clone();
+	
+	clone.each(function (index){
+		 $(this).find("input[name=hire_info_sector]").val("")
+		 $(this).find("input[name=hire_info_count]").val("")
+		 $(this).find("input[name=hire_info_want]").val("")
+		 $(this).find("textarea[name=hire_info_content]").val("")
+	});
+	div.append("<br><hr><br>");
+	div.append(clone);
+}
+
+
+
+function insertHire(){
+	//var hireApplyForm =$("#hireApplyForm");
+	
+	$("#hireForm").each(function(){
+		$(this).find("input[name=hire_open]").attr("name","hireVo.hire_open");
+		$(this).find("select[name=hire_condition]").attr("name","hireVo.hire_condition");
+		$(this).find("select[name=hire_educate]").attr("name","hireVo.hire_educate");
+		$(this).find("select[name=hire_state]").attr("name","hireVo.hire_state");
+		$(this).find("input[name=hire_salary]").attr("name","hireVo.hire_salary");
+		$(this).find("input[name=hire_address1]").attr("name","hireVo.hire_address1");
+		$(this).find("input[name=hire_address2]").attr("name","hireVo.hire_address2");
+		$(this).find("input[name=hire_zip]").attr("name","hireVo.hire_zip");
+		$(this).find("input[name=hire_location]").attr("name","hireVo.hire_location");
+		$(this).find("select[name=hire_workTime]").attr("name","hireVo.hire_workTime");
+		$(this).find("select[name=hire_rank]").attr("name","hireVo.hire_rank");
+	});
+	
+	$("input[name=hire_info_sector]").each(function(index){
+		$(this).attr("name", "hireInfoVoList[" + index + "].hire_info_sector");
+	});
+	$("input[name=hire_info_count]").each(function(index){
+		$(this).attr("name", "hireInfoVoList[" + index + "].hire_info_count");
+	});
+	$("textarea[name=hire_info_content]").each(function(index){
+		$(this).attr("name", "hireInfoVoList[" + index + "].hire_info_content");
+	});
+	$("input[name=hire_info_detail]").each(function(index){
+		$(this).attr("name", "hireInfoVoList[" + index + "].hire_info_detail");
+	});
+	$("input[name=hire_info_want]").each(function(index){
+		$(this).attr("name", "hireInfoVoList[" + index + "].hire_info_want");
+	});
+	
+	$("#hireApplyForm").each(function(){
+		$(this).find("input[name=hire_apply_charge]").attr("name","hireApplyVo.hire_apply_charge");
+		$(this).find("input[name=hire_apply_department]").attr("name","hireApplyVo.hire_apply_department");
+		$(this).find("input[name=hire_apply_phone]").attr("name","hireApplyVo.hire_apply_phone");
+		$(this).find("input[name=hire_apply_time]").attr("name","hireApplyVo.hire_apply_time");
+		$(this).find("input[name=hire_apply_way]").attr("name","hireApplyVo.hire_apply_way");
+		$(this).find("input[name=hire_apply_p2p]").attr("name","hireApplyVo.hire_apply_p2p");
+	});
+	
+	var params = $("form").serialize(); 
+	console.log(params);
+	     $.ajax({
+	        url: '/addHire.do',
+	        type: 'POST',
+	        data:params,
+	        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
+	        dataType: 'text',
+	        success: function (data) {
+		          if(data=='success'){
+		        	  alert("등록 되었습니다.");
+		        	  location.href="/Test/mainBoard.do";
+		          }else{
+		        	  alert("등록실패");
+		          }
+	        }
+	    }); 
+	
+}
+
+
 
 </script>
 

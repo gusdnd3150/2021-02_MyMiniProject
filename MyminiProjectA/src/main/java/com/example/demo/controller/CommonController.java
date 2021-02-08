@@ -65,9 +65,6 @@ public class CommonController {
 				return result;
 	}
 	
-	
-
-	
 	//재능 등록
 	@GetMapping("/addConfidence.do")
 	public String confidence() {

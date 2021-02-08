@@ -7,7 +7,85 @@
 <mapper namespace="hire">
 	
 	
-    
-    
+	<insert id="insertHire" parameterType="hireVo" useGeneratedKeys="true" keyProperty="hire_id">
+	 insert into hire
+	 (
+	 id,
+	 hire_open,
+	 hire_condition,
+	 hire_educate,
+	 hire_state,
+	 hire_salary,
+	 hire_address1,
+	 hire_address2,
+	 hire_zip,
+	 hire_location,
+	 hire_workTime,
+	 hire_rank
+	 )
+	 values
+	 (
+	 #{id},
+	 #{hire_open},
+	 #{hire_condition},
+	 #{hire_educate},
+	 #{hire_state},
+	 #{hire_salary},
+	 #{hire_address1},
+	 #{hire_address2},
+	 #{hire_zip},
+	 #{hire_location},
+	 #{hire_workTime},
+	 #{hire_rank}
+	 )
+	</insert>
+	
+	<insert id="insertHireApply" parameterType="hireApplyVo">
+	insert into hire_apply
+	(
+	hire_id,
+	hire_apply_charge,
+	hire_apply_department,
+	hire_apply_phone,
+	hire_apply_time,
+	hire_apply_way,
+	hire_apply_p2p
+	)
+	values
+	(
+	#{hire_id},
+	#{hire_apply_charge},
+	#{hire_apply_department},
+	#{hire_apply_phone},
+	#{hire_apply_time},
+	#{hire_apply_way},
+	#{hire_apply_p2p}
+	)
+	
+	</insert>
+	
+    <!-- 모집상세 insert -->
+	<insert id="insertHireInfo" parameterType="List">
+	  INSERT INTO hire_info
+	  (
+	  hire_id,
+	  hire_info_sector,
+	  hire_info_count,
+	  hire_info_content,
+	  hire_info_detail,
+	  hire_info_want
+	  )
+	  VALUES
+	  <foreach collection="list" item="vo" separator=",">
+	     (
+	     #{vo.hire_id},
+	     #{vo.hire_info_sector},
+	     #{vo.hire_info_count},
+	     #{vo.hire_info_content},
+	     #{vo.hire_info_detail},
+	      #{vo.hire_info_want}
+	      ) 
+	  </foreach>
+	</insert>
 
 </mapper>

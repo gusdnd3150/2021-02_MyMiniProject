@@ -178,7 +178,7 @@ public class MyPageController {
 	
 	// 채용공고 insert
 	@RequestMapping("/insertHire.do")
-	public String insertHire(HttpServletRequest request,Model model) {
+	public String hireForm(HttpServletRequest request,Model model) {
 		UserVo user= (UserVo) request.getSession().getAttribute("USER");
 		model.addAttribute("userDetail", user);
 		
@@ -189,11 +189,12 @@ public class MyPageController {
 	
 	@PostMapping("/addHire.do")
 	@ResponseBody
-	public String addHire(HireMultipleVo multiple) {
+	public String insertHire(HireMultipleVo multiple,HttpServletRequest request) {
+		String result = "";
 		
-		System.out.println(multiple.toString());
+		result =service.insertHire(multiple,request);
 		
-		return "";
+		return result;
 	}
 	
 	

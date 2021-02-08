@@ -247,7 +247,6 @@ function addHireInfoForm(){
 
 
 function insertHire(){
-	//var hireApplyForm =$("#hireApplyForm");
 	
 	$("#hireForm").each(function(){
 		$(this).find("input[name=hire_open]").attr("name","hireVo.hire_open");
@@ -262,7 +261,6 @@ function insertHire(){
 		$(this).find("select[name=hire_workTime]").attr("name","hireVo.hire_workTime");
 		$(this).find("select[name=hire_rank]").attr("name","hireVo.hire_rank");
 	});
-	
 	$("input[name=hire_info_sector]").each(function(index){
 		$(this).attr("name", "hireInfoVoList[" + index + "].hire_info_sector");
 	});
@@ -284,12 +282,11 @@ function insertHire(){
 		$(this).find("input[name=hire_apply_department]").attr("name","hireApplyVo.hire_apply_department");
 		$(this).find("input[name=hire_apply_phone]").attr("name","hireApplyVo.hire_apply_phone");
 		$(this).find("input[name=hire_apply_time]").attr("name","hireApplyVo.hire_apply_time");
-		$(this).find("input[name=hire_apply_way]").attr("name","hireApplyVo.hire_apply_way");
-		$(this).find("input[name=hire_apply_p2p]").attr("name","hireApplyVo.hire_apply_p2p");
+		$(this).find("select[name=hire_apply_way]").attr("name","hireApplyVo.hire_apply_way");
+		$(this).find("select[name=hire_apply_p2p]").attr("name","hireApplyVo.hire_apply_p2p");
 	});
 	
 	var params = $("form").serialize(); 
-	console.log(params);
 	     $.ajax({
 	        url: '/addHire.do',
 	        type: 'POST',
@@ -299,7 +296,7 @@ function insertHire(){
 	        success: function (data) {
 		          if(data=='success'){
 		        	  alert("등록 되었습니다.");
-		        	  location.href="/Test/mainBoard.do";
+		        	  location.href="/main.do";
 		          }else{
 		        	  alert("등록실패");
 		          }

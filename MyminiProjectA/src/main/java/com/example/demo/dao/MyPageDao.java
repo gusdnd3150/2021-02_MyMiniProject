@@ -6,6 +6,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.hireVo.HireApplyVo;
+import com.example.demo.hireVo.HireInfoVo;
+import com.example.demo.hireVo.HireMultipleVo;
+import com.example.demo.hireVo.HireVo;
 import com.example.demo.vo.MediaVo;
 import com.example.demo.vo.PagingVo;
 import com.example.demo.vo.PortfolioFileVo;
@@ -54,5 +58,18 @@ public class MyPageDao {
 	//1분영상 list
 	public List<MediaVo> selectMediaList(int id){
 		return session.selectList("myPage.selectMediaList",id);
+	}
+	
+	// 채용공고 등록
+	public void insertHire(HireVo hire) {
+		session.insert("hire.insertHire",hire);
+	}
+	// 접수방법 등록
+	public void insertHireApply(HireApplyVo apply) {
+		session.insert("hire.insertHireApply",apply);
+	}
+	// 모집상세 내용
+	public void insertHireInfo(List<HireInfoVo> info) {
+		session.insert("hire.insertHireInfo",info);
 	}
 }

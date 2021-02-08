@@ -11,7 +11,7 @@ import lombok.ToString;
 public class HireInfoVo {
 	
 	private int hire_info_id;
-	private int id;
+	private int hire_id;
 	
 	private String  hire_info_sector; //모집분야
 	private String hire_info_count;  // 모집인원

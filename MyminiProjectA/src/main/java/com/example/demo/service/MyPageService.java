@@ -12,6 +12,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dao.MyPageDao;
 import com.example.demo.file.FileService;
+import com.example.demo.hireVo.HireApplyVo;
+import com.example.demo.hireVo.HireInfoVo;
+import com.example.demo.hireVo.HireMultipleVo;
+import com.example.demo.hireVo.HireVo;
 import com.example.demo.vo.MediaVo;
 import com.example.demo.vo.PagingVo;
 import com.example.demo.vo.PortfolioFileVo;
@@ -151,6 +155,41 @@ public class MyPageService {
 		}
 		
 		return result;
+	}
+	
+	// 채용공고 등록
+	public String insertHire(HireMultipleVo hireMultipleVo,HttpServletRequest request) {
+		String result =null;
+		UserVo user = (UserVo) request.getSession().getAttribute("USER");
+		int hire_id=0;
+		HireVo hire =hireMultipleVo.getHireVo();
+		HireApplyVo hireApply =hireMultipleVo.getHireApplyVo();
+		List<HireInfoVo> hireInfo =hireMultipleVo.getHireInfoVoList();
+		
+		try {
+			
+			// 채용공고
+			hire.setId(user.getId());
+			dao.insertHire(hire);
+			hire_id = hire.getHire_id();
+			
+			// 접수방법
+			hireApply.setHire_id(hire_id);
+			dao.insertHireApply(hireApply);
+			
+			// 모집상세
+			for(int i=0;i<hireInfo.size();i++) {
+				hireInfo.get(i).setHire_id(hire_id);
+			}
+			dao.insertHireInfo(hireInfo);
+			
+			result ="success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="fail";
+		}
+		return result;
+		
 	}
 	
 	

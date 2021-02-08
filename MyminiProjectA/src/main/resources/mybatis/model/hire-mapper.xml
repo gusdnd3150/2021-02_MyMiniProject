@@ -7,6 +7,36 @@
 <mapper namespace="hire">
 	
 	
+	<select id="selectHireList" parameterType="hireVo" resultType="hireVo">
+		SELECT *
+		FROM hire h INNER JOIN user_company_detail u ON h.id=u.id
+		WHERE h.hire_open ='Y'
+	</select>
+	
+	<select id="selectHireListByPaging" parameterType="pagingVo" resultType="hireVo">
+	select R1.*
+		   from
+			     (select *
+			    from hire
+			    where id=#{id}
+			    order by hire_id asc
+			    )R1
+		    limit #{limit} offset #{offset}
+	</select>
+	
+	<update id="modHireState" parameterType="hireVo">
+	
+	 update hire
+	  set hire_open =#{hire_open}
+	  where hire_id =#{hire_id}
+	</update>
+	
+	<select id="totalHireCount" resultType="int" parameterType="int">
+	select count(*)
+	from hire
+	where id=#{id}
+	</select>
+	
 	<insert id="insertHire" parameterType="hireVo" useGeneratedKeys="true" keyProperty="hire_id">
 	 insert into hire
 	 (
@@ -21,7 +51,8 @@
 	 hire_zip,
 	 hire_location,
 	 hire_workTime,
-	 hire_rank
+	 hire_rank,
+	 hire_title
 	 )
 	 values
 	 (
@@ -36,7 +67,8 @@
 	 #{hire_zip},
 	 #{hire_location},
 	 #{hire_workTime},
-	 #{hire_rank}
+	 #{hire_rank},
+	 #{hire_title}
 	 )
 	</insert>
 	

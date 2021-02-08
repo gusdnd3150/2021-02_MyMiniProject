@@ -101,17 +101,24 @@ public class PagingVo {
 	// 제일 마지막 페이지 계산
 	public void calcLastPage(int total, int cntPerPage) {
 		setLastPage((int) Math.ceil((double) total / (double) cntPerPage));
+		if(getLastPage()==0) {
+			setLastPage(1);
+		}
 	}
 
 	// 시작, 끝 페이지 계산
 	public void calcStartEndPage(int nowPage, int cntPage) {
 		setEndPage(((int) Math.ceil((double) nowPage / (double) cntPage)) * cntPage);
+		
 		if (getLastPage() < getEndPage()) {
 			setEndPage(getLastPage());
 		}
 		setStartPage(getEndPage() - cntPage + 1);
 		if (getStartPage() < 1) {
 			setStartPage(1);
+		}
+		if(getEndPage()==0) {
+			setEndPage(1);
 		}
 	}
 

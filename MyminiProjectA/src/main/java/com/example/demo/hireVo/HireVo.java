@@ -2,17 +2,20 @@ package com.example.demo.hireVo;
 
 import org.springframework.stereotype.Component;
 
+import com.example.demo.vo.UserVo;
+
 import lombok.Data;
 import lombok.ToString;
 
 @ToString
 @Data
 @Component
-public class HireVo {
+public class HireVo extends UserVo {
 	
 	private int hire_id;
 	private int id;
 	
+	private String hire_title; // 제목
 	private String hire_open;  //공개여부
 	private String hire_condition; //경력조건
 	private String hire_educate; // 학력

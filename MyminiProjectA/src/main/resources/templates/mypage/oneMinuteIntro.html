@@ -99,8 +99,9 @@ border-radius: 25px
 function inertOneIntro(){
 	//event.preventDefault();
 	
+	var mediaFile= $("input[name=mediaIntro]");
 	
-	if($("input[name=mediaIntro]").val()==null|| $("input[name=mediaIntro]").val()==""){
+	if(mediaFile.val()==null|| mediaFile.val()==""){
 		alert("파일을 선택해 주세요");
 		return;
 	}
@@ -111,7 +112,7 @@ function inertOneIntro(){
 	
 	var form = $('#uploadOneIntro')[0];
 	var data = new FormData(form);
-	
+	 
 	$.ajax({
         type: "POST",
         enctype: 'multipart/form-data',

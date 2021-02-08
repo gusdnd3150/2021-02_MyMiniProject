@@ -75,21 +75,26 @@ div p h {
   <div class="row" >
      <div class="col">
      
-     
-     
      <!-- Swiper -->
   <div class="swiper-container companies">
     <div class="swiper-wrapper">
     
-       <div class="swiper-slide" th:each="info : ${sickJobList}">
+       <div class="swiper-slide" th:each="info : ${hireList}">
        
-       <img class="card-img-top" src="/image/innospeechLogo.png" alt="Card image cap" style="width:150px;">
+       <img class="card-img-top" th:src="|/companyLogo/${info.company_logo}" alt="Card image cap" style="width:150px;">
       <div class="card" style="width: 18rem;">
 		  <div class="card-body">
-		    <p><strong class="card-text" th:text="${info.resume_title}" style="color:blue"></strong></p>
+		    <p><strong class="card-text" th:text="${info.company_name}" style="color:blue"></strong></p>
 		    
 			    <div>
-				    <p><span>정규직</span>&nbsp;&nbsp; <span>2300</span></p>
+			     <p><strong class="card-text" th:text="${info.hire_title}"></strong></p>
+				    <p>
+				    
+				    <span th:if="${info.hire_state=='정규'}">정규직</span>
+				    <span th:if="${info.hire_state=='비정규'}">비규직</span>
+				    <span th:if="${info.hire_state=='상규'}">상규직</span>
+				    &nbsp;&nbsp;
+				     <span th:text="${info.hire_salary}"></span></p>
 			    </div>
 		  </div>
 		</div>
@@ -218,8 +223,8 @@ div p h {
 
 //기업 리스트
  var swiper = new Swiper('.companies', {
-    slidesPerView: 4,
-    slidesPerColumn:2,
+    slidesPerView: 3,
+    slidesPerColumn:1,
     spaceBetween: 30,
     slidesPerGroup: 3,
     loopFillGroupWithBlank: true,

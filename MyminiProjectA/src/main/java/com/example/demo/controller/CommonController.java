@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.example.demo.hireVo.HireVo;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.CommonService;
+import com.example.demo.service.MyPageService;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.SeoulJobInfoVo;
 import com.example.demo.vo.UserVo;
@@ -37,13 +39,18 @@ public class CommonController {
 	@Autowired
 	ApiService apiService;
 	
+	@Autowired
+	MyPageService myPageService;
+	
 	//메인화면
 	@RequestMapping("/main.do")
 	public String main(Model model) {
 		
 		List<ResumeVo> sickJobList = service.sickJobList(); //9개만
 		List<SeoulJobInfoVo> seoulJobList= apiService.getSeoulList();
+		List<HireVo> hireList = myPageService.selectHireList();
 		
+		model.addAttribute("hireList", hireList);
 		model.addAttribute("seoulJobList", seoulJobList);
 		model.addAttribute("sickJobList", sickJobList);
 		

@@ -45,6 +45,10 @@ public class MyPageDao {
 		session.insert("myPage.insertFileUserFile",filevo);
 	}
 	
+	public List<HireVo> selectHireList(){
+		return session.selectList("hire.selectHireList");
+	}
+	
 	//파일삭제
 	public void deleteFileUserFile(PortfolioFileVo fileVo) {
 		session.delete("myPage.deleteFileUserFile",fileVo);
@@ -71,5 +75,17 @@ public class MyPageDao {
 	// 모집상세 내용
 	public void insertHireInfo(List<HireInfoVo> info) {
 		session.insert("hire.insertHireInfo",info);
+	}
+	// 채용 토탈 개수
+	public int totalHireCount(int id) {
+		return session.selectOne("hire.totalHireCount",id);
+	}
+	
+	public List<HireVo> selectHireListByPaging(PagingVo paging){
+		return session.selectList("hire.selectHireListByPaging",paging);
+	}
+	
+	public int modHireState(HireVo vo) {
+		return session.update("hire.modHireState",vo);
 	}
 }

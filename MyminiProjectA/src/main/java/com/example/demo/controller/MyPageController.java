@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.hireVo.HireMultipleVo;
+import com.example.demo.hireVo.HireVo;
 import com.example.demo.resumeVo.ResumeMultiVo;
 import com.example.demo.service.MyPageService;
 import com.example.demo.service.ResumeService;
@@ -70,7 +71,7 @@ public class MyPageController {
 		UserVo user= (UserVo) request.getSession().getAttribute("USER");
 		
 		model.addAttribute("userDetail", user);
-		return "/companyPage/companyPage";
+		return "/companyPage/hirePage";
 	}
 	
 	@ResponseBody
@@ -168,15 +169,27 @@ public class MyPageController {
 	
 	//채용 페이지
 	@RequestMapping("/hirePage.do")
-	public String hirePage(HttpServletRequest request,Model model) {
+	public String hirePage(
+			@RequestParam(value="nowPage", required=false, defaultValue="1") int nowPage,
+			@RequestParam(value="cntPerPage", required=false, defaultValue="5") int cntPage,
+			HttpServletRequest request,Model model) {
 		UserVo user= (UserVo) request.getSession().getAttribute("USER");
+		
+		
+		int total = service.totalHireCount(user.getId());
+		PagingVo paging = new PagingVo(user.getId(),total,nowPage,cntPage);
+		
+		List<HireVo> hireList= service.selectHireListByPaging(paging);
+		
 		model.addAttribute("userDetail", user);
+		model.addAttribute("hireList", hireList);
+		model.addAttribute("paging", paging);
 		
 		return "/companyPage/hirePage";
 	}
 	
 	
-	// 채용공고 insert
+	// 채용공고 form 페이지이동
 	@RequestMapping("/insertHire.do")
 	public String hireForm(HttpServletRequest request,Model model) {
 		UserVo user= (UserVo) request.getSession().getAttribute("USER");
@@ -187,15 +200,22 @@ public class MyPageController {
 	}
 	
 	
+	// 채용공고 insert
 	@PostMapping("/addHire.do")
 	@ResponseBody
 	public String insertHire(HireMultipleVo multiple,HttpServletRequest request) {
 		String result = "";
-		
 		result =service.insertHire(multiple,request);
-		
 		return result;
 	}
 	
+	
+	@ResponseBody
+	@PostMapping("/modHireState.do")
+	public String modHireState(HireVo hire) {
+		String result =null;
+		result =service.modHireState(hire);
+		return result;
+	}
 	
 }

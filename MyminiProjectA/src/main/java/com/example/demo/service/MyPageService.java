@@ -40,6 +40,16 @@ public class MyPageService {
 		return dao.totalUserResume(id);
 	}
 	
+	// 채용 토탈개수
+	public int totalHireCount(int id) {
+		return dao.totalHireCount(id);
+	}
+	
+	// 채용 리스트 페이징
+	public List<HireVo> selectHireListByPaging(PagingVo paging){
+		return dao.selectHireListByPaging(paging);
+	}
+	
 	// 1분영상 list
 	public List<MediaVo> selectMediaList(int id){
 		List<MediaVo> list=null;
@@ -190,6 +200,30 @@ public class MyPageService {
 		}
 		return result;
 		
+	}
+	
+	public List<HireVo> selectHireList(){
+		return dao.selectHireList();
+	}
+	
+	public String modHireState(HireVo vo) {
+		String result=null;
+	    
+		try {
+			
+			int test =dao.modHireState(vo);
+			if(test > 0) {
+				result="success";
+			}else {
+				result="fail";			
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="fail";
+		}
+		
+		
+		return result;
 	}
 	
 	

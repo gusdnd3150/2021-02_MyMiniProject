@@ -18,6 +18,12 @@
 		    
 	</select>
 	
+	<select id="selectMedia" resultType="mediaVo" parameterType="int">
+	SELECT *
+	FROM user_media_intro
+	WHERE media_id =#{media_id}
+	</select>
+	
 	<select id="selectMediaList" parameterType="int" resultType="mediaVo">
 	 select *
 	 from user_media_intro

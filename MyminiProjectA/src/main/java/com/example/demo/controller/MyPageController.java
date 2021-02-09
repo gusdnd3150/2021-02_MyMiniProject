@@ -218,8 +218,16 @@ public class MyPageController {
 		return result;
 	}
 	
+	
+	// 1분영상 상세페이지
 	@GetMapping("/showMedia.do")
-	public String showMedia(Model model) {
+	public String showMedia(@RequestParam int media_id,Model model,HttpServletRequest request) {
+		UserVo user= (UserVo) request.getSession().getAttribute("USER");
+		
+		MediaVo media = service.selectMedia(media_id);
+		
+		model.addAttribute("userDetail", user);
+		model.addAttribute("media", media);
 		
 		return "mypage/showMedia";
 	}

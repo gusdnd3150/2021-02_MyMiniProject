@@ -53,9 +53,18 @@ window.onload = function(){
 	 document.getElementById("loginHeader").setAttribute("class","nav-link active");
  }
  
+var wsocket;
+
+ function connect(){
+	wsocket = new WebSocket("ws://localhost:8090/ws/chat");
+ }
  
  function login(){
 	 var form = document.logimForm;
+	 
+	 
+	
+	 
 	 
 	 if(form.user_id.value==""){
 		 alert("아이디 입력은 필수입니다.");
@@ -64,11 +73,6 @@ window.onload = function(){
 		 alert("비밀번호 입력은 필수입니다.");
 		 return;
 	 }
-	 /*
-     document.logimForm.action="/login.do";
-	 document.logimForm.method="post"; 
-	 document.logimForm.submit();
-	 */
 	  var params = $("#logimForm").serialize(); 
 		    $.ajax({
 		        url: '/userLogin.do',
@@ -79,6 +83,7 @@ window.onload = function(){
 		        success: function (data) {
 			          if(data=='success'){
 			        	  alert("로그인 성공");
+			        	  connect();
 			        	  location.href="/main.do";
 			          }else if(data=='noMachPassword'){
 			        	  document.getElementById("PasswordBox").innerHTML='비밀번호 불일치';

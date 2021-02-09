@@ -115,7 +115,7 @@
 						  <td th:text="${info.media_update}"></td>
 					      <td>
 					      <!-- <button class="btn btn-outline-primary btn-sm" th:onclick="'javascript:showMedia(\''+ ${info.media_id} +'\');'">보기</button> -->
-					      <a class="btn btn-outline-primary btn-sm" th:href="@{/showMedia(media_id=${info.media_id})}">보기</a>
+					      <a class="btn btn-outline-primary btn-sm" th:href="@{/showMedia.do(media_id=${info.media_id})}">보기</a>
 					      <button class="btn btn-outline-primary btn-sm" th:onclick="'javascript:deleteMedia(\''+ ${info.media_id} +'\');'">삭제</button>
 					      </td>
 					    </tr>

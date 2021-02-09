@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+
+<!-- 해더 css -->
+<th:block th:replace="common/header :: headerCss"></th:block>
+
+
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 해더 공통 -->
+<th:block th:replace="common/header :: header"></th:block>
+
+<hr>
+ <br>
+ <br><br>
+
+<div class="container">
+  <div class="row">
+  
+  				<!-- 사이드 -->
+		       <div class="col-2">
+		      <th:block th:replace="common/side :: side"></th:block>
+				</div>
+       
+       			<!-- 메인 -->
+		       <div class="col-10">
+		 			 <h4 align="center"><strong>1분영상</strong></h4>
+		 			 
+		 			 <div id="mediaArea">
+		 			 <video controls autoplay name="media">
+		 			   <source th:src="|/userMedia/${media.media_saved}" type="video/webm">
+		 			 </video>
+		 			 </div>
+				</div>
+  </div>
+</div>
+
+</body>
+</html>

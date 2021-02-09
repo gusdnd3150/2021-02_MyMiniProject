@@ -88,4 +88,8 @@ public class MyPageDao {
 	public int modHireState(HireVo vo) {
 		return session.update("hire.modHireState",vo);
 	}
+	
+	public MediaVo selectMedia(int media_id) {
+		return session.selectOne("myPage.selectMedia",media_id);
+	}
 }

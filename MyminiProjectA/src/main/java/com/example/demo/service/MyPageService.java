@@ -226,5 +226,18 @@ public class MyPageService {
 		return result;
 	}
 	
+	public MediaVo selectMedia(int media_id) {
+		MediaVo media =null;
+		
+		try {
+			media =dao.selectMedia(media_id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return media;
+	}
+	
 	
 }

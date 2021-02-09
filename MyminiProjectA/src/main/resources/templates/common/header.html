@@ -16,7 +16,21 @@
 
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+var id;
+var wsocket;
+function connect(){
+	wsocket = new WebSocket("ws://localhost:8090/ws/chat");
+	wsocket.onopen = onOpen;
+	wsocket.onmessage =onMessage;
+	wsocket.onclose =onClose;
+}
 
+ window.onload=function(){
+	  id =document.getElementById("userSessionCheck").value;
+	 /* 웹소켓 대기 */
+ }
+</script>
 </th:block>
 
 <meta charset="UTF-8">
@@ -27,7 +41,10 @@
 
 <th:block th:fragment="header">
 
-<div >
+<div>
+<input th:if="${session.USER !=null}" type="hidden" name="userSessionCheck" id="userSessionCheck" th:value="${session.USER.id}">
+<input th:if="${session.USER ==null}" type="hidden" name="userSessionCheck" id="userSessionCheck" value="empty">
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/main.do"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,6 +58,7 @@
       <!-- <a th:if="${session.USER!=null&&session.USER.autho=='USER'}"class="nav-item nav-link" href="/resiResume.do">이력서 등록</a> -->
       <a class="nav-item nav-link" href="#">인재</a>
       <a class="nav-item nav-link" href="#">기업</a>
+      <a class="nav-item nav-link" href="#">서울시</a>
     </div>
   </div>
 		  <ul class="nav justify-content-end">
@@ -59,6 +77,9 @@
 		</ul>
 </nav>
 </div>
+
+
+
 
 </th:block>
 

@@ -60,7 +60,7 @@ public class CommonController {
 	//로그인폼
 	@RequestMapping("/loginForm.do")
 	public String loginForm() {
-		return "/user/loginForm";
+		return "user/loginForm";
 	}
 	
 	//유저 로그인
@@ -84,18 +84,18 @@ public class CommonController {
 	public String joinform(@RequestParam("type")String type) {
 		
 		if(type.equals("user")) {
-			return "/user/joinForm";
+			return "user/joinForm";
 		}else if(type.equals("company")) {
-			return "/user/joinCompanyForm";
+			return "user/joinCompanyForm";
 		}
-		return "/user/joinForm";
+		return "user/joinForm";
 	}
 	
 	
 	// 기업,유저 가입 페이지로 이동
 	@RequestMapping("/chooseJoinType.do")
 	public String joinTypePage() {
-		return "/user/chooseJoinType";
+		return "user/chooseJoinType";
 	}
 	
 	// 회원가입
@@ -113,7 +113,7 @@ public class CommonController {
 	@RequestMapping("/logOutUser.do")
 	public String logout(HttpSession session,HttpServletRequest request) {
 		session.removeAttribute("USER");
-		return "/main";
+		return "main";
 	}
 	
 	

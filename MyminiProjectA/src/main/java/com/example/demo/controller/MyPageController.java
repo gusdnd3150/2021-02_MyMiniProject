@@ -62,7 +62,7 @@ public class MyPageController {
 		
 		model.addAttribute("total", total);
 		model.addAttribute("paging", paging);
-		return "/mypage/myPage";
+		return "mypage/myPage";
 	}
 	
 	//기업 페이지
@@ -71,7 +71,7 @@ public class MyPageController {
 		UserVo user= (UserVo) request.getSession().getAttribute("USER");
 		
 		model.addAttribute("userDetail", user);
-		return "/companyPage/hirePage";
+		return "companyPage/hirePage";
 	}
 	
 	@ResponseBody
@@ -100,7 +100,7 @@ public class MyPageController {
 		
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("fileCount", fileList.size());
-		return "/mypage/myFileList";
+		return "mypage/myFileList";
 	}
 	
 	
@@ -143,7 +143,7 @@ public class MyPageController {
 		
 		model.addAttribute("userResume", userResume);
 		model.addAttribute("userDetail", user);
-		return "/mypage/resumeDetail";
+		return "mypage/resumeDetail";
 	}
 	
 	
@@ -153,7 +153,7 @@ public class MyPageController {
 			UserVo user= (UserVo) request.getSession().getAttribute("USER");
 			
 			model.addAttribute("userDetail", user);
-			return "/mypage/oneMinuteIntro";
+			return "mypage/oneMinuteIntro";
 		}
 		
 		
@@ -185,7 +185,7 @@ public class MyPageController {
 		model.addAttribute("hireList", hireList);
 		model.addAttribute("paging", paging);
 		
-		return "/companyPage/hirePage";
+		return "companyPage/hirePage";
 	}
 	
 	
@@ -196,7 +196,7 @@ public class MyPageController {
 		model.addAttribute("userDetail", user);
 		
 		
-		return "/companyPage/insertHire";
+		return "companyPage/insertHire";
 	}
 	
 	
@@ -216,6 +216,12 @@ public class MyPageController {
 		String result =null;
 		result =service.modHireState(hire);
 		return result;
+	}
+	
+	@GetMapping("/showMedia.do")
+	public String showMedia(Model model) {
+		
+		return "mypage/showMedia";
 	}
 	
 }

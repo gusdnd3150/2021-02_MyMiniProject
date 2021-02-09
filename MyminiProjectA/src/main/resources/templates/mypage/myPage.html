@@ -114,7 +114,8 @@
 					      <td th:text="${info.media_original}"></td>
 						  <td th:text="${info.media_update}"></td>
 					      <td>
-					      <button class="btn btn-outline-primary btn-sm" >보기</button>
+					      <!-- <button class="btn btn-outline-primary btn-sm" th:onclick="'javascript:showMedia(\''+ ${info.media_id} +'\');'">보기</button> -->
+					      <a class="btn btn-outline-primary btn-sm" th:href="@{/showMedia(media_id=${info.media_id})}">보기</a>
 					      <button class="btn btn-outline-primary btn-sm" th:onclick="'javascript:deleteMedia(\''+ ${info.media_id} +'\');'">삭제</button>
 					      </td>
 					    </tr>
@@ -216,6 +217,11 @@ function deleteResume(resume_id){
 
 
 function deleteMedia(media_id){
+	alert(media_id);
+}
+
+
+function showMedia(media_id){
 	alert(media_id);
 }
 </script>

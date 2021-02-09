@@ -41,7 +41,7 @@ public class ResumeController {
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("userDetail", selectUser);
 		
-		return "/resume/resiResume";
+		return "resume/resiResume";
 	}
 	
 	/* ,MultipartHttpServletRequest upfile,HttpServletRequest request */

@@ -39,6 +39,8 @@ public class ApiService {
 		
 		String requestString = "";
 		
+		
+		
 		try{
 			
 			URL url = new URL(requestURL);    //요청을 처리할 주소

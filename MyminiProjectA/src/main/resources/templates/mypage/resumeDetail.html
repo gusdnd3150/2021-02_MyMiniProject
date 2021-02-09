@@ -20,6 +20,12 @@ border-style:solid;
 border-radius: 20px
 }
 
+
+.table td, .table th {
+    padding: 0.35rem;
+    vertical-align: top;
+     border-top:none
+}
 </style>
 
 <meta charset="UTF-8">
@@ -41,18 +47,165 @@ border-radius: 20px
    
    	 	<!-- 메인 -->	    
        <div class="col-10">
-           <div>
-           
-             <!-- 인적사항 -->
-             <div class="ResumeBoxArea">
-                <h><strong th:text="${userResume.detailVo.resume_title}"></strong></h>
-                
-             </div>
+         <div class="ResumeBoxArea">
+                <h5 align="center"><strong th:text="${userResume.detailVo.resume_title}"></strong></h5>
+                <hr>
+                <br>
+           <table class="table">
+              <tr>
+                <td rowspan="2" style="padding-right: 1px">
+                  <img th:if="${userResume.detailVo.resume_profile != null}" th:src="|/user/${userResume.detailVo.resume_profile}" width="130px">
+                </td>
+                <td>
+                 <p><strong>이름</strong></p>
+                </td>
+                <td>
+                 <p><strong>성별</strong></p>
+                </td>
+                <td>
+                 <p><strong>이메일</strong></p>
+                </td>
+                <td>
+                 <p><strong>전화번호</strong></p>
+                </td>
+              </tr>
+              
+              <tr>
+              <td>
+                <p><span th:text="${userResume.detailVo.resume_name}"></span></p>
+                 </td>
+                 
+                 <td>
+                 <p><span th:text="${userResume.detailVo.resume_gender}"></span></p>
+                 </td>
+                 
+                 <td>
+                 <p><span th:text="${userResume.detailVo.resume_email}"></span></p>
+                 </td>
+                 
+                 <td>
+                 <p><span th:text="${userResume.detailVo.resume_phone}"></span></p>
+                 </td>
+              </tr>
+              
+              
+           </table>
+          </div>
+          
+          <br>
+          <div class="ResumeBoxArea" th:if="${userResume.educateVo!=null}">
+            <h5><strong>학력</strong></h5>
+            
+            <br>
+            <table class="table" th:each="info : ${userResume.educateVo }">
+             <tr >
+               <td style="width:40%" >
+                  <p><span th:text="${info.resume_ed_start}"></span>~<span th:text="${info.resume_ed_end}"></span></p>
+                  <p th:if="${info.resume_ed_Gstate=='Y'}" >졸업</p>
+                  <p th:if="${info.resume_ed_Gstate=='WILL'}" >졸업예정</p>
+                  <p th:if="${info.resume_ed_Gstate=='ING'}" >재학중</p>
+               </td>
+               <td>
+                <p><strong th:text="${info.resume_ed_school}"></strong></p>
+                <p>학점:&nbsp; <span th:text="${info.resume_ed_score}">학점</span></p>
+               </td>
+             </tr>
+               <hr>
+            
+            </table>
+            
+          </div>
+          
+          <br>
+          <div class="ResumeBoxArea" th:if="${userResume.cramVo!=null}">
+            <h5><strong>교육</strong></h5>
+             <table class="table" th:each=" info : ${userResume.cramVo}">
+              <tr>
+               <td  style="width:40%">
+                 <p><span th:text="${info.resume_cr_start}"></span>~<span th:text="${info.resume_cr_end}"></span></p>
+               </td>
+               
+               <td>
+               <p>교육처:&nbsp;<strong th:text="${info.resume_cr_name}"></strong> &nbsp;과정:&nbsp;<strong th:text="${info.resume_cr_subject}"></strong></p>
+               </td>
+              </tr>
+              <tr>
+              <td></td>
+              <td><p th:text="${info.resume_cr_content}"></p></td>
+              </tr>
              <br>
-             <div class="ResumeBoxArea">
-             </div>
-           
-           </div>
+             <hr>
+             </table>
+          </div>
+          
+          <br>
+          <div class="ResumeBoxArea">
+            <h5><strong>경력</strong></h5>
+            <br>
+            <table th:each="info : ${userResume.experienceVo}">
+             <tr>
+               <td><p><span th:text="${info.resume_ex_start}"></span>~<span th:text="${info.resume_ex_end}"></span></p></td>
+			
+			</tr>
+
+            
+            </table>
+            <hr>
+          </div>
+          
+          <br>
+          <div class="ResumeBoxArea">
+            <h5><strong>자격증</strong></h5>
+            <br>
+            <table class="table" th:each="info : ${userResume.licenceVo}">
+                <tr>
+                <td>
+                <p>취득일&nbsp;<span th:text="${info.resume_li_getDay}"></span></p>
+                </td>
+                
+                <td>
+                <p>발행처 &nbsp;:&nbsp; <span th:text="${info.resume_li_from}"></span>
+                &nbsp;&nbsp; 자격증 &nbsp;: &nbsp;<span th:text="${info.resume_li_name}"></span></p>
+                </td>
+                </tr>
+            <hr>
+            </table>
+            <br>
+          </div>
+          
+          <br>
+          <div class="ResumeBoxArea">
+            <h5><strong>언어활용</strong></h5>
+            <br>
+            <table class="table" th:each="info : ${userResume.languageVo}">
+                <tr>
+                <td>
+                <p><span th:if="${info.resume_la_type=='EN'}">영어</span></p>
+                <p><span th:if="${info.resume_la_type=='JP'}">일본어</span></p>
+                </td>
+                
+                <td>
+                <p><span th:if="${info.resume_la_level=='hight'}">원어민</span></p>
+                <p><span th:if="${info.resume_la_level=='middle'}">기본회화</span></p>
+                <p><span th:if="${info.resume_la_level=='low'}">간단한 주문</span></p>
+                </td>
+                </tr>
+            <hr>
+            </table>
+            <br>
+          </div>
+          
+          <br>
+          <div class="ResumeBoxArea">
+            <h5><strong>자기소개</strong></h5>
+            <hr>
+            <br>
+            <p th:text="${userResume.selfintroVo.resume_self_content}"> </p>
+            
+          </div>
+          
+          
+          
        </div>
    </div>
 </div>
@@ -66,3 +219,4 @@ window.onload=function(){
 }
 </script>
 </html>
+

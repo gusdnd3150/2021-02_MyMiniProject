@@ -238,7 +238,7 @@
 	<!-- 이력서 경력 -->
 	<select id="selectResumeExperience" parameterType="resumeVo"  resultType="experienceVo">
 	select *
-	from resume_educate
+	from resume_experience
 	where resume_id =#{resume_id}
 	</select>
 	

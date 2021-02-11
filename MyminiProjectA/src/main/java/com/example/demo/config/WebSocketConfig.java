@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.WebSocketHandler;
@@ -12,16 +13,15 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer{
 
+	@Autowired
+	SocketHandler socketHandler;
+	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(test(), "/ws/chat")
+		registry.addHandler(socketHandler, "/alram")
 		.addInterceptors(new HttpSessionHandshakeInterceptor())
 		.setAllowedOrigins("*")
 		;
-	}
-	@Bean
-	public WebSocketHandler test() {
-		return new SocketHandler();
 	}
 
 	

@@ -18,6 +18,13 @@
 		    
 	</select>
 	
+	<select id="selectAlramCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM message
+		WHERE message_receiver= #{id}
+		AND message_check ='N'
+	</select>
+	
 	<select id="selectMedia" resultType="mediaVo" parameterType="int">
 	SELECT *
 	FROM user_media_intro

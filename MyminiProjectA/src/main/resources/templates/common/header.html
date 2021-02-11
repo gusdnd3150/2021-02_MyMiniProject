@@ -17,19 +17,51 @@
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
+
+
 var id;
-var wsocket;
-function connect(){
-	wsocket = new WebSocket("ws://localhost:8090/ws/chat");
-	wsocket.onopen = onOpen;
-	wsocket.onmessage =onMessage;
-	wsocket.onclose =onClose;
+var websocket;
+var wsUri = "ws://localhost:8090/alram";
+  
+function send_message() {
+	 
+	 if(id != 'empty'){
+   	     websocket = new WebSocket(wsUri);
+   	    websocket.onopen = function(evt) {
+        	     onOpen(evt);
+    	     };
+ 	        websocket.onmessage = function(evt) {
+        	     onMessage(evt);
+    	     };
+ 	        websocket.onerror = function(evt) {
+        	     onError(evt);
+    	     };
+	 }
+		 
+}
+ // 메시지에 id값을 실어 서버로 전송
+ function onOpen(evt) {
+	 websocket.send(id); 
+}
+ 
+ // 전송한 id를 토대로 카운트값을 가져온다
+ function onMessage(evt) {
+	 //var mypagenavi = document.getElementById("mypageNavi");
+	 var mypagenavi = $("#mypageNavi");
+	 var tag ="";
+		 tag += "<a href='/myPage.do' class='nav-link'>마이페이지&nbsp;<i class='fas fa-user-tie'></i>";
+		  tag +="<span class='badge rounded-pill bg-danger' style='color:white'>"+evt.data+"</span> </a>";
+	 mypagenavi.html(tag);
+}
+ 
+function onError(evt) {
 }
 
- window.onload=function(){
-	  id =document.getElementById("userSessionCheck").value;
-	 /* 웹소켓 대기 */
- }
+$(document).ready(function(){
+	 id =document.getElementById("userSessionCheck").value;
+     send_message();
+});
+
 </script>
 </th:block>
 
@@ -39,7 +71,10 @@ function connect(){
 <body>
 
 
+
 <th:block th:fragment="header">
+
+
 
 <div>
 <input th:if="${session.USER !=null}" type="hidden" name="userSessionCheck" id="userSessionCheck" th:value="${session.USER.id}">
@@ -70,9 +105,15 @@ function connect(){
 		  </li>
 		  <li th:if="${session.USER!=null}" class="nav-item" id=""><a href="/logOutUser.do" class="nav-link">logout</a>
 		     </li>
-		   <li th:if="${session.USER!=null && session.USER.autho=='USER'}" class="nav-item" id=""><a href="/myPage.do" class="nav-link">마이페이지&nbsp;<i class='fas fa-user-tie'></i></a>
+		     
+		   <li th:if="${session.USER!=null && session.USER.autho=='USER'}" class="nav-item" id="mypageNavi">
+		   <a href="/myPage.do" class="nav-link">마이페이지&nbsp;<i class='fas fa-user-tie'></i>
+		    <!-- <span class="badge rounded-pill bg-danger">1</span> --> 
+		   </a>
 		     </li>
-		     <li th:if="${session.USER!=null && session.USER.autho=='COMPANY'}" class="nav-item" id=""><a href="/hirePage.do" class="nav-link">기업페이지&nbsp;<i class='fas fa-user-tie'></i></a>
+		     
+		     <li th:if="${session.USER!=null && session.USER.autho=='COMPANY'}" class="nav-item" id="">
+		     <a href="/hirePage.do" class="nav-link">기업페이지&nbsp;<i class='fas fa-user-tie'></i></a>
 		     </li>
 		</ul>
 </nav>

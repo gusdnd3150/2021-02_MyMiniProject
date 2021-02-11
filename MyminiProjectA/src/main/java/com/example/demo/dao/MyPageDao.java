@@ -92,4 +92,8 @@ public class MyPageDao {
 	public MediaVo selectMedia(int media_id) {
 		return session.selectOne("myPage.selectMedia",media_id);
 	}
+	
+	public int selectAlramCount(int id) {
+		return session.selectOne("myPage.selectAlramCount",id);
+	}
 }

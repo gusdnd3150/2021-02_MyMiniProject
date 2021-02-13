@@ -12,10 +12,10 @@
 	border-right: 1px;
 	border-top: 1px;
 	border-color: #d9dfeb;
-	padding: 10%;
+	padding: 3%;
 	border-style: solid;
+	position: fixed;
 }
-
 #hireTable {
 	border: none
 }
@@ -204,15 +204,21 @@
 				<!-- 회사 위치 -->
 				<div>
 				  <h5><strong>회사위치</strong></h5>
+				  <p><strong th:text="${hireDetail.hireVo.company_address1}" id="location"></strong></p>
+				  
 				  <br>
-				 <div id="map" style="width:500px;height:400px;border-radius:25px"></div>
+				 <div id="map" style="width:500px;height:400px;border-radius:25px">
+				 </div>
 				</div>
+				
+				<br>
+				<hr>
 
 			</div>
 			<!-- 오른쪽 사이드 -->
-			<div class="col-4">
-				<br> <br>
-				<div class="hiredetialBox">
+			<div class="col-4" >
+				<br>
+				<div class="hiredetialBox" >
 					<img th:if="${hireDetail.hireVo.company_logo !=null}"
 						th:src="|/companyLogo/${hireDetail.hireVo.company_logo}">
 					<p style="color: gray">지원자 : 20</p>
@@ -229,13 +235,15 @@
 		</div>
 	</div>
 
+
 </body>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=40bf6136effeb2e943a06ed5472ebf2e&libraries=services"></script>
 <script>
 
 		var ps = new kakao.maps.services.Places();
-		ps.keywordSearch('서울 강남구 압구정로 102', placesSearchCB);
+		var keyword =$("#location").text();
+		ps.keywordSearch(keyword, placesSearchCB);
 		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 		
 		//지도 생성
@@ -244,7 +252,6 @@
 			center: new kakao.maps.LatLng(33.450701, 126.570667),
 			level: 3
 		};
-
 		var map = new kakao.maps.Map(container, options);
 		
 		

@@ -29,6 +29,9 @@
 	<typeAlias alias="hireVo" type="com.example.demo.hireVo.HireVo" />
 	<typeAlias alias="hireInfoVo" type="com.example.demo.hireVo.HireInfoVo" />
 	<typeAlias alias="hireApplyVo" type="com.example.demo.hireVo.HireApplyVo" />
+	
+	<typeAlias alias="applyVo" type="com.example.demo.vo.ApplyVo" />
+	
 	</typeAliases> 
 	
 	<!-- mapper .xmp 파일 정의 - 실제 SQL Query 가 선언되어 있는 부분 -->

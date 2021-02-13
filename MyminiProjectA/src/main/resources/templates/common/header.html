@@ -52,6 +52,15 @@ function send_message() {
 		 tag += "<a href='/myPage.do' class='nav-link'>마이페이지&nbsp;<i class='fas fa-user-tie'></i>";
 		  tag +="<span class='badge rounded-pill bg-danger' style='color:white'>"+evt.data+"</span> </a>";
 	 mypagenavi.html(tag);
+	 
+	 var messageTap = $("#messageTap");
+	 if(messageTap !=null){
+		 
+		 var messageTag ="";
+		 messageTag += "<i class='far fa-bell'></i> &nbsp;메시지";
+		 messageTag +="<span class='badge rounded-pill bg-danger' style='color:white'>"+evt.data+"</span> </a>";
+		 messageTap.html(messageTag);
+	 }
 }
  
 function onError(evt) {
@@ -88,9 +97,7 @@ $(document).ready(function(){
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="/main.do">Home <span class="sr-only">(current)</span></a>
-      <!-- <a class="nav-item nav-link" href="/addConfidence.do">등록</a> -->
       
-      <!-- <a th:if="${session.USER!=null&&session.USER.autho=='USER'}"class="nav-item nav-link" href="/resiResume.do">이력서 등록</a> -->
       <a class="nav-item nav-link" href="#">인재</a>
       <a class="nav-item nav-link" href="#">기업</a>
       <a class="nav-item nav-link" href="#">서울시</a>
@@ -108,7 +115,6 @@ $(document).ready(function(){
 		     
 		   <li th:if="${session.USER!=null && session.USER.autho=='USER'}" class="nav-item" id="mypageNavi">
 		   <a href="/myPage.do" class="nav-link">마이페이지&nbsp;<i class='fas fa-user-tie'></i>
-		    <!-- <span class="badge rounded-pill bg-danger">1</span> --> 
 		   </a>
 		     </li>
 		     

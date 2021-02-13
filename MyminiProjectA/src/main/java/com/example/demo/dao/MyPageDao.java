@@ -11,6 +11,7 @@ import com.example.demo.hireVo.HireInfoVo;
 import com.example.demo.hireVo.HireMultipleVo;
 import com.example.demo.hireVo.HireVo;
 import com.example.demo.vo.MediaVo;
+import com.example.demo.vo.MessageVo;
 import com.example.demo.vo.PagingVo;
 import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
@@ -95,5 +96,24 @@ public class MyPageDao {
 	
 	public int selectAlramCount(int id) {
 		return session.selectOne("myPage.selectAlramCount",id);
+	}
+	
+	//메시지 리스트 
+	public List<MessageVo> selectMessageList(PagingVo paging){
+		return session.selectList("myPage.selectMessageList",paging);
+	}
+	
+	//메시지 토탈
+	public int totalUserMessage(int id) {
+		return session.selectOne("myPage.totalUserMessage",id);
+	}
+	//메시지 읽음 처리
+	public void updateMessageCheck(int id) {
+		session.update("myPage.updateMessageCheck",id);
+	}
+	
+	//메시지보내기/ 답장
+	public int insertMessage(MessageVo message) {
+		return session.insert("myPage.insertMessage",message);
 	}
 }

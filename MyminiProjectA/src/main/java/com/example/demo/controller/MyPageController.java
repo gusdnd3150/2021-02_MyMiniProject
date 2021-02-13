@@ -25,6 +25,7 @@ import com.example.demo.resumeVo.ResumeMultiVo;
 import com.example.demo.service.MyPageService;
 import com.example.demo.service.ResumeService;
 import com.example.demo.vo.MediaVo;
+import com.example.demo.vo.MessageVo;
 import com.example.demo.vo.PagingVo;
 import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
@@ -230,6 +231,37 @@ public class MyPageController {
 		model.addAttribute("media", media);
 		
 		return "mypage/showMedia";
+	}
+	
+	//메시지 함
+	@RequestMapping("/myMassage.do")
+	public String myMassage(Model model,HttpServletRequest request,
+			@RequestParam(value="nowPage", required=false, defaultValue="1") int nowPage,
+			@RequestParam(value="cntPerPage", required=false, defaultValue="5") int cntPerPage) {
+		UserVo user= (UserVo) request.getSession().getAttribute("USER");
+		
+		service.updateMessageCheck(user.getId());
+		
+		int total =service.totalUserMessage(user.getId());
+		PagingVo paging = new PagingVo(user.getId(),total,nowPage,cntPerPage);
+		List<MessageVo> messageList = service.selectMessageList(paging);
+		
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("userDetail", user);
+		model.addAttribute("messageList", messageList);
+		
+		return "mypage/myMessage";
+	}
+	
+	@PostMapping("/sendMessage.do")
+	@ResponseBody
+	public String sendMessage(MessageVo message,HttpServletRequest request) {
+		String result ="";
+		UserVo user= (UserVo) request.getSession().getAttribute("USER");
+		message.setId(user.getId());
+		result =service.insertMessage(message);
+		return result;
 	}
 	
 }

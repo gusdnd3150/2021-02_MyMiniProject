@@ -17,6 +17,7 @@ import com.example.demo.hireVo.HireInfoVo;
 import com.example.demo.hireVo.HireMultipleVo;
 import com.example.demo.hireVo.HireVo;
 import com.example.demo.vo.MediaVo;
+import com.example.demo.vo.MessageVo;
 import com.example.demo.vo.PagingVo;
 import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
@@ -239,5 +240,36 @@ public class MyPageService {
 		return media;
 	}
 	
+	// 메시지 리스트
+	public List<MessageVo> selectMessageList(PagingVo paging){
+		return dao.selectMessageList(paging);
+	}
+	
+	public int totalUserMessage(int id) {
+		return dao.totalUserMessage(id);
+	}
+	
+	public void updateMessageCheck(int id) {
+		dao.updateMessageCheck(id);
+	}
+	
+	public String insertMessage(MessageVo message) {
+		String result="";
+		try {
+			int after = dao.insertMessage(message);
+			
+			if(after >0) {
+				result="success";
+			}else {
+				result="fail";
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="fail";
+		}
+		
+		return result;
+	}
 	
 }

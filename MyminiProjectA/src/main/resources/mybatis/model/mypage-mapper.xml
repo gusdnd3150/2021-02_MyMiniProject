@@ -109,4 +109,61 @@
 	</insert>
 	
 	
+	<select id="totalUserMessage" resultType="int" parameterType="int">
+	 SELECT count(*)
+	FROM message
+	WHERE message_receiver =#{id}
+	</select>
+	
+	<select id="selectMessageList" parameterType="pagingVo" resultType="messageVo">
+	 			SELECT A.*
+			    from(select 
+			    		m.message_id,
+			    		m.message_title,
+			    		m.id,
+			    		m.message_receiver,
+			    		m.message_check,
+			    		m.message_content,
+			    		m.message_date,
+			    		u.user_id,
+			    		u.user_name,
+			    		u.user_email,
+			    		u.autho,
+			    		u.joinDate
+			    from message m,users u
+			    WHERE m.id =u.id
+				 AND  m.message_receiver = #{id}
+			    order BY m.message_date desc
+			    ) A
+		    limit #{limit} offset #{offset}
+	</select>
+	
+	
+	<update id="updateMessageCheck" parameterType="int">
+	UPDATE message
+	SET message_check ='Y'
+	WHERE message_receiver= #{id}
+	</update>
+	
+	<insert id="insertMessage" parameterType="messageVo">
+	insert into message
+	(
+	id,
+	message_receiver,
+	message_check,
+	message_content,
+	message_date,
+	message_title
+	)
+	values
+	(
+	#{id},
+	#{message_receiver},
+	'N',
+	#{message_content},
+	NOW(),
+	#{message_title}
+	)
+	</insert>
+	
 </mapper>

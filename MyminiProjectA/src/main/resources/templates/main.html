@@ -87,7 +87,7 @@ div p h {
 		    <p><strong class="card-text" th:text="${info.company_name}" style="color:blue"></strong></p>
 		    
 			    <div>
-			     <p><strong class="card-text" th:text="${info.hire_title}"></strong></p>
+			     <p><a th:href="@{/hireDetails.do(hire_id=${info.hire_id})}"><strong class="card-text" th:text="${info.hire_title}"></strong></a></p>
 				    <p>
 				    
 				    <span th:if="${info.hire_state=='정규'}">정규직</span>

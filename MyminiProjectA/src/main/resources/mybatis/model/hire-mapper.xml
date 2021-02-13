@@ -120,4 +120,23 @@
 	  </foreach>
 	</insert>
 
+    <select id="selectDetailHire" parameterType="int" resultType="hireVo">
+	SELECT *
+    FROM hire h,user_company_detail c
+    WHERE h.id=c.id
+    AND h.hire_id =#{hire_id}
+    </select>
+
+    <select id="selectDetailHireInfo" parameterType="int" resultType="hireInfoVo">
+    SELECT *
+    FROM hire_info
+    WHERE hire_id=#{hire_id}
+    </select>
+
+    <select id="selectDetailHireApply" parameterType="int" resultType="hireApplyVo">
+    SELECT *
+    FROM hire_apply
+    WHERE hire_id=#{hire_id}
+    </select>
+
 </mapper>

@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dao.CommonDao;
 import com.example.demo.file.FileService;
+import com.example.demo.hireVo.HireMultipleVo;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.UserSecurityVo;
 import com.example.demo.vo.UserVo;
@@ -121,6 +122,21 @@ public class CommonService  implements UserDetailsService{
 		}
 		return result;
 	}
+	
+	public HireMultipleVo selectHire(int hire_id) {
+		HireMultipleVo hire=null;
+		
+		try {
+			
+			hire= dao.selectHire(hire_id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return hire; 
+	}
+	
 
 	
 	//보류

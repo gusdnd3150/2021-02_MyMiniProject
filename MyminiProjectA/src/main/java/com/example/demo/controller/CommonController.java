@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.example.demo.hireVo.HireMultipleVo;
 import com.example.demo.hireVo.HireVo;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.CommonService;
@@ -123,5 +124,13 @@ public class CommonController {
 	public String checkDup(@RequestParam("user_id")String user_id) {
 		String result = service.checkDup(user_id);
 		return result;
+	}
+	
+	// 채용 상세페이지
+	@RequestMapping("/hireDetails.do")
+	public String hireDetails(@RequestParam("hire_id") int hire_id,Model model) {
+		HireMultipleVo hireDetail= service.selectHire(hire_id);
+		model.addAttribute("hireDetail", hireDetail);
+		return "companyPage/hireDetails";
 	}
 }

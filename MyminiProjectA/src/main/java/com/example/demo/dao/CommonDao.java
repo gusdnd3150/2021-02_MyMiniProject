@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.hireVo.HireInfoVo;
+import com.example.demo.hireVo.HireMultipleVo;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.UserVo;
 
@@ -50,6 +52,17 @@ public class CommonDao {
 	//회사 디테일정보 추가
 	public void insertCompanyDetail(UserVo user) {
 		session.insert("user.insertCompanyDetail",user);
+	}
+	
+	//회사 디테일
+	public HireMultipleVo selectHire(int hire_id) {
+		HireMultipleVo hire = new HireMultipleVo() ;
+		hire.setHireVo(session.selectOne("hire.selectDetailHire",hire_id));
+		hire.setHireInfoVoList(session.selectList("hire.selectDetailHireInfo",hire_id));
+		hire.setHireApplyVo(session.selectOne("hire.selectDetailHireApply",hire_id));
+		
+		return hire;
+		
 	}
 	
 }

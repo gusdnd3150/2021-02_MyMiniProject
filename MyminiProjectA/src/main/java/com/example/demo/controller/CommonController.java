@@ -87,7 +87,7 @@ public class CommonController {
 	
 	// 가입페이지 이동
 	@RequestMapping("/joinForm.do")
-	public String joinform(@RequestParam("type")String type) {
+	public String joinform(@RequestParam(value="type",required=false,defaultValue="user")String type) {
 		
 		if(type.equals("user")) {
 			return "user/joinForm";

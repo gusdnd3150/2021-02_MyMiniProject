@@ -37,8 +37,15 @@
 						  </div>
 						  <br>
 						</form>
+						   <!-- <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=Fcltu4lbGBy5zYFuLHIa
+						   &state=STATE_STRING&redirect_uri=http://localhost:8090/loginForm.do"> -->
+						   <!-- <a  id="naver_id_login" th:onclick="|javascript:naverLogin()|"> <img src="/image/naverLogin.png" style="width:200px"></a> -->
+						   <div id="naver_id_login">
+						   <img src="/image/naverLogin.png" style="width:200px">
+						   </div>
 				  <button type="submit" class="btn btn-primary btn-block" onclick="login()" style="width:100%">아이디 로그인</button>
 				  <button type="submit" class="btn btn-success btn-block" onclick="join()" style="width:100%">회원가입</button>
+				  
 	</div>
   </div>
 </div>
@@ -47,7 +54,8 @@
 
 </body>
 
-
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script>
 window.onload = function(){
 	 document.getElementById("loginHeader").setAttribute("class","nav-link active");
@@ -100,6 +108,16 @@ var wsocket;
 	  location.href="/chooseJoinType.do";
 	  }
   }
+  
+  
+	  
+	  var naver_id_login = new naver_id_login("Fcltu4lbGBy5zYFuLHIa", "http://localhost:8090/joinForm.do");
+	  	var state = naver_id_login.getUniqState();
+	  	naver_id_login.setButton("white", 2,40);
+	  	naver_id_login.setDomain("xtddARfi8N");
+	  	naver_id_login.setState(state);
+	  	//naver_id_login.setPopup();
+	  	naver_id_login.init_naver_id_login();
 
 </script>
 </html>

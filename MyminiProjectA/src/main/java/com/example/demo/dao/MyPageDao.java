@@ -10,6 +10,7 @@ import com.example.demo.hireVo.HireApplyVo;
 import com.example.demo.hireVo.HireInfoVo;
 import com.example.demo.hireVo.HireMultipleVo;
 import com.example.demo.hireVo.HireVo;
+import com.example.demo.vo.ApplyVo;
 import com.example.demo.vo.MediaVo;
 import com.example.demo.vo.MessageVo;
 import com.example.demo.vo.PagingVo;
@@ -115,5 +116,14 @@ public class MyPageDao {
 	//메시지보내기/ 답장
 	public int insertMessage(MessageVo message) {
 		return session.insert("myPage.insertMessage",message);
+	}
+	
+	// 지원리스트 토탈
+	public int applyTotal(int id) {
+		return session.selectOne("myPage.applyTotal",id);
+	}
+	//지원리스트 
+	public List<ApplyVo> selectApplyListByPaging(PagingVo paging){
+		return session.selectList("myPage.selectApplyListByPaging",paging);
 	}
 }

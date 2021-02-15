@@ -30,6 +30,7 @@
 	<typeAlias alias="hireInfoVo" type="com.example.demo.hireVo.HireInfoVo" />
 	<typeAlias alias="hireApplyVo" type="com.example.demo.hireVo.HireApplyVo" />
 	
+	<!-- 이력서 지원 -->
 	<typeAlias alias="applyVo" type="com.example.demo.vo.ApplyVo" />
 	
 	</typeAliases> 

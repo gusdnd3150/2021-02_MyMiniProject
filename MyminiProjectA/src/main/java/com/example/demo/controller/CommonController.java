@@ -24,6 +24,8 @@ import com.example.demo.hireVo.HireVo;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.CommonService;
 import com.example.demo.service.MyPageService;
+import com.example.demo.service.ResumeService;
+import com.example.demo.vo.ApplyVo;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.SeoulJobInfoVo;
 import com.example.demo.vo.UserVo;
@@ -39,6 +41,9 @@ public class CommonController {
 	
 	@Autowired
 	ApiService apiService;
+	
+	@Autowired
+	ResumeService resumeService;
 	
 	@Autowired
 	MyPageService myPageService;
@@ -128,9 +133,31 @@ public class CommonController {
 	
 	// 채용 상세페이지
 	@RequestMapping("/hireDetails.do")
-	public String hireDetails(@RequestParam("hire_id") int hire_id,Model model) {
-		HireMultipleVo hireDetail= service.selectHire(hire_id);
+	public String hireDetails(//@RequestParam("hire_id") int hire_id
+			ApplyVo applvo,Model model,HttpServletRequest request) {
+		
+		UserVo user = (UserVo) request.getSession().getAttribute("USER");
+		//로그인한 유저가 이 공고에 지원했는지에 대한 로직을 구현할 계획임
+		
+		HireMultipleVo hireDetail= service.selectHire(applvo.getHire_id());
+		
 		model.addAttribute("hireDetail", hireDetail);
 		return "companyPage/hireDetails";
+	}
+	
+	@PostMapping("/checkResumeList.do")
+	@ResponseBody
+	public List<ResumeVo> checkResumeList(HttpServletRequest request) {
+		UserVo user = (UserVo) request.getSession().getAttribute("USER");
+		return resumeService.selectResumeList(user.getId());
+	}
+	
+	//이력서 지원 insert
+	@PostMapping("/insertApply.do")
+	@ResponseBody
+	public String insertApply(ApplyVo applyVo,HttpServletRequest request) {
+		UserVo user = (UserVo) request.getSession().getAttribute("USER");
+		applyVo.setId(user.getId());
+		return service.insertApply(applyVo);
 	}
 }

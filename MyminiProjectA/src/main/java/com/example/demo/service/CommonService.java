@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.example.demo.dao.CommonDao;
 import com.example.demo.file.FileService;
 import com.example.demo.hireVo.HireMultipleVo;
+import com.example.demo.vo.ApplyVo;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.UserSecurityVo;
 import com.example.demo.vo.UserVo;
@@ -135,6 +136,28 @@ public class CommonService  implements UserDetailsService{
 		}
 		
 		return hire; 
+	}
+	
+	public String insertApply(ApplyVo applyVo) {
+		String result="";
+		int after=0;
+		try {
+			
+			after =dao.insertApply(applyVo);
+			System.out.println(after);
+			
+			if(after > 0) {
+				result="success";
+			}else {
+				result="fail";
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="fail";
+		}
+		
+		return result;
 	}
 	
 

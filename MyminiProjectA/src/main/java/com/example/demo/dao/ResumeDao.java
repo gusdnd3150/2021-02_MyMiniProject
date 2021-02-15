@@ -108,4 +108,9 @@ public class ResumeDao {
 		return multipleVo;
 	}
 	
+	
+	// 이력서 리스트
+	public List<ResumeVo> selectResumeList(int id){
+		return session.selectList("resume.selectResumeList",id);
+	}
 }

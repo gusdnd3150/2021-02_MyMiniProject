@@ -43,7 +43,7 @@
 		  
 		    <tr th:each="info : ${hireList}">
 		      <td style="padding: 10px">&nbsp;
-		      <a th:href="@{/hireDetail.do(hire_id=${info.hire_id})}" th:text="${info.hire_title}"></a>
+		      <a th:href="@{/hireDetails.do(hire_id=${info.hire_id})}" th:text="${info.hire_title}"></a>
 		      </td>
 		      
 		      <td th:if="${info.hire_open=='Y'}">

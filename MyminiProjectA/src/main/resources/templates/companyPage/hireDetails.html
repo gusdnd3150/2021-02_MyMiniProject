@@ -219,18 +219,30 @@
 			<div class="col-4" >
 				<br>
 				<div class="hiredetialBox" >
+				<div>
 					<img th:if="${hireDetail.hireVo.company_logo !=null}"
-						th:src="|/companyLogo/${hireDetail.hireVo.company_logo}">
+						th:src="|/companyLogo/${hireDetail.hireVo.company_logo}" style="width:150px">
 					<p style="color: gray">지원자 : 20</p>
 					<div>
 						<button type="button" class="btn btn-outline-primary btn-block"
 							style="border-radius: 25px">
 							<i class='fas fa-splotch'></i>스크랩
 						</button>
-						<button type="button" class="btn btn-primary btn-block"
+						<button type="button" class="btn btn-primary btn-block" 
+						th:onclick="'javascript:applyCompany(\''+ ${hireDetail.hireVo.hire_id} +'\');'"
 							style="border-radius: 25px">지원하기</button>
 					</div>
 				</div>
+				<hr>
+				
+				<div id="resumeList">
+				</div>	
+					
+				</div>
+				
+				
+				
+				
 			</div>
 		</div>
 	</div>
@@ -241,6 +253,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=40bf6136effeb2e943a06ed5472ebf2e&libraries=services"></script>
 <script>
 
+		var userSessionCheck = document.getElementById("userSessionCheck").value;
 		var ps = new kakao.maps.services.Places();
 		var keyword =$("#location").text();
 		ps.keywordSearch(keyword, placesSearchCB);
@@ -288,5 +301,85 @@
 		        infowindow.open(map, marker);
 		    });
 		}
+		
+		
+		
+		
+		
+		function applyCompany(hire_id){ //지원양식 노출
+			
+			//header에 세팅한 값을 참조하여 검사진행
+			if(userSessionCheck==null||userSessionCheck=='empty'){
+				alert("로그인 후 이용가능합니다.");
+				return;
+			}
+			
+			 $.ajax({
+		            type: "post",
+		            url: "/checkResumeList.do",
+		           dataType: "json",
+				     success: function( data, status , xhr ){
+						var resumeList =$("#resumeList");
+						var tag ="<form name='applyForm' id='applyForm' method='post' action='/insertApply.do'>";
+						tag += "<p>나의 이력서 리스트</p>";
+						for(var i in data){
+							tag += "<div class='form-check'>";
+							tag += "<input class='form-check-input' type='radio' name='resume_id'  value='"+data[i].resume_id+"'>";
+							tag += "<label class='form-check-label' for='gridRadios2'>";
+							tag += data[i].resume_title;
+							tag += "</label>"; 
+							tag += "</div>";
+						}
+						tag += "<br>";
+						tag += "<button type='button' class='btn btn-outline-primary btn-block' onclick='insertApply("+hire_id+")'";
+						tag += "style='border-radius: 25px'>";
+						tag += "지원</button>";
+						tag +="</form>";
+						
+						resumeList.html(tag);
+		            },
+		            error:function(xhr, status, error){
+		                console.log(error);
+		            }
+		        });
+
+		}
+		
+		function insertApply(hire_id){
+			
+			var resume_id =$("input[name=resume_id]:checked").val();
+			
+			if(resume_id==undefined || resume_id==null){
+				alert("이력서를 선택해 주세요");
+				return;
+			}
+			
+			 $.ajax({
+				            type: "post",
+							data:{
+								resume_id:resume_id,
+								hire_id:hire_id
+								},
+				            url: "/insertApply.do",
+				           dataType: "text",
+						     success: function( data, status , xhr ){
+								if(data=='success'){
+									alert("지원 완료되었습니다.")
+									
+								}else{
+									alert("다시 체크 부탁드립니다.")
+								}
+				            },
+				            error:function(xhr, status, error){
+				                console.log(error);
+				            }
+				        });
+			
+		}
+		
+		
+		
 	</script>
+	
+	
 </html>

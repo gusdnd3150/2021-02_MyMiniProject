@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.hireVo.HireInfoVo;
 import com.example.demo.hireVo.HireMultipleVo;
+import com.example.demo.vo.ApplyVo;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.UserVo;
 
@@ -63,6 +64,11 @@ public class CommonDao {
 		
 		return hire;
 		
+	}
+	
+	//이력서 지원 insert
+	public int insertApply(ApplyVo applyVo) {
+		return session.insert("user.insertApply",applyVo);
 	}
 	
 }

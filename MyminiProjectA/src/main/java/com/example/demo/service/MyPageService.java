@@ -16,6 +16,7 @@ import com.example.demo.hireVo.HireApplyVo;
 import com.example.demo.hireVo.HireInfoVo;
 import com.example.demo.hireVo.HireMultipleVo;
 import com.example.demo.hireVo.HireVo;
+import com.example.demo.vo.ApplyVo;
 import com.example.demo.vo.MediaVo;
 import com.example.demo.vo.MessageVo;
 import com.example.demo.vo.PagingVo;
@@ -60,6 +61,19 @@ public class MyPageService {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public int applyTotal(int id) {
+		int total =0;
+		try {
+			
+			total=dao.applyTotal( id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return total;
 	}
 	
 	//이력서 상태전환
@@ -270,6 +284,19 @@ public class MyPageService {
 		}
 		
 		return result;
+	}
+	
+	public List<ApplyVo> selectApplyListByPaging(PagingVo paging){
+		List<ApplyVo> list =null;
+		try {
+			
+			list =dao.selectApplyListByPaging(paging);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 	
 }

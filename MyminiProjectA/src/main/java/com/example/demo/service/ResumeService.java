@@ -58,6 +58,10 @@ public class ResumeService {
 		
 		return result;
 	}
+	// 이력서 리스트
+	public List<ResumeVo> selectResumeList(int id){
+		return dao.selectResumeList(id);
+	}
 	
 	
 	// 이력서 상세페이지

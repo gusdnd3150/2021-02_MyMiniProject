@@ -20,6 +20,13 @@
 	   where id=#{id}
 	</update>
 	
+	
+	<select id="selectResumeList" parameterType="int" resultType="resumeVo">
+	SELECT *
+	FROM resume
+	WHERE id=#{id}
+	</select>
+	
 	<select id="selectUserFile" parameterType="int" resultType="portfolioFileVo">
 	  	SELECT *
 		FROM user_portfolio_file

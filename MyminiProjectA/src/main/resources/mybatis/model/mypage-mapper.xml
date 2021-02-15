@@ -166,4 +166,28 @@
 	)
 	</insert>
 	
+	<select id="applyTotal" parameterType="int" resultType="int">
+		SELECT count(*)
+		FROM apply_information a, hire h , resume r
+		WHERE a.hire_id =h.hire_id
+		AND a.resume_id=r.resume_id
+		AND a.id= #{id}
+	</select>
+	
+	<select id="selectApplyListByPaging" parameterType="pagingVo" resultType="applyVo">
+	SELECT A.*
+			    FROM (
+					SELECT a.hire_id,a.apply_id,a.id,a.resume_id,a.apply_result,a.apply_date,
+							h.hire_open,h.hire_condition,h.hire_educate,h.hire_state,h.hire_title,hi.hire_apply_time,
+							r.resume_title,r.resume_state
+					FROM apply_information a, hire h , resume r,hire_apply hi
+					WHERE a.hire_id =h.hire_id
+					AND a.resume_id=r.resume_id
+					AND h.hire_id=hi.hire_id
+					AND a.id= #{id}
+					order by a.apply_date desc
+			    ) A
+		    limit #{limit} offset #{offset}
+	</select>
+	
 </mapper>

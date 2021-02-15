@@ -24,6 +24,7 @@ import com.example.demo.hireVo.HireVo;
 import com.example.demo.resumeVo.ResumeMultiVo;
 import com.example.demo.service.MyPageService;
 import com.example.demo.service.ResumeService;
+import com.example.demo.vo.ApplyVo;
 import com.example.demo.vo.MediaVo;
 import com.example.demo.vo.MessageVo;
 import com.example.demo.vo.PagingVo;
@@ -262,6 +263,24 @@ public class MyPageController {
 		message.setId(user.getId());
 		result =service.insertMessage(message);
 		return result;
+	}
+	
+	//지원현황 리스트
+	@RequestMapping("/myApplyList.do")
+	public String myApplyList(HttpServletRequest request,Model model,
+			@RequestParam(value="nowPage", required=false, defaultValue="1") int nowPage,
+			@RequestParam(value="cntPerPage", required=false, defaultValue="5") int cntPage) {
+		UserVo user= (UserVo) request.getSession().getAttribute("USER");
+		model.addAttribute("userDetail", user);
+		
+		int total =service.applyTotal(user.getId());
+		PagingVo paging = new PagingVo(user.getId(),total,nowPage,cntPage);
+		List<ApplyVo> applyList =service.selectApplyListByPaging(paging);
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("applyList", applyList);
+		
+		return "mypage/myApplyList";
 	}
 	
 }

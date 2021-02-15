@@ -90,5 +90,25 @@
     </insert>
     
     
+    <insert id="insertApply" parameterType="applyVo">
+      
+      insert into apply_information
+      (
+      id,
+      hire_id,
+      resume_id,
+      apply_result,
+      apply_date
+      )
+      values
+      (
+      #{id},
+      #{hire_id},
+      #{resume_id},
+      '대기',
+      NOW()
+      )
+    </insert>
+    
 
 </mapper>

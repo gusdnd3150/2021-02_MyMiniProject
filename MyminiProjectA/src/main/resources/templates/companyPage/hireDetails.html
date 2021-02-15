@@ -222,13 +222,14 @@
 				<div>
 					<img th:if="${hireDetail.hireVo.company_logo !=null}"
 						th:src="|/companyLogo/${hireDetail.hireVo.company_logo}" style="width:150px">
-					<p style="color: gray">지원자 : 20</p>
+					<p style="color: gray">지원자 : <span th:text="${applyTotal}"></span></p>
 					<div>
 						<button type="button" class="btn btn-outline-primary btn-block"
 							style="border-radius: 25px">
 							<i class='fas fa-splotch'></i>스크랩
 						</button>
-						<button type="button" class="btn btn-primary btn-block" 
+						
+						<button th:if="${checkApply == 0}" type="button" class="btn btn-primary btn-block" 
 						th:onclick="'javascript:applyCompany(\''+ ${hireDetail.hireVo.hire_id} +'\');'"
 							style="border-radius: 25px">지원하기</button>
 					</div>
@@ -351,6 +352,10 @@
 			
 			if(resume_id==undefined || resume_id==null){
 				alert("이력서를 선택해 주세요");
+				return;
+			}
+			
+			if(!window.confirm("이 회사에 지원하시겠습니까?")){
 				return;
 			}
 			

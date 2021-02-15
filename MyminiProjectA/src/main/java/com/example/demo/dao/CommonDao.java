@@ -71,6 +71,14 @@ public class CommonDao {
 		return session.insert("user.insertApply",applyVo);
 	}
 	
+	public int checkApplyInfo(ApplyVo applvo) {
+		return session.selectOne("user.checkApplyInfo",applvo);
+	}
+	
+	public int applyTotal(int hire_id) {
+		return session.selectOne("user.applyTotal",hire_id);
+	}
+	
 }
 
 

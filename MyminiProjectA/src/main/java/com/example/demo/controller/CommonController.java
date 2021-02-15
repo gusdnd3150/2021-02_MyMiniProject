@@ -137,10 +137,18 @@ public class CommonController {
 			ApplyVo applvo,Model model,HttpServletRequest request) {
 		
 		UserVo user = (UserVo) request.getSession().getAttribute("USER");
-		//로그인한 유저가 이 공고에 지원했는지에 대한 로직을 구현할 계획임
+		int count =0;
 		
-		HireMultipleVo hireDetail= service.selectHire(applvo.getHire_id());
+		if(user != null) {
+			applvo.setId(user.getId());
+			count =service.checkApplyInfo(applvo);
+		}
 		
+		HireMultipleVo hireDetail= service.selectHire(applvo.getHire_id()); // 디테일정보
+		int applyTotal = service.applyTotal(applvo.getHire_id()); //지원자 총 수
+		
+		model.addAttribute("applyTotal", applyTotal);
+		model.addAttribute("checkApply", count);
 		model.addAttribute("hireDetail", hireDetail);
 		return "companyPage/hireDetails";
 	}

@@ -160,6 +160,13 @@ public class CommonService  implements UserDetailsService{
 		return result;
 	}
 	
+	public int checkApplyInfo(ApplyVo applvo) {
+		return dao.checkApplyInfo(applvo);
+	}
+	
+	public int applyTotal(int hire_id) {
+		return dao.applyTotal(hire_id);
+	}
 
 	
 	//보류

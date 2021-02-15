@@ -111,4 +111,17 @@
     </insert>
     
 
+	<select id="checkApplyInfo" parameterType="applyVo" resultType="int">
+		SELECT COUNT(*)
+		FROM apply_information
+		WHERE id=#{id}
+		AND hire_id= #{hire_id}
+	</select>
+	
+	<select id="applyTotal" parameterType="int" resultType="int">
+	  	SELECT COUNT(DISTINCT id)
+		FROM apply_information
+		WHERE hire_id=#{hire_id}
+	</select>
+
 </mapper>

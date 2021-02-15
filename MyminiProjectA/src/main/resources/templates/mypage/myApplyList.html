@@ -45,7 +45,11 @@
 					    <tr th:each="info,index : ${applyList}">
 					      <th scope="row" th:text="${paging.total-(paging.nowPage-1)*5-index.index}"></th>
 					      <td th:text="${info.hire_state}"></td>
-					      <td th:text="${info.hire_title}"></td>
+					      <td>
+					      <a th:href="@{/hireDetails.do(hire_id=${info.hire_id})}" th:text="${info.hire_title}"></a>
+					      </td>
+					      
+					      
 					      <td th:text="${info.apply_date}"></td>
 					      <td th:text="${info.hire_apply_time}"></td>
 					      <td th:text="${info.apply_result}"></td>

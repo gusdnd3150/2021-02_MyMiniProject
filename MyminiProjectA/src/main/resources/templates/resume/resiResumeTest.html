@@ -78,8 +78,8 @@
                      </td>
                      <td rowspan="2" >
                         <div id="profileImage" >
-                           <img id="inertviewImage" th:if="${userDetail.user_profile==null}" src="/image/person.png" width="130px" height="130px">
-                           <img id="inertviewImage" th:if="${userDetail.user_profile!=null}" th:src="|/user/${userDetail.user_profile}"  width="130px">
+                           <img id="inertviewImage"  src="/image/person.png" width="120px">
+                           <!-- <img id="inertviewImage" th:if="${userDetail.user_profile!=null}" th:src="|/user/${userDetail.user_profile}"  width="130px"> -->
                            
                           <input th:if="${userDetail.user_profile!=null}" type="hidden" name="resume_profile" th:value="${userDetail.user_profile}">
                           <input th:if="${userDetail.user_profile==null}" type="hidden" name="resume_profile" > 
@@ -124,9 +124,9 @@
        <input type="file" id="setProfile" style="display:none" name="profileImage" onchange="previewImage(event)">
 		</form>
 		
-       <form enctype="multipart/form-data" id="fileUploadForm">
-       <!-- <input type="file" id="setProfile" style="display:none" name="profileImage" onchange="previewImage(event)"> -->
-       </form>
+       <!-- <form enctype="multipart/form-data" id="fileUploadForm">
+        <input type="file" id="setProfile" style="display:none" name="profileImage" onchange="previewImage(event)"> 
+       </form> -->
        
        <form name="insertForm2" id="insertForm2" action="requestupload1" method="post" enctype="multipart/form-data" >
        <div>
@@ -564,10 +564,7 @@
 
 $(document).ready(function () {
 	$("#inertviewImage").click(function(){
-		
-		if(window.confirm("프로필을 바꾸시겠습니까?(기본프로필도 바뀌게 됩니다)")){
 			$("#setProfile").click();
-		}
 	});
 });
 
@@ -846,9 +843,8 @@ function uploadImage(){
 function insert(event){
 	event.preventDefault();
 	
-	//uploadImage();
 	
-	
+	 	//인적사항
 		$("#insertForm1").each(function(){
 			$(this).find("input[name=resume_title]").attr("name","detailVo.resume_title");
 			$(this).find("input[name=resume_state]").attr("name","detailVo.resume_state");
@@ -859,6 +855,10 @@ function insert(event){
 			$(this).find("input[name=resume_phone]").attr("name","detailVo.resume_phone");
 			$(this).find("input[name=resume_address1]").attr("name","detailVo.resume_address1");
 			$(this).find("input[name=resume_profile]").attr("name","detailVo.resume_profile");
+		});
+		// 자기소개서
+		$("#insertForm8").each(function(){
+			$(this).find("input[name=resume_self_content]").attr("name","selfintroVo.resume_self_content");
 		});
 		
 		//학력
@@ -877,11 +877,59 @@ function insert(event){
 		$("input[name=resume_ed_score]").each(function(index){
 			$(this).attr("name", "educateVo[" + index + "].resume_ed_score");});
 		
+		//경력
+		$("input[name=resume_ex_company]").each(function(index){
+			$(this).attr("name", "experienceVo[" + index + "].resume_ex_company");});
+		$("input[name=resume_ex_job]").each(function(index){
+			$(this).attr("name", "experienceVo[" + index + "].resume_ex_job");});
+		$("input[name=resume_ed_start]").each(function(index){
+			$(this).attr("name", "experienceVo[" + index + "].resume_ed_start");});
+		$("select[name=resume_ex_jobType]").each(function(index){
+			$(this).attr("name", "experienceVo[" + index + "].resume_ex_jobType");});
+		$("textarea[name=resume_ex_content]").each(function(index){
+			$(this).attr("name", "experienceVo[" + index + "].resume_ex_content");});
+		$("input[name=resume_ex_start]").each(function(index){
+			$(this).attr("name", "experienceVo[" + index + "].resume_ex_start");});
+		$("input[name=resume_ex_end]").each(function(index){
+			$(this).attr("name", "experienceVo[" + index + "].resume_ex_end");});
+		$("input[name=resume_ex_salary]").each(function(index){
+			$(this).attr("name", "experienceVo[" + index + "].resume_ex_salary");});
+		$("input[name=resume_ex_departName]").each(function(index){
+			$(this).attr("name", "experienceVo[" + index + "].resume_ex_departName");});
+		
+		//자격증
+		$("input[name=resume_li_name]").each(function(index){
+			$(this).attr("name", "licenceVo[" + index + "].resume_li_name");});
+		$("input[name=resume_li_from]").each(function(index){
+			$(this).attr("name", "licenceVo[" + index + "].resume_li_from");});
+		$("input[name=resume_li_getDay]").each(function(index){
+			$(this).attr("name", "licenceVo[" + index + "].resume_li_getDay");});
+		
+		//포트폴리오
+		$("input[name=resume_po_type]").each(function(index){
+			$(this).attr("name", "portfolioVo[" + index + "].resume_po_type");});
+		$("input[name=resume_po_url]").each(function(index){
+			$(this).attr("name", "portfolioVo[" + index + "].resume_po_url");});
 		
 		
-		$("#insertForm8").each(function(){
-			$(this).find("input[name=resume_self_content]").attr("name","selfintroVo.resume_self_content");
-		});
+		//교육
+		$("input[name=resume_cr_subject]").each(function(index){
+			$(this).attr("name", "cramVo[" + index + "].resume_cr_subject");});
+		$("input[name=resume_cr_name]").each(function(index){
+			$(this).attr("name", "cramVo[" + index + "].resume_cr_name");});
+		$("input[name=resume_cr_start]").each(function(index){
+			$(this).attr("name", "cramVo[" + index + "].resume_cr_start");});
+		$("input[name=resume_cr_end]").each(function(index){
+			$(this).attr("name", "cramVo[" + index + "].resume_cr_end");});
+		$("textarea[name=resume_cr_content]").each(function(index){
+			$(this).attr("name", "cramVo[" + index + "].resume_cr_content");});
+		
+		//언어 능력
+		$("input[name=resume_la_type]").each(function(index){
+			$(this).attr("name", "languageVo[" + index + "].resume_la_type");});
+		$("textarea[name=resume_la_level]").each(function(index){
+			$(this).attr("name", "languageVo[" + index + "].resume_la_level");});
+		
 		
 		
 		// Get form

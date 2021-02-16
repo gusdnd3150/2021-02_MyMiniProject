@@ -62,6 +62,7 @@ public class ResumeController {
 	@PostMapping("/resumeInsertTest.do")
 	public String resumeInsertTest(MultipartHttpServletRequest request,ResumeMultiVo resumeMultiVo ) {
 		String result ="success";
+		System.out.println(resumeMultiVo.toString());
 		result =service.insertResumeTest(request, resumeMultiVo);
 		return result;
 	}

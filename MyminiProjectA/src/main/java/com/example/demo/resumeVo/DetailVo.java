@@ -23,7 +23,7 @@ public class DetailVo {
 	private String resume_update;
 	
 	
-	/* 이력서 인적사항 */
+	/* 이력서 인적사항 테이블 */
 	
 	//resume_detail   이력서 [인적 상세정보]
 	private String resume_name;  // 이름

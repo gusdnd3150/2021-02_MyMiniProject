@@ -25,6 +25,7 @@
 	<typeAlias alias="licenceVo" type="com.example.demo.resumeVo.LicenceVo" />
 	<typeAlias alias="portfolioVo" type="com.example.demo.resumeVo.PortfolioVo" />
 	<typeAlias alias="selfintroVo" type="com.example.demo.resumeVo.SelfintroVo" />
+	<typeAlias alias="resumeMultiVo" type="com.example.demo.resumeVo.ResumeMultiVo" />
 	
 	<!-- 채용관련 -->
 	<typeAlias alias="hireVo" type="com.example.demo.hireVo.HireVo" />
@@ -33,6 +34,8 @@
 	
 	<!-- 이력서 지원 -->
 	<typeAlias alias="applyVo" type="com.example.demo.vo.ApplyVo" />
+	
+	
 	
 	</typeAliases> 
 	

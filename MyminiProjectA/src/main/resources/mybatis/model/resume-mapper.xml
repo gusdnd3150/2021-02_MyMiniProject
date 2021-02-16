@@ -34,18 +34,18 @@
 	</select>
     
     <!-- 이력서 insert -->
-    <insert id="insertResume" parameterType="resumeVo" useGeneratedKeys="true" keyProperty="resume_id">
+    <insert id="insertResume" parameterType="detailVo" useGeneratedKeys="true" keyProperty="resume_id">
       INSERT INTO resume
        (id,
        resume_title,
        resume_state,
        resume_update
        )
-      VALUES (#{id},#{resume_title},#{resume_state},NOW())
+      VALUES (#{id},#{resume_title},'N',NOW())
 	</insert>
 	
 	 <!-- 이력서 자기소개서 insert -->
-    <insert id="insertResumeSelfInfo" parameterType="resumeVo">
+    <insert id="insertResumeSelfInfo" parameterType="selfintroVo">
       INSERT INTO resume_selfintro
        (
        resume_id,
@@ -58,7 +58,7 @@
 	</insert>
 	
 	<!-- 인적사항 insert -->
-    <insert id="insertResumeDetail" parameterType="resumeVo">
+    <insert id="insertResumeDetail" parameterType="detailVo">
       INSERT INTO resume_detail
        (resume_id,
        resume_name,

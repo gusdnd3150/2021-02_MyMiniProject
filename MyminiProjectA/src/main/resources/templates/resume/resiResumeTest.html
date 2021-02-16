@@ -848,7 +848,7 @@ function insert(event){
 		});
 		// 자기소개서
 		$("#insertForm1").each(function(){
-			$(this).find("input[name=resume_self_content]").attr("name","selfintroVo.resume_self_content");
+			$(this).find("textarea[name=resume_self_content]").attr("name","selfintroVo.resume_self_content");
 		});
 		
 		//학력
@@ -915,9 +915,9 @@ function insert(event){
 			$(this).attr("name", "cramVo[" + index + "].resume_cr_content");});
 		
 		//언어 능력
-		$("input[name=resume_la_type]").each(function(index){
+		$("select[name=resume_la_type]").each(function(index){
 			$(this).attr("name", "languageVo[" + index + "].resume_la_type");});
-		$("textarea[name=resume_la_level]").each(function(index){
+		$("select[name=resume_la_level]").each(function(index){
 			$(this).attr("name", "languageVo[" + index + "].resume_la_level");});
 		
 		

@@ -18,7 +18,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dao.ResumeDao;
 import com.example.demo.file.FileService;
+import com.example.demo.resumeVo.CramVo;
+import com.example.demo.resumeVo.DetailVo;
+import com.example.demo.resumeVo.EducateVo;
+import com.example.demo.resumeVo.ExperienceVo;
+import com.example.demo.resumeVo.LanguageVo;
+import com.example.demo.resumeVo.LicenceVo;
+import com.example.demo.resumeVo.PortfolioVo;
 import com.example.demo.resumeVo.ResumeMultiVo;
+import com.example.demo.resumeVo.SelfintroVo;
 import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.UserVo;
@@ -46,7 +54,7 @@ public class ResumeService {
 		String image=null;
 		String result =null;
 		try {
-			 image =fileService.insertProfile(upfile, request);
+			 //image =fileService.insertProfile(upfile, request);
 			 user.setUser_profile(image);
 			
 			 dao.updateUserDetail(user);
@@ -79,31 +87,86 @@ public class ResumeService {
 	
 	
 	
-	// 이력서 등록  수정
+	// 이력서 등록  [수정]
 	public String insertResumeTest(MultipartHttpServletRequest request,ResumeMultiVo resumeMultiVo) {
 		String result ="success";
+		int resumeId=0;
+		String imageStoreName=null;
+		UserVo user = (UserVo) request.getSession().getAttribute("USER");
+		
+		 DetailVo detailVo = resumeMultiVo.getDetailVo();
+		 List<EducateVo> educateVo= resumeMultiVo.getEducateVo();
+		 List<CramVo>  cramVo = resumeMultiVo.getCramVo();
+		 List<ExperienceVo> experienceVo =resumeMultiVo.getExperienceVo();
+		 List<LanguageVo> languageVo =resumeMultiVo.getLanguageVo();
+		 List<LicenceVo> licenceVo =resumeMultiVo.getLicenceVo();
+		 List<PortfolioVo> portfolioVo= resumeMultiVo.getPortfolioVo();
+		 SelfintroVo selfintroVo = resumeMultiVo.getSelfintroVo();
+		
 		try {
-			//인적사항
-			//자기소개 
+			imageStoreName= fileService.insertProfile(request);   //이력서 이미지 저장 후 저장이름 반환
+			
+			detailVo.setResume_profile(imageStoreName);
+			detailVo.setId(user.getId());
+			
+			dao.insertResume(detailVo);  // resume 테이블에  insert
+			resumeId =detailVo.getResume_id();  //pk
+			detailVo.setResume_id(resumeId);
+			
+			dao.insertDetail(detailVo);            //인적사항  insert
+			
+			selfintroVo.setResume_id(resumeId);
+			
+			System.out.println("pk"+resumeId);
+			System.out.println("셀프인포"+selfintroVo.toString());
+		    dao.insertResumeSelfInfo(selfintroVo); //자기소개서 insert
 			
 			if(resumeMultiVo.getUseCramForm().equals("true")) { // 학원등
+				for(int i=0;i < cramVo.size();i++) {
+					cramVo.get(i).setResume_id(resumeId);
+				}
+				dao.insertResumeCram(cramVo);
 				
 			}
+			
+			
 			if(resumeMultiVo.getUseEducateForm().equals("true")) { // 학력
-				
+				for(int i=0;i < educateVo.size();i++) {
+					educateVo.get(i).setResume_id(resumeId);
+				}
+				dao.insertResumeEducate(educateVo);
 			}
+			
+			
 			if(resumeMultiVo.getUseExperienceForm().equals("true")) { //경력
-							
+				
+				for(int i=0;i < experienceVo.size();i++) {
+					experienceVo.get(i).setResume_id(resumeId);
+				}
+				dao.insertResumeExperience(experienceVo);
 			}
+			
+			
 			if(resumeMultiVo.getUseLanguageForm().equals("true")) {  //언어
-				
+				for(int i=0;i < languageVo.size();i++) {
+					languageVo.get(i).setResume_id(resumeId);
+				}
+				dao.insertResumeLanguage(languageVo);
 			}
+			
+			
 			if(resumeMultiVo.getUselicenseForm().equals("true")) {  //자격증
+				for(int i=0;i < licenceVo.size();i++) {
+					licenceVo.get(i).setResume_id(resumeId);
+				}
+				dao.insertResumeLicense(licenceVo);
 				
 			}
+			//내일하지뭐
+			/*
 			if(resumeMultiVo.getPortfolioVo().size() != 0) {  //포폴
 				
-			}
+			}*/
 			
 
 			
@@ -143,7 +206,7 @@ public class ResumeService {
 	   
 	   
 	   try {
-		   dao.insertResume(resume);  // resume 테이블에  insert
+		   //dao.insertResume(resume);  // resume 테이블에  insert
 		   resumeId =resume.getResume_id();  //pk
 		   
 		   insertDetail(detail,resumeId,request);   //인적사항  insert
@@ -225,7 +288,7 @@ public class ResumeService {
 				educate.setResume_ed_score(edu.get("resume_ed_score").getAsString());
 				educateList.add(educate);
 			}
-			dao.insertResumeEducate(educateList);
+			//dao.insertResumeEducate(educateList);
 		}
 	
 		
@@ -271,7 +334,7 @@ public class ResumeService {
 				resumeInfo.setResume_ex_departName(experience.get("resume_ex_departName").getAsString());
 				experienceList.add(resumeInfo);
 			}
-			dao.insertResumeExperience(experienceList);
+			//dao.insertResumeExperience(experienceList);
 		}
 		
 		
@@ -302,7 +365,7 @@ public class ResumeService {
 						resumeInfo.setResume_li_getDay(license.get("resume_li_getDay").getAsString());
 						licenseList.add(resumeInfo);
 					}
-					dao.insertResumeLicense(licenseList);
+					//dao.insertResumeLicense(licenseList);
 				}
 				
 				
@@ -319,7 +382,7 @@ public class ResumeService {
 					resumeInfo.setResume_address1(detail.get("resume_address1").getAsString());
 					resumeInfo.setResume_profile(detail.get("resume_profile").getAsString());
 					
-					dao.insertResumeDetial(resumeInfo);
+					//dao.insertResumeDetial(resumeInfo);
 				}
 				
 				//이력서 자기소개서 insert
@@ -329,7 +392,7 @@ public class ResumeService {
 					resumeInfo.setResume_id(resumeId);
 					resumeInfo.setResume_self_content(selfinfo.get("resume_self_content").getAsString());
 					
-					dao.insertResumeSelfInfo(resumeInfo);
+					//dao.insertResumeSelfInfo(resumeInfo);
 				}
 				
 				//이력서 포트폴리오 insert
@@ -394,7 +457,7 @@ public class ResumeService {
 						resumeInfo.setResume_cr_content(cram.get("resume_cr_content").getAsString());
 						cramlList.add(resumeInfo);
 					}
-					dao.insertResumeCram(cramlList);
+					//dao.insertResumeCram(cramlList);
 				}
 				
 				
@@ -422,6 +485,6 @@ public class ResumeService {
 						resumeInfo.setResume_la_level(language.get("resume_la_level").getAsString());
 						languageList.add(resumeInfo);
 					}
-					dao.insertResumeLanguage(languageList);
+					//dao.insertResumeLanguage(languageList);
 				}
 }

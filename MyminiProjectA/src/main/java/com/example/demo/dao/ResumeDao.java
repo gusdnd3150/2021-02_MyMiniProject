@@ -33,9 +33,20 @@ public class ResumeDao {
 		return session.selectList("resume.selectUserFile",id);
 	}
 	
+	/*
 	// 이력서 insert
 	public void insertResume(ResumeVo resume) {
 		session.insert("resume.insertResume",resume);
+	}*/
+	
+	// 이력서 insert
+		public void insertResume(DetailVo resume) {
+			session.insert("resume.insertResume",resume);
+		}
+		
+	//이력서 인적사항
+	public void insertDetail(DetailVo resume) {
+		session.insert("resume.insertResumeDetail",resume);
 	}
 	
 	public void updateUserDetail(UserVo user) {
@@ -44,42 +55,58 @@ public class ResumeDao {
 	}
 	
 	// 이력서 자기소개서 insert
-	public void insertResumeSelfInfo(ResumeVo resume) {
+	public void insertResumeSelfInfo(SelfintroVo resume) {
 		session.insert("resume.insertResumeSelfInfo",resume);
 	}
 	
-	// 이력서 인적사항
-	public void insertResumeDetial(ResumeVo resume) {
-		session.insert("resume.insertResumeDetail",resume);
-	}
-
+	
+	/*
 	// 이력서 학력 insert
 	public void insertResumeEducate(List<ResumeVo> list) {
+		session.insert("resume.insertResumeEducate",list);
+		
+	}*/
+	public void insertResumeEducate(List<EducateVo> list) {
 		session.insert("resume.insertResumeEducate",list);
 		
 	}
 	
 	// 이력서 경력 insert
-	public void insertResumeExperience(List<ResumeVo> list) {
+	public void insertResumeExperience(List<ExperienceVo> list) {
 		session.insert("resume.insertResumeExperience",list);
 			
 	}
-		
+
+	/*
 	//이력서 자격증 insert
 	public void insertResumeLicense(List<ResumeVo> list) {
 		session.insert("resume.insertResumeLicense",list);
+	}*/
+	
+	public void insertResumeLicense(List<LicenceVo> list) {
+		session.insert("resume.insertResumeLicense",list);
 	}
+	
 	// 이력서 포트폴리오
 	public void insertResumePortfolio(List<ResumeVo> list) {
 		session.insert("resume.insertResumePortfolio",list);
 	}
+	
+	/*
 	// 이력서 학원등
 	public void insertResumeCram(List<ResumeVo> list) {
 		session.insert("resume.insertResumeCram",list);
+	}*/
+	public void insertResumeCram(List<CramVo> list) {
+		session.insert("resume.insertResumeCram",list);
 	}
 	
+	/*
 	// 이력서 언어능력
 	public void insertResumeLanguage(List<ResumeVo> list) {
+		session.insert("resume.insertResumeLanguage",list);
+	}*/
+	public void insertResumeLanguage(List<LanguageVo> list) {
 		session.insert("resume.insertResumeLanguage",list);
 	}
 	

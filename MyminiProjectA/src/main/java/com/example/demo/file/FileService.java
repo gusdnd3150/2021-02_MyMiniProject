@@ -85,16 +85,15 @@ public class FileService {
 				}
 
 	
-	public String insertProfile(MultipartHttpServletRequest upfile,HttpServletRequest request) throws Exception {
+	public String insertProfile(MultipartHttpServletRequest upfile) throws Exception {
 		String result = null;
-		HttpSession session= request.getSession();
 		
 		MultipartFile imageFile = upfile.getFile("profileImage");  //photo라는 이름으로 넘어오는 파일을 전부 받는다
 
 		try {
 
 		String imagePath = "/user/"; 
-		String path = request.getSession().getServletContext().getRealPath("/");// locallhost8080/
+		String path = upfile.getSession().getServletContext().getRealPath("/");// locallhost8080/
 		String savePath = path + imagePath;   //
         
 		File file = new File(savePath);    //지정한 url에 대한 파일 객체를 생성한다

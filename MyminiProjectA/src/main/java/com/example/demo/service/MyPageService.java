@@ -299,4 +299,9 @@ public class MyPageService {
 		return list;
 	}
 	
+	// 지원자 목록 select
+	public List<ApplyVo> selectApplyListById(int hire_id){
+		return dao.selectApplyListById(hire_id);
+	}
+	
 }

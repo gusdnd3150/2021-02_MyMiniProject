@@ -126,4 +126,9 @@ public class MyPageDao {
 	public List<ApplyVo> selectApplyListByPaging(PagingVo paging){
 		return session.selectList("myPage.selectApplyListByPaging",paging);
 	}
+	
+	//지원리스트  by hire_id
+	public List<ApplyVo> selectApplyListById(int hire_id){
+		return session.selectList("myPage.selectApplyListById",hire_id);
+	}
 }

@@ -283,4 +283,11 @@ public class MyPageController {
 		return "mypage/myApplyList";
 	}
 	
+	//지원자 리스트 아작스
+	@RequestMapping("/applyUserList.do")
+	@ResponseBody
+	public List<ApplyVo> applyUserList(@RequestParam("hire_id") int hire_id){
+		return service.selectApplyListById(hire_id);
+	}
+	
 }

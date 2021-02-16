@@ -271,8 +271,10 @@
 					<div>
 						<button type="button" class="btn btn-outline-primary btn-block"
 							style="border-radius: 25px">
-							<i class='fas fa-splotch'></i>스크랩
-						</button>
+							<i class='fas fa-splotch'></i>스크랩</button>
+						
+						<button th:if="${checkApply > 0}" type="button" class="btn btn-primary btn-block" 
+							style="border-radius: 25px">지원완료!!</button>
 						
 						<button th:if="${checkApply == 0}" type="button" class="btn btn-primary btn-block" 
 						th:onclick="'javascript:applyCompany(\''+ ${hireDetail.hireVo.hire_id} +'\');'"

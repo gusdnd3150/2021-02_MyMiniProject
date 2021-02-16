@@ -28,7 +28,7 @@ function applyUserList(hire_id,index){
 					tag += '<div class="media-body">'
 					tag += '<p>'+data[i].resume_title+'<small>&nbsp;&nbsp;<i>'+data[i].resume_name+'</i></small></p>'
 					tag += '<p>';
-					if(data[i].media_id != null){
+					if(data[i].media_original != null){
 						tag += '<a href="/showUserMedia.do"><span class="badge badge-primary">1분소개</span></a>&nbsp;';	
 					}else{
 						tag += '<span class="badge badge-danger">1분소개 없음</span>&nbsp;';

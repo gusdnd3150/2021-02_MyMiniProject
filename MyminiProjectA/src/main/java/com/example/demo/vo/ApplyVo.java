@@ -45,6 +45,12 @@ public class ApplyVo {
 	private String hire_apply_p2p; // 1:1화살면접 여부   Y ,N
 	
 	
+	// 유저 1분소개영상
+	private String media_original;
+	private String media_saved;
+	private String media_update;
+	
+	
 	// resume 테이블 정보
 	//테이블 정보
 		//resume

@@ -19,6 +19,14 @@
 #hireTable {
 	border: none
 }
+
+#numbering{
+ background-color: gray;
+ border-radius: 75px;
+ width: 20px;
+ text-align: center;
+ color:white;
+}
 </style>
 
 <meta charset="UTF-8">
@@ -33,7 +41,7 @@
 		<div class="row">
 
 			<!-- 메인 -->
-			<div class="col-8">
+			<div class="col-9">
 				<br>
 				<h5 th:text="${hireDetail.hireVo.hire_title}"></h5>
 				<br>
@@ -179,7 +187,8 @@
 				<div>
 				 <h5><strong>모집분야</strong> </h5>
 				 <br>
-				 <table  th:each="info  :${hireDetail.hireInfoVoList}">
+				 <table  th:each="info,index  :${hireDetail.hireInfoVoList}">
+				 <p th:text="${index.index+1}" id="numbering"></p>
 				   <tr>
 				     <td><p><strong>모집분야</strong></p></td>
 				     <td><p th:text="${info.hire_info_sector}"></p></td>
@@ -213,10 +222,46 @@
 				
 				<br>
 				<hr>
+				
+				<!-- 채용 접수방법 -->
+				<div>
+				<h5><strong>접수방법</strong> </h5>
+				 <br>
+				 <table>
+				   <tr>
+				     <td><p><strong>담당자</strong></p></td>
+				     <td><p th:text="${hireDetail.hireApplyVo.hire_apply_charge}"></p></td>
+				   </tr>
+				   <tr>
+				     <td><p><strong>부서명</strong></p></td>
+				     <td><p th:text="${hireDetail.hireApplyVo.hire_apply_department}"></p></td>
+				   </tr>
+				   <tr>
+				     <td><p><strong>담당자 연락처</strong></p></td>
+				     <td><p th:text="${hireDetail.hireApplyVo.hire_apply_phone}"></p></td>
+				   </tr>
+				   <tr>
+				     <td><p><strong>접수기간</strong></p></td>
+				     <td><p th:text="${hireDetail.hireApplyVo.hire_apply_time}"></p></td>
+				   </tr>
+				   
+				   <tr>
+				     <td><p><strong>접수방법</strong></p></td>
+				     <td><p th:text="${hireDetail.hireApplyVo.hire_apply_way}"></p></td>
+				   </tr>
+				   
+				   <tr>
+				     <td><p><strong>1:1화상면접 여부</strong></p></td>
+				     <td><p th:text="${hireDetail.hireApplyVo.hire_apply_p2p}"></p></td>
+				   </tr>
+				 </table>
+				
+				</div>
+				<br><br><br>
 
 			</div>
 			<!-- 오른쪽 사이드 -->
-			<div class="col-4" >
+			<div class="col-3" >
 				<br>
 				<div class="hiredetialBox" >
 				<div>

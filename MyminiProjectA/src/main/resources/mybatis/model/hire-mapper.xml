@@ -14,12 +14,19 @@
 	</select>
 	
 	<select id="selectHireListByPaging" parameterType="pagingVo" resultType="hireVo">
-	select R1.*
+		select R1.*
 		   from
-			     (select *
-			    from hire
-			    where id=#{id}
-			    order by hire_id asc
+			     (
+			     SELECT h.hire_id,h.id,h.hire_open,h.hire_condition,h.hire_educate,
+			           h.hire_state,h.hire_salary,h.hire_address1,h.hire_address2,h.hire_zip,h.hire_location,
+			           h.hire_workTime,h.hire_rank,h.hire_title,(
+						  											 SELECT COUNT(*)
+						  											 FROM apply_information a
+						  											WHERE a.hire_id = h.hire_id
+																	) AS apply_count
+			    from hire h
+			    WHERE h.id=#{id}
+			    order BY h.hire_id asc
 			    )R1
 		    limit #{limit} offset #{offset}
 	</select>

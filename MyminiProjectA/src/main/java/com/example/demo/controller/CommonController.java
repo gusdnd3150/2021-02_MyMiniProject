@@ -143,7 +143,6 @@ public class CommonController {
 			applvo.setId(user.getId());
 			count =service.checkApplyInfo(applvo);
 		}
-		
 		HireMultipleVo hireDetail= service.selectHire(applvo.getHire_id()); // 디테일정보
 		int applyTotal = service.applyTotal(applvo.getHire_id()); //지원자 총 수
 		

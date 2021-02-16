@@ -35,6 +35,7 @@
 		  <thead>
 		    <tr class="table-info">
 		      <th scope="col" style="width:40%">채용 제목</th>
+		      <th scope="col" style="width:10%">지원자</th>
 		      <th scope="col" style="width:10%">상태</th>
 		      <th scope="col" style="width:10%"></th>
 		    </tr>
@@ -45,6 +46,8 @@
 		      <td style="padding: 10px">&nbsp;
 		      <a th:href="@{/hireDetails.do(hire_id=${info.hire_id})}" th:text="${info.hire_title}"></a>
 		      </td>
+		      
+		      <td><strong th:text="${info.apply_count}"></strong>명</td>
 		      
 		      <td th:if="${info.hire_open=='Y'}">
 		      <select class="custom-select" th:onchange="'javascript:change(event,\''+ ${info.hire_id} +'\');'"  style="width:100%">

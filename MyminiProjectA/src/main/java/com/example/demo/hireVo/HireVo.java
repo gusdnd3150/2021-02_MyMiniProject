@@ -29,6 +29,10 @@ public class HireVo extends UserVo {
 	private String hire_address2;  // 상세주소
 	private String hire_zip;  // 우편
 	
+	private int apply_count; // as 로 받은 임시 칼럼  지원자수
+	
+	
+	
 	//회사 디테일정보
 	private String company_logo;	//이미지로고
 	private String company_intro;	//간단한 소개

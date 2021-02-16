@@ -36,9 +36,7 @@
 		    and u.id=#{id}
 	</select>
 	
-	<select id="all" resultType="map">
-	SELECT * FROM boards
-	</select>
+	
       
        <select id="selectUserById" parameterType="String" resultType="userVo">
         select *

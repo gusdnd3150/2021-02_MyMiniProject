@@ -75,6 +75,48 @@ public class ResumeService {
 		return selectResume;
 	}
 	
+	
+	
+	
+	
+	// 이력서 등록  수정
+	public String insertResumeTest(MultipartHttpServletRequest request,ResumeMultiVo resumeMultiVo) {
+		String result ="success";
+		try {
+			//인적사항
+			//자기소개 
+			
+			if(resumeMultiVo.getUseCramForm().equals("true")) { // 학원등
+				
+			}
+			if(resumeMultiVo.getUseEducateForm().equals("true")) { // 학력
+				
+			}
+			if(resumeMultiVo.getUseExperienceForm().equals("true")) { //경력
+							
+			}
+			if(resumeMultiVo.getUseLanguageForm().equals("true")) {  //언어
+				
+			}
+			if(resumeMultiVo.getUselicenseForm().equals("true")) {  //자격증
+				
+			}
+			if(resumeMultiVo.getPortfolioVo().size() != 0) {  //포폴
+				
+			}
+			
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="fail";
+		}
+		
+		return result;
+	}
+	
+	
+	
 	// 이력서 등록
 	@Transactional(propagation = Propagation.REQUIRED)
 	public String insertResume(String info,HttpServletRequest request) {

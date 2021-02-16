@@ -122,13 +122,11 @@
        </div>
        <br>
        <input type="file" id="setProfile" style="display:none" name="profileImage" onchange="previewImage(event)">
-		</form>
 		
        <!-- <form enctype="multipart/form-data" id="fileUploadForm">
         <input type="file" id="setProfile" style="display:none" name="profileImage" onchange="previewImage(event)"> 
        </form> -->
        
-       <form name="insertForm2" id="insertForm2" action="requestupload1" method="post" enctype="multipart/form-data" >
        <div>
            <h4><strong>학력</strong>&nbsp;<span id="eduCheckBox" class="plusTag" onclick="controllEducateBox()">-</span> </h4>
            <div style="background-color: white;padding: 5%;border-radius: 25px;" id="educateDivBox" >
@@ -218,11 +216,9 @@
            
            
        </div>
-       </form>
        <br>
        
        
-       <form name="insertForm3" id="insertForm3" action="requestupload1" method="post" enctype="multipart/form-data">
        <div >
            <h4><strong>경력</strong>&nbsp;<span id="experienceCheckBox"  class="plusTag" onclick="controllExperienceBox()">-</span></h4>
            <div style="background-color: white;padding: 5%;border-radius: 25px;" id="experienceDivBox">
@@ -324,10 +320,8 @@
            
            </div>
        </div>
-       </form>
        <br>
        
-       <form name="insertForm4" id="insertForm4" action="requestupload1" method="post" enctype="multipart/form-data">
        <div >
            <h4><strong>자격증</strong>&nbsp;<span id="licenseCheckBox" class="plusTag" onclick="controllLicense()">-</span></h4>
            <div style="background-color: white;padding: 4%;border-radius: 25px;" id="licenseDivBox">
@@ -369,10 +363,8 @@
                 </div>
            </div>
        </div>
-       </form>
        <br>
        
-       <form name="insertForm5" id="insertForm5" action="requestupload1" method="post" enctype="multipart/form-data">
        <div>
            <h4><strong>포트폴리오</strong> <span class="plusTag btn btn-primary btn-sm" onclick="addPoForm('u')">주소</span>
            <span class="plusTag btn btn-primary btn-sm" onclick="addPoForm('f')">파일</span>
@@ -383,11 +375,9 @@
        </div>
        <br>
        <input type="hidden" id="usePofolForm"name="usePofolForm" value="false">
-       </form>
        
        <input type="file" id="pofolFile" name="pofolFile" style="display:none" onchange="">
        
-       <form name="insertForm6" id="insertForm6" action="requestupload1" method="post" enctype="multipart/form-data">
        <div >
            <h4><strong>교육</strong>&nbsp;<span id="cramCheckBox" class="plusTag" onclick="controllCram()">-</span></h4>
            <div style="background-color: white;padding: 5%;border-radius: 25px;" id="cramDivBox">
@@ -448,9 +438,7 @@
            </div>
        </div>
        <br>
-       </form>
        
-       <form name="insertForm7" id="insertForm7" action="requestupload1" method="post" enctype="multipart/form-data">
        <div>
            <h4><strong>언어능력</strong>&nbsp;<span id="langCheckBox" class="plusTag" onclick="controllLang()">-</span></h4>
 	           <div style="background-color: white;padding: 5%;border-radius: 25px;" id="langDivBox">    
@@ -493,10 +481,8 @@
                 </div>
 	           </div>
        </div>
-       </form>
        <br>
        
-       <form name="insertForm8" id="insertForm8" action="requestupload1" method="post" enctype="multipart/form-data">
        <div>
            <h4><strong>자기소개</strong></h4>
            <div style="background-color: white;padding: 3%;border-radius: 25px">
@@ -518,10 +504,10 @@
 							  입력 정보에 ',' 콤마가 포함되지 않도록 주의하시어 작성 부탁 드립니다.
 							</div>
           </div>
-    	</form>
        <br>
-    </div>
+    	  </form>
     
+    </div>
     <!-- 오른쪽 사이드 영역 -->
     <div class="col-2">
        <div style="padding: 5%;border-radius: 25px;position: fixed;">
@@ -584,23 +570,7 @@ function previewImage(event){
     
 }
 
-//학력 박스
-function controllEducateBox(){
-	var use = document.insertForm2.useEducateForm;
-	var check = document.getElementById("eduCheckBox");
-	
-	if(use.value=='false'){
-	   $("#educateDivBox").slideDown();
-	   $("#eduAlert").slideDown();
-	   use.value="true";   //사용여부를 true로 바꿔줬음
-	   check.innerHTML ="-";
-	}else if(use.value='true'){
-		$("#educateDivBox").slideUp();
-		$("#eduAlert").slideUp();
-		use.value="false";   //사용여부를 false로 바꿔줬음
-		check.innerHTML ="+";
-	}
-}
+
 
 //학력 폼 추가
 function addEducate(){
@@ -685,9 +655,28 @@ function addLaForm(){
 }
 
 
+
+//학력 박스
+function controllEducateBox(){
+	var use = document.insertForm1.useEducateForm;
+	var check = document.getElementById("eduCheckBox");
+	
+	if(use.value=='false'){
+	   $("#educateDivBox").slideDown();
+	   $("#eduAlert").slideDown();
+	   use.value="true";   //사용여부를 true로 바꿔줬음
+	   check.innerHTML ="-";
+	}else if(use.value='true'){
+		$("#educateDivBox").slideUp();
+		$("#eduAlert").slideUp();
+		use.value="false";   //사용여부를 false로 바꿔줬음
+		check.innerHTML ="+";
+	}
+}
+
 //경력 박스
 function controllExperienceBox(){
-	var use = document.insertForm3.useExperienceForm;
+	var use = document.insertForm1.useExperienceForm;
 	var check = document.getElementById("experienceCheckBox");
 	if(use.value=='false'){
 	   $("#experienceDivBox").slideDown();
@@ -706,7 +695,7 @@ function controllExperienceBox(){
 
 //자격증 박스
 function controllLicense(){
-	var use = document.insertForm4.uselicenseForm;
+	var use = document.insertForm1.uselicenseForm;
 	var check = document.getElementById("licenseCheckBox");
 	
 	if(use.value=='false'){
@@ -726,7 +715,7 @@ function controllLicense(){
 
 //학원교육 박스
 function controllCram(){
-	var use = document.insertForm6.useCramForm;
+	var use = document.insertForm1.useCramForm;
 	var check = document.getElementById("cramCheckBox");
 	
 	if(use.value=='false'){
@@ -745,7 +734,7 @@ function controllCram(){
 
 //언어능력 박스
 function controllLang(){
-	var use = document.insertForm7.useLanguageForm;
+	var use = document.insertForm1.useLanguageForm;
 	var check = document.getElementById("langCheckBox");
 	
 	if(use.value=='false'){
@@ -787,6 +776,7 @@ function addPoForm(type){
 	     tag +="</div>";
 	     tag +="<input type='hidden'  name='resume_po_type' value='F'>";
 	     tag +="<input type='file' class='form-control' name='portfolioFile' value='파일선택'>";
+	     tag +="<input type='hidden' class='form-control' name='resume_po_url' value='file'>";
 	     tag +="</div>";
 		break;
 	case "u":  //url
@@ -857,7 +847,7 @@ function insert(event){
 			$(this).find("input[name=resume_profile]").attr("name","detailVo.resume_profile");
 		});
 		// 자기소개서
-		$("#insertForm8").each(function(){
+		$("#insertForm1").each(function(){
 			$(this).find("input[name=resume_self_content]").attr("name","selfintroVo.resume_self_content");
 		});
 		
@@ -931,24 +921,20 @@ function insert(event){
 			$(this).attr("name", "languageVo[" + index + "].resume_la_level");});
 		
 		
-		var params = $("form").serialize();
-		// Get form
-        var form = $("form")[0];
-		// Cre	ate an FormData object 
+        var form = $("#insertForm1")[0];
         var data = new FormData(form);
-		
 		     $.ajax({
 		        type: "POST",
-			        enctype: 'multipart/form-data',
+			       enctype: 'multipart/form-data',
 			        url: "/resumeInsertTest.do",
-			        data: params,
+			        data: data,
 			        processData: false,
 			        contentType: false,
 			        cache: false,
 			        timeout: 600000,
 		        success: function (data) {
 			          if(data=='success'){
-			        	  //alert("등록 되었습니다.");
+			        	  alert("등록 되었습니다.");
 			        	  //location.href="/main.do";
 			          }else{
 			        	  alert("등록실패");

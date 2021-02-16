@@ -19,4 +19,11 @@ public class ResumeMultiVo {
 	private List<LicenceVo> licenceVo;
 	private List<PortfolioVo> portfolioVo;
 	private SelfintroVo selfintroVo;
+	
+	
+	private String useEducateForm;
+	private String useExperienceForm;
+	private String uselicenseForm;
+	private String useCramForm;
+	private String useLanguageForm;
 }

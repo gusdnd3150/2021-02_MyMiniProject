@@ -52,7 +52,7 @@ public class ResumeController {
 	public String insertResume(@RequestBody String info,HttpServletRequest request ) {
 		String result ="success";
 		
-	    result=service.insertResume(info,request);
+	   // result=service.insertResume(info,request);
 	    
 		return result;
 	}

@@ -100,8 +100,8 @@ public class ResumeService {
 		 List<ExperienceVo> experienceVo =resumeMultiVo.getExperienceVo();
 		 List<LanguageVo> languageVo =resumeMultiVo.getLanguageVo();
 		 List<LicenceVo> licenceVo =resumeMultiVo.getLicenceVo();
-		 List<PortfolioVo> portfolioVo= resumeMultiVo.getPortfolioVo();
 		 SelfintroVo selfintroVo = resumeMultiVo.getSelfintroVo();
+		 List<PortfolioVo> portfolioVo= resumeMultiVo.getPortfolioVo();
 		
 		try {
 			imageStoreName= fileService.insertProfile(request);   //이력서 이미지 저장 후 저장이름 반환
@@ -116,9 +116,6 @@ public class ResumeService {
 			dao.insertDetail(detailVo);            //인적사항  insert
 			
 			selfintroVo.setResume_id(resumeId);
-			
-			System.out.println("pk"+resumeId);
-			System.out.println("셀프인포"+selfintroVo.toString());
 		    dao.insertResumeSelfInfo(selfintroVo); //자기소개서 insert
 			
 			if(resumeMultiVo.getUseCramForm().equals("true")) { // 학원등
@@ -168,8 +165,6 @@ public class ResumeService {
 				
 			}*/
 			
-
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			result="fail";
@@ -179,7 +174,7 @@ public class ResumeService {
 	}
 	
 	
-	
+	/*
 	// 이력서 등록
 	@Transactional(propagation = Propagation.REQUIRED)
 	public String insertResume(String info,HttpServletRequest request) {
@@ -487,4 +482,5 @@ public class ResumeService {
 					}
 					//dao.insertResumeLanguage(languageList);
 				}
+				*/
 }

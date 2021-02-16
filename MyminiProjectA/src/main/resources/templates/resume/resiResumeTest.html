@@ -931,7 +931,7 @@ function insert(event){
 			$(this).attr("name", "languageVo[" + index + "].resume_la_level");});
 		
 		
-		
+		var params = $("form").serialize();
 		// Get form
         var form = $("form")[0];
 		// Cre	ate an FormData object 
@@ -941,7 +941,7 @@ function insert(event){
 		        type: "POST",
 			        enctype: 'multipart/form-data',
 			        url: "/resumeInsertTest.do",
-			        data: data,
+			        data: params,
 			        processData: false,
 			        contentType: false,
 			        cache: false,

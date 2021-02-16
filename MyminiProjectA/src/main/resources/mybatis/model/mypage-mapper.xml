@@ -18,6 +18,11 @@
 		    
 	</select>
 	
+	<delete id="deleteApply" parameterType="int">
+	 delete from apply_information
+	 where resume_id = #{resume_id}
+	</delete>
+	
 	
 	<select id="selectApplyListById" parameterType="int" resultType="applyVo">
 	  SELECT A.*,M.*
@@ -99,6 +104,46 @@
 	
 	<delete id="deleteResume" parameterType="int">
 	  delete from resume
+	  where resume_id=#{resume_id}
+	</delete>
+	
+	<delete id="deleteResumeCram" parameterType="int">
+	  delete from resume_cram
+	  where resume_id=#{resume_id}
+	</delete>
+	
+	<delete id="deleteResumeDetail" parameterType="int">
+	  delete from resume_detail
+	  where resume_id=#{resume_id}
+	</delete>
+	
+	<delete id="deleteResumeEducate" parameterType="int">
+	  delete from resume_educate
+	  where resume_id=#{resume_id}
+	</delete>
+	
+	<delete id="deleteResumeExperience" parameterType="int">
+	  delete from resume_experience
+	  where resume_id=#{resume_id}
+	</delete>
+	
+	<delete id="deleteResumeLanguage" parameterType="int">
+	  delete from resume_language
+	  where resume_id=#{resume_id}
+	</delete>
+	
+	<delete id="deleteResumeLicense" parameterType="int">
+	  delete from resume_license
+	  where resume_id=#{resume_id}
+	</delete>
+	
+	<delete id="deleteResumePortfolio" parameterType="int">
+	  delete from resume_portfolio
+	  where resume_id=#{resume_id}
+	</delete>
+	
+	<delete id="deleteResumeSelfIntro" parameterType="int">
+	  delete from resume_selfintro
 	  where resume_id=#{resume_id}
 	</delete>
 	

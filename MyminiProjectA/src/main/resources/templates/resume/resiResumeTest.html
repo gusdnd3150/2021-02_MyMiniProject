@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+
+<!-- 해더 css -->
+<th:block th:replace="common/header :: headerCss"></th:block>
+
+<style>
+.plusTag{
+ cursor: pointer
+}
+
+</style>
+
+<meta charset="UTF-8">
+<title>이력서 등록</title>
+</head>
+<body style="background-color: #e9e9e9">
+<!-- 해더 공통 -->
+<th:block th:replace="common/header :: header"></th:block>
+
+<br>
+<br>
+<br>
+
+<div align="center" style="padding: 2%">
+<h2><strong>이력서 작성</strong></h2>
+</div>
+
+<div class="container">
+  <div class="row">
+  <!-- 왼쪽 이력서 작성 영역 -->
+    <div class="col-10">
+      <form name="insertForm1" id="insertForm1" action="requestupload1" method="post"  enctype="multipart/form-data">
+      <div>
+           <div>
+              <div>
+                 <div class="input-group mb-3">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">이력서 제목</span>
+						  </div>
+						  <input type="text" class="form-control" name="resume_title">
+						</div>
+              </div>
+           </div>
+       </div>
+       <br>
+      
+      <div >
+           <h4><strong>인적사항</strong></h4>
+           <div style="background-color: white;padding: 5%;border-radius: 25px">
+				<table>
+                    <tr>
+                     <td>
+                        <div class="input-group mb-3" style="width:200px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">이름</span>
+						  </div>
+						  <input type="text" class="form-control" name="resume_name" th:value="${userDetail.user_name}" readonly="readonly">
+						</div>
+                     </td>
+                     <td>
+                       <div class="input-group mb-3" style="width:160px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">나이</span>
+						  </div>
+						  <input type="text" class="form-control" name="resume_age" th:value="${userDetail.user_age}" readonly="readonly">
+						</div>
+                     </td>
+                     
+                     <td>
+                        <div class="input-group mb-3" style="width:350px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">이메일</span>
+						  </div>
+						  <input type="text" class="form-control"  name="resume_email" th:value="${userDetail.user_email}">
+						</div>
+                     </td>
+                     <td rowspan="2" >
+                        <div id="profileImage" >
+                           <img id="inertviewImage" th:if="${userDetail.user_profile==null}" src="/image/person.png" width="130px" height="130px">
+                           <img id="inertviewImage" th:if="${userDetail.user_profile!=null}" th:src="|/user/${userDetail.user_profile}"  width="130px">
+                           
+                          <input th:if="${userDetail.user_profile!=null}" type="hidden" name="resume_profile" th:value="${userDetail.user_profile}">
+                          <input th:if="${userDetail.user_profile==null}" type="hidden" name="resume_profile" > 
+                          
+                        </div>
+                     </td>
+                    </tr>	
+                    <tr>
+                    <td>
+                        <div class="input-group mb-3" style="width:200px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">성별</span>
+						  </div>
+						  <input th:if="${userDetail.user_gender=='M'}" type="text" class="form-control"  name="resume_gender" value="남자" readonly="readonly">
+						  <input th:if="${userDetail.user_gender=='W'}" type="text" class="form-control"  name="resume_gender" value="여자" readonly="readonly">
+						</div>
+                     </td>
+                     <td>
+                       <div class="input-group mb-3" style="width:160px">
+						  <input type="text" placeholder="전화번호" class="form-control"  name="resume_phone" th:value="${userDetail.user_phone}">
+						</div>
+                     </td>
+                     <td>
+                       <div class="input-group mb-3" style="width:350px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1" >주소</span>
+						  </div>
+						  <input type="text" class="form-control" id="changeAddress" 
+						  name="resume_address1" th:value="${userDetail.user_address1}">
+						  <div class="input-group-append">
+						    <button class="btn btn-outline-secondary" id="noFor" onclick="openZipSearch()" type="button">검색</button>
+						  </div>
+						</div>
+                     </td>
+                   
+                    </tr>			
+				</table>
+				
+           </div>
+       </div>
+       <br>
+       <input type="file" id="setProfile" style="display:none" name="profileImage" onchange="previewImage(event)">
+		</form>
+		
+       <form enctype="multipart/form-data" id="fileUploadForm">
+       <!-- <input type="file" id="setProfile" style="display:none" name="profileImage" onchange="previewImage(event)"> -->
+       </form>
+       
+       <form name="insertForm2" id="insertForm2" action="requestupload1" method="post" enctype="multipart/form-data" >
+       <div>
+           <h4><strong>학력</strong>&nbsp;<span id="eduCheckBox" class="plusTag" onclick="controllEducateBox()">-</span> </h4>
+           <div style="background-color: white;padding: 5%;border-radius: 25px;" id="educateDivBox" >
+              <!-- 기본은 false로 두고 사용원할 시 true -->
+             <input type="hidden" name="useEducateForm" value="true">
+               
+               <div id="inputEdForm">
+		                <table id="educateForm">
+		                  <tr>
+		                     <td>
+		                        <div class="input-group mb-3">
+								  <div class="input-group-prepend">
+								    <label class="input-group-text" for="inputGroupSelect01">학교구분</label>
+								  </div>
+								  <select class="custom-select" id="inputGroupSelect01" name="resume_ed_type">
+								    <option selected="selected" value="year2or3">대학(2,3년)</option>
+								    <option value="year4">대학(4년)</option>
+								    <option value="year6">대학원</option>
+								  </select>
+								</div>
+		                     </td>
+		                     <td>
+		                        <div class="input-group mb-3" style="width:230px">
+								  <div class="input-group-prepend">
+								    <span class="input-group-text" id="basic-addon1">대학교명</span>
+								  </div>
+								  <input type="text" class="form-control"  name="resume_ed_school">
+								</div>
+		                     </td>
+		                     <td>
+		                        <div class="input-group mb-3" style="width:190px">
+								  <div class="input-group-prepend">
+								    <span class="input-group-text" id="basic-addon1">입학일</span>
+								  </div>
+								  <input type="text" class="form-control" placeholder="ex:2020-04-02" name="resume_ed_start">
+								</div>
+		                     </td>
+		                     <td>
+		                        <div class="input-group mb-3" style="width:190px">
+								  <div class="input-group-prepend">
+								    <span class="input-group-text">졸업일</span>
+								  </div>
+								  <input type="text" class="form-control" placeholder="ex:2022-06-02" name="resume_ed_end">
+								</div>
+		                     </td>
+		                   
+		                  </tr>
+		                  <tr>
+		                    <td>
+		                        <div class="input-group mb-3">
+								  <div class="input-group-prepend">
+								    <label class="input-group-text" >졸업상태</label>
+								  </div>
+								  <select class="custom-select" name="resume_ed_Gstate">
+								    <option selected="selected" value="Y">졸업</option>
+								    <option value="WILL">졸업예정</option>
+								    <option value="ING">재학중</option>
+								    <option value="REST">휴학</option>
+								  </select>
+								</div>
+		                     </td>
+		                      <td colspan="1">
+		                        <div class="input-group mb-3" style="width:230px">
+								  <div class="input-group-prepend">
+								    <span class="input-group-text" id="basic-addon1">전공</span>
+								  </div>
+								  <input type="text" class="form-control" name="resume_ed_major">
+								</div>
+		                      </td>
+		                      <td colspan="3">
+		                        <div class="input-group mb-3" style="width:190px">
+								  <div class="input-group-prepend">
+								    <span class="input-group-text">졸업학점</span>
+								  </div>
+								  <input type="text" class="form-control" placeholder="ex:3.27" name="resume_ed_score">
+								</div>
+		                      </td>
+		                  </tr>
+		                </table>
+               </div>
+                
+            <div>
+                   <button type="button" class="btn btn-light btn-sm btn-block" onclick="addEducate()" id="bt1">추가</button>
+           </div>
+                
+             </div>
+           
+           
+       </div>
+       </form>
+       <br>
+       
+       
+       <form name="insertForm3" id="insertForm3" action="requestupload1" method="post" enctype="multipart/form-data">
+       <div >
+           <h4><strong>경력</strong>&nbsp;<span id="experienceCheckBox"  class="plusTag" onclick="controllExperienceBox()">-</span></h4>
+           <div style="background-color: white;padding: 5%;border-radius: 25px;" id="experienceDivBox">
+             <input type="hidden" name="useExperienceForm" value="true">
+             
+             <div id="inputExForm">
+              <table id="exForm">
+                 <tr>
+                   <td>
+                      <div class="input-group mb-3" style="width:230px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">회사명</span>
+						  </div>
+						  <input type="text" class="form-control" name="resume_ex_company">
+						</div>
+                   </td>
+                   <td>
+                      <div class="input-group mb-3" style="width:230px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">부서명</span>
+						  </div>
+						  <input type="text" class="form-control"  name="resume_ex_departName">
+						</div>
+                   </td>
+                   <td>
+                      <div class="input-group mb-3" style="width:180px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">입사일</span>
+						  </div>
+						  <input type="text" class="form-control"  placeholder="ex:2020-01"  name="resume_ex_start">
+						</div>
+                   </td>
+                   <td>
+                      <div class="input-group mb-3" style="width:180px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">퇴사일</span>
+						  </div>
+						  <input type="text" class="form-control"  placeholder="ex:2022-06"  name="resume_ex_end">
+						</div>
+                   </td>
+                   <td>
+                   </td>
+                 </tr>
+                 
+                 <tr>
+                   <td>
+                     <div class="input-group mb-3" style="width:230px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">직급직책</span>
+						  </div>
+						  <input type="text" class="form-control"  name="resume_ex_job">
+						</div>                   
+                   </td>
+                   <td>
+                    <div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <label class="input-group-text" for="inputGroupSelect01">분야</label>
+					  </div>
+					  <select class="custom-select" id="inputGroupSelect01" name="resume_ex_jobType">
+					    <option value="0" selected>IT</option>
+					    <option value="1">경영사무</option>
+					    <option value="2">마케팅</option>
+					    <option value="3">디자인</option>
+					    <option value="4">교육</option>
+					    <option value="5">전문직</option>
+					  </select>
+					</div>
+                   </td>
+                   <td>
+                   	    <div class="input-group mb-3" style="width:180px">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">연봉</span>
+						  </div>
+						  <input type="text" class="form-control"  placeholder="ex:2300"  name="resume_ex_salary">
+						</div>   
+                   </td>
+                   <td>
+                   </td>
+                   <td>
+                   </td>
+                 </tr>
+                 
+                 <tr>
+                   <td colspan="5">
+                     <div class="input-group">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">업무 내용</span>
+					  </div>
+					  <textarea class="form-control" aria-label="With textarea" name="resume_ex_content"></textarea>
+					</div>
+                   </td>
+                 </tr>
+              </table>
+           <br>
+           </div>
+                <div>
+                   <button type="button" class="btn btn-light btn-sm btn-block" onclick="addExForm()"id="bt4" >추가</button>
+                </div>
+           
+           </div>
+       </div>
+       </form>
+       <br>
+       
+       <form name="insertForm4" id="insertForm4" action="requestupload1" method="post" enctype="multipart/form-data">
+       <div >
+           <h4><strong>자격증</strong>&nbsp;<span id="licenseCheckBox" class="plusTag" onclick="controllLicense()">-</span></h4>
+           <div style="background-color: white;padding: 4%;border-radius: 25px;" id="licenseDivBox">
+           <input type="hidden" name='uselicenseForm' value="true">
+           
+            <div id="inputLiForm">
+              <table id="liForm">
+                <tr>
+                   <td>
+                      <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">자격증 이름</span>
+						  </div>
+						  <input type="text" class="form-control"  name="resume_li_name">
+						</div>
+                   </td>
+                   <td>
+                   <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">발행처</span>
+						  </div>
+						  <input type="text" class="form-control"   name="resume_li_from">
+						</div>
+                   </td>
+                   <td>
+                   <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">취득일</span>
+						  </div>
+						  <input type="text" class="form-control"   placeholder="ex:2015-05" name="resume_li_getDay">
+						</div>
+                   </td>
+                </tr>
+              </table>
+              <br>
+              </div>
+                <div>
+                   <button type="button" class="btn btn-light btn-sm btn-block" onclick="addLiForm()" id="bt2">추가</button>
+                </div>
+           </div>
+       </div>
+       </form>
+       <br>
+       
+       <form name="insertForm5" id="insertForm5" action="requestupload1" method="post" enctype="multipart/form-data">
+       <div>
+           <h4><strong>포트폴리오</strong> <span class="plusTag btn btn-primary btn-sm" onclick="addPoForm('u')">주소</span>
+           <span class="plusTag btn btn-primary btn-sm" onclick="addPoForm('f')">파일</span>
+           </h4>
+           <div style="background-color: white;padding: 5%;border-radius: 25px" id="inputPoForm">
+                  <!-- 포폴 form 동적추가 -->
+           </div>
+       </div>
+       <br>
+       <input type="hidden" id="usePofolForm"name="usePofolForm" value="false">
+       </form>
+       
+       <input type="file" id="pofolFile" name="pofolFile" style="display:none" onchange="">
+       
+       <form name="insertForm6" id="insertForm6" action="requestupload1" method="post" enctype="multipart/form-data">
+       <div >
+           <h4><strong>교육</strong>&nbsp;<span id="cramCheckBox" class="plusTag" onclick="controllCram()">-</span></h4>
+           <div style="background-color: white;padding: 5%;border-radius: 25px;" id="cramDivBox">
+             <input type="hidden" name="useCramForm" value="true">
+             
+             <div id="inputCrForm">
+           		<table id="crForm">
+           		   <tr>
+           		   	   <td>
+           		   	   <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">학원명</span>
+						  </div>
+						  <input type="text" class="form-control"    name="resume_cr_name">
+						</div>
+           		   	    </td>
+           		   	   <td> 
+           		   	   <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">교육과목</span>
+						  </div>
+						  <input type="text" class="form-control"  width="170px" name="resume_cr_subject">
+						</div>
+           		   	   </td>
+           		   	   <td> 
+           		   	   <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">시작일</span>
+						  </div>
+						  <input type="text" class="form-control"   placeholder="ex:2020-07" name="resume_cr_start">
+						</div>
+           		   	   </td>
+           		   	   <td> 
+           		   	   <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">종료일</span>
+						  </div>
+						  <input type="text" class="form-control"   placeholder="ex:2020-12" name="resume_cr_end">
+						</div>
+           		   	   </td>
+           		   </tr>
+           		   <tr>
+           		        <td colspan="4">
+           		        <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">내용</span>
+						  </div>
+						  <textarea class="form-control" name="resume_cr_content"></textarea>
+						</div>
+           		        </td>
+           		   </tr>
+           		</table>
+           		<br>
+           		</div>
+                <div>
+                   <button type="button" class="btn btn-light btn-sm btn-block" onclick="addCrForm()" id="bt5">추가</button>
+                </div>
+           </div>
+       </div>
+       <br>
+       </form>
+       
+       <form name="insertForm7" id="insertForm7" action="requestupload1" method="post" enctype="multipart/form-data">
+       <div>
+           <h4><strong>언어능력</strong>&nbsp;<span id="langCheckBox" class="plusTag" onclick="controllLang()">-</span></h4>
+	           <div style="background-color: white;padding: 5%;border-radius: 25px;" id="langDivBox">    
+	             <input type="hidden" name="useLanguageForm" value="true">
+           
+           <div id="inputLaForm">
+	           <table id="laForm">
+	           	<tr>	
+		           <td width="400px">
+		               <div class="input-group mb-3">
+							  <div class="input-group-prepend">
+							    <label class="input-group-text" for="inputGroupSelect01">언어</label>
+							  </div>
+							  <select class="custom-select" id="inputGroupSelect01" name="resume_la_type">
+							    <option selected="selected" value="EN">영어</option>
+							    <option value="JP">일어</option>
+							    <option value="CH">중국어</option>
+							  </select>
+							</div>
+		           </td>
+		           
+		            <td width="400px">
+		               <div class="input-group mb-3">
+							  <div class="input-group-prepend">
+							    <label class="input-group-text" for="inputGroupSelect01">구사능력</label>
+							  </div>
+							  <select class="custom-select" id="inputGroupSelect01" name="resume_la_level">
+							    <option selected="selected" value="hight">원어민</option>
+							    <option value="middle">기본회화</option>
+							    <option value="low">간단한 주문</option>
+							  </select>
+							</div>
+				           </td>
+			           	</tr>
+			           </table>
+			           <br>
+			        </div>
+                <div>
+                   <button type="button" class="btn btn-light btn-sm btn-block" onclick="addLaForm()"id="bt3" >추가</button>
+                </div>
+	           </div>
+       </div>
+       </form>
+       <br>
+       
+       <form name="insertForm8" id="insertForm8" action="requestupload1" method="post" enctype="multipart/form-data">
+       <div>
+           <h4><strong>자기소개</strong></h4>
+           <div style="background-color: white;padding: 3%;border-radius: 25px">
+               <div class="input-group mb-3" >
+						  <div class="input-group-prepend">
+						    <span class="input-group-text" id="basic-addon1">자기소개</span>
+						  </div>
+						  <textarea rows="10" cols="70" class="form-control" name="resume_self_content"></textarea>
+						</div>
+                      </div>
+			           <br>
+			           <br>
+						<div align="center">
+					       <button type="button" class="btn btn-primary" onclick="insert(event)" id="bt6">이력서 등록</button>
+					       </div>
+					       <br>
+        				   <br>
+					       <div class="alert alert-danger" role="alert" style="display:none;padding:5%" id="commaAlert">
+							  입력 정보에 ',' 콤마가 포함되지 않도록 주의하시어 작성 부탁 드립니다.
+							</div>
+          </div>
+    	</form>
+       <br>
+    </div>
+    
+    <!-- 오른쪽 사이드 영역 -->
+    <div class="col-2">
+       <div style="padding: 5%;border-radius: 25px;position: fixed;">
+		       <div class="alert alert-primary" role="alert" id="eduAlert" >
+				  <strong>학력</strong>
+				</div>
+				<div class="alert alert-primary" role="alert" id="exAlert" >
+				  <strong>경력</strong>
+				</div>
+				<div class="alert alert-primary" role="alert" id="liAlert" >
+				 <strong>자격증</strong>
+				</div>
+				<div class="alert alert-primary" role="alert" id="poAlert" >
+				  포트폴리오
+				</div>
+				<div class="alert alert-primary" role="alert" id="crAlert" >
+				  교육
+				</div>
+				<div class="alert alert-primary" role="alert" id="laAlert" >
+				  언어능력
+				</div>
+				<div class="alert alert-primary" role="alert" id="selAlert" >
+				  자기소개
+				</div>
+	    </div>
+    </div>
+  </div>
+</div>
+ 
+
+<br>
+<br>
+<br>
+<br>
+</body>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<script>
+
+$(document).ready(function () {
+	$("#inertviewImage").click(function(){
+		
+		if(window.confirm("프로필을 바꾸시겠습니까?(기본프로필도 바뀌게 됩니다)")){
+			$("#setProfile").click();
+		}
+	});
+});
+
+
+//미리보기
+function previewImage(event){
+    for(var image of event.target.files) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var img = document.getElementById("inertviewImage");
+            img.setAttribute("src", event.target.result);
+        };
+        reader.readAsDataURL(image);
+    }
+  
+    //uploadImage();
+    
+}
+
+//학력 박스
+function controllEducateBox(){
+	var use = document.insertForm2.useEducateForm;
+	var check = document.getElementById("eduCheckBox");
+	
+	if(use.value=='false'){
+	   $("#educateDivBox").slideDown();
+	   $("#eduAlert").slideDown();
+	   use.value="true";   //사용여부를 true로 바꿔줬음
+	   check.innerHTML ="-";
+	}else if(use.value='true'){
+		$("#educateDivBox").slideUp();
+		$("#eduAlert").slideUp();
+		use.value="false";   //사용여부를 false로 바꿔줬음
+		check.innerHTML ="+";
+	}
+}
+
+//학력 폼 추가
+function addEducate(){
+	var div = $("#inputEdForm");
+	var clone = $("#educateForm").clone();
+	
+	clone.each(function (index){
+		 $(this).find("input[name=resume_ed_school]").val("")
+		 $(this).find("input[name=resume_ed_start]").val("")
+		 $(this).find("input[name=resume_ed_end]").val("")
+		 $(this).find("input[name=resume_ed_Gstate]").val("")
+		 $(this).find("input[name=resume_ed_major]").val("")
+		 $(this).find("input[name=resume_ed_score]").val("")
+	});
+	div.append("<br><hr><br>");
+	div.append(clone);
+}
+
+
+
+// 경력 폼 추가
+function addExForm(){
+	var div = $("#inputExForm");
+	var clone = $("#exForm").clone();
+	
+	clone.each(function (index){
+		 $(this).find("input[name=resume_ex_company]").val("")
+		 $(this).find("input[name=resume_ex_job]").val("")
+		 $(this).find("input[name=resume_ex_jobType]").val("")
+		 $(this).find("textarea[name=resume_ex_content]").val("")
+		 $(this).find("input[name=resume_ex_start]").val("")
+		 $(this).find("input[name=resume_ex_end]").val("")
+		 $(this).find("input[name=resume_ex_salary]").val("")
+		 $(this).find("input[name=resume_ex_departName]").val("")
+	});
+	div.append("<br><hr><br>");
+	div.append(clone);
+}
+
+// 자격증 폼 추가
+function addLiForm(){
+	var div = $("#inputLiForm");
+	var clone = $("#liForm").clone();
+	
+	clone.each(function (index){
+		 $(this).find("input[name=resume_li_name]").val("")
+		 $(this).find("input[name=resume_li_from]").val("")
+		 $(this).find("input[name=resume_li_getDay]").val("")
+	});
+	div.append("<br><hr><br>");
+	div.append(clone);
+}
+
+//교육 폼 추가
+function addCrForm(){
+	var div = $("#inputCrForm");
+	var clone = $("#crForm").clone();
+	
+	clone.each(function (index){
+		 $(this).find("input[name=resume_cr_subject]").val("")
+		 $(this).find("input[name=resume_cr_name]").val("")
+		 $(this).find("input[name=resume_cr_start]").val("")
+		 $(this).find("input[name=resume_cr_end]").val("")
+		 $(this).find("textarea[name=resume_cr_content]").val("")
+	});
+	div.append("<br><hr><br>");
+	div.append(clone);
+	
+}
+
+//언어능력 폼 추가
+function addLaForm(){
+	var div = $("#inputLaForm");
+	var clone = $("#laForm").clone();
+	
+	clone.each(function (index){
+		 $(this).find("input[name=resume_la_type]").val("")
+		 $(this).find("input[name=resume_la_level]").val("")
+	});
+	div.append("<br><hr><br>");
+	div.append(clone);
+}
+
+
+//경력 박스
+function controllExperienceBox(){
+	var use = document.insertForm3.useExperienceForm;
+	var check = document.getElementById("experienceCheckBox");
+	if(use.value=='false'){
+	   $("#experienceDivBox").slideDown();
+	   $("#exAlert").slideDown();
+	   use.value="true";   //사용여부를 true로 바꿔줬음
+	   check.innerHTML ="-";
+	}else if(use.value='true'){
+		$("#experienceDivBox").slideUp();
+		$("#exAlert").slideUp();
+		use.value="false";   //사용여부를 false로 바꿔줬음
+		check.innerHTML ="+";
+	}
+}
+
+
+
+//자격증 박스
+function controllLicense(){
+	var use = document.insertForm4.uselicenseForm;
+	var check = document.getElementById("licenseCheckBox");
+	
+	if(use.value=='false'){
+	   $("#licenseDivBox").slideDown();
+	   $("#liAlert").slideDown();
+	   use.value="true";   //사용여부를 true로 바꿔줬음
+	   check.innerHTML ="-";
+	}else if(use.value='true'){
+		$("#licenseDivBox").slideUp();
+		$("#liAlert").slideUp();
+		use.value="false";   //사용여부를 false로 바꿔줬음
+		check.innerHTML ="+";
+	}
+}
+
+
+
+//학원교육 박스
+function controllCram(){
+	var use = document.insertForm6.useCramForm;
+	var check = document.getElementById("cramCheckBox");
+	
+	if(use.value=='false'){
+	   $("#cramDivBox").slideDown();
+	   $("#crAlert").slideDown();
+	   use.value="true";   //사용여부를 true로 바꿔줬음
+	   check.innerHTML ="-";
+	}else if(use.value='true'){
+		$("#cramDivBox").slideUp();
+		$("#crAlert").slideUp();
+		use.value="false";   //사용여부를 false로 바꿔줬음
+		check.innerHTML ="+";
+	}
+}
+
+
+//언어능력 박스
+function controllLang(){
+	var use = document.insertForm7.useLanguageForm;
+	var check = document.getElementById("langCheckBox");
+	
+	if(use.value=='false'){
+	   $("#langDivBox").slideDown();
+	   $("#laAlert").slideDown();
+	   use.value="true";   //사용여부를 true로 바꿔줬음
+	   check.innerHTML ="-";
+	}else if(use.value='true'){
+		$("#langDivBox").slideUp();
+		$("#laAlert").slideUp();
+		use.value="false";   //사용여부를 false로 바꿔줬음
+		check.innerHTML ="+";
+	}
+}
+
+
+
+function uploadPofol(){
+	$("#pofolFile").click();
+}
+
+function inputFileName(){
+	
+}
+
+//포폴 추가 
+function addPoForm(type){
+	var div =$("#inputPoForm");
+	var tag ="";
+
+	document.getElementById("usePofolForm").value="true";
+	
+	
+	switch(type){
+	case "f":  //파일
+	     tag +="<div class='input-group mb-3' >";
+	     tag +="<div class='input-group-prepend' >";
+	     tag +="<span class='input-group-text' >포트폴리오(파일)</span>";
+	     tag +="</div>";
+	     tag +="<input type='hidden'  name='resume_po_type' value='F'>";
+	     tag +="<input type='file' class='form-control' name='portfolioFile' value='파일선택'>";
+	     tag +="</div>";
+		break;
+	case "u":  //url
+		 tag +="<div class='input-group mb-3' >";
+	     tag +="<div class='input-group-prepend' >";
+	     tag +="<span class='input-group-text' >포트폴리오(url)</span>";
+	     tag +="</div>";
+	     tag +="<input type='hidden'  name='resume_po_type' value='U'>";
+	     tag +="<input type='text' class='form-control' placeholder='ex:http://주소' name='resume_po_url'>";
+	     tag +="</div>";
+		break;
+	}
+	div.append(tag);
+}
+
+
+
+function openZipSearch() {
+	new daum.Postcode({
+		oncomplete: function(data) {
+			$('#changeAddress').val(data.address);
+		}
+	}).open();
+}
+
+
+function uploadImage(){
+	var form5 = $('#fileUploadForm')[0];
+    var data2 = new FormData(form5);
+		
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "/uploadProfileImage.do",
+        data: data2,
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: "text",
+        timeout: 600000,
+        success: function (data) {
+        	if(data=='success'){
+        	alert("수정완료");
+        	}else{
+        		alert("실패");	
+        	}
+        		
+        },
+        error: function (e) {
+        }
+    });
+}
+
+function insert(event){
+	event.preventDefault();
+	
+	//uploadImage();
+	
+	
+		$("#insertForm1").each(function(){
+			$(this).find("input[name=resume_title]").attr("name","detailVo.resume_title");
+			$(this).find("input[name=resume_state]").attr("name","detailVo.resume_state");
+			$(this).find("input[name=resume_name]").attr("name","detailVo.resume_name");
+			$(this).find("input[name=resume_gender]").attr("name","detailVo.resume_gender");
+			$(this).find("input[name=resume_email]").attr("name","detailVo.resume_email");
+			$(this).find("input[name=resume_phone]").attr("name","detailVo.resume_phone");
+			$(this).find("input[name=resume_phone]").attr("name","detailVo.resume_phone");
+			$(this).find("input[name=resume_address1]").attr("name","detailVo.resume_address1");
+			$(this).find("input[name=resume_profile]").attr("name","detailVo.resume_profile");
+		});
+		
+		//학력
+		$("select[name=resume_ed_type]").each(function(index){
+			$(this).attr("name", "educateVo[" + index + "].resume_ed_type");});
+		$("input[name=resume_ed_school]").each(function(index){
+			$(this).attr("name", "educateVo[" + index + "].resume_ed_school");});
+		$("input[name=resume_ed_start]").each(function(index){
+			$(this).attr("name", "educateVo[" + index + "].resume_ed_start");});
+		$("input[name=resume_ed_end]").each(function(index){
+			$(this).attr("name", "educateVo[" + index + "].resume_ed_end");});
+		$("select[name=resume_ed_Gstate]").each(function(index){
+			$(this).attr("name", "educateVo[" + index + "].resume_ed_Gstate");});
+		$("select[name=resume_ed_major]").each(function(index){
+			$(this).attr("name", "educateVo[" + index + "].resume_ed_major");});
+		$("input[name=resume_ed_score]").each(function(index){
+			$(this).attr("name", "educateVo[" + index + "].resume_ed_score");});
+		
+		
+		
+		$("#insertForm8").each(function(){
+			$(this).find("input[name=resume_self_content]").attr("name","selfintroVo.resume_self_content");
+		});
+		
+		
+		// Get form
+        var form = $("form")[0];
+		// Cre	ate an FormData object 
+        var data = new FormData(form);
+		
+		     $.ajax({
+		        type: "POST",
+			        enctype: 'multipart/form-data',
+			        url: "/resumeInsertTest.do",
+			        data: data,
+			        processData: false,
+			        contentType: false,
+			        cache: false,
+			        timeout: 600000,
+		        success: function (data) {
+			          if(data=='success'){
+			        	  //alert("등록 되었습니다.");
+			        	  //location.href="/main.do";
+			          }else{
+			        	  alert("등록실패");
+			          }
+		        }
+		    }); 
+
+}
+</script>
+
+</html>

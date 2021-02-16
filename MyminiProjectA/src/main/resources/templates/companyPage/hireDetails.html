@@ -369,22 +369,32 @@
 				     success: function( data, status , xhr ){
 						var resumeList =$("#resumeList");
 						var tag ="<form name='applyForm' id='applyForm' method='post' action='/insertApply.do'>";
-						tag += "<p>나의 이력서 리스트</p>";
-						for(var i in data){
-							tag += "<div class='form-check'>";
-							tag += "<input class='form-check-input' type='radio' name='resume_id'  value='"+data[i].resume_id+"'>";
-							tag += "<label class='form-check-label' for='gridRadios2'>";
-							tag += data[i].resume_title;
-							tag += "</label>"; 
-							tag += "</div>";
-						}
-						tag += "<br>";
-						tag += "<button type='button' class='btn btn-outline-primary btn-block' onclick='insertApply("+hire_id+")'";
-						tag += "style='border-radius: 25px'>";
-						tag += "지원</button>";
-						tag +="</form>";
 						
-						resumeList.html(tag);
+						if(data.length != 0 ){
+							tag += "<p>나의 이력서 리스트</p>";
+								
+							for(var i in data){
+								tag += "<div class='form-check'>";
+								tag += "<input class='form-check-input' type='radio' name='resume_id'  value='"+data[i].resume_id+"'>";
+								tag += "<label class='form-check-label' for='gridRadios2'>";
+								tag += data[i].resume_title;
+								tag += "</label>"; 
+								tag += "</div>";
+							}
+							
+							tag += "<br>";
+							tag += "<button type='button' class='btn btn-outline-primary btn-block' onclick='insertApply("+hire_id+")'";
+							tag += "style='border-radius: 25px'>";
+							tag += "지원</button>";
+							tag +="</form>";
+							
+							resumeList.html(tag);
+						}else{
+								tag += "<p>이력서가 없습니다.</p>";
+								tag += "<a href='/resiResume.do'>이력서등록 바로가기</a>";
+								resumeList.html(tag);
+						}
+						
 		            },
 		            error:function(xhr, status, error){
 		                console.log(error);

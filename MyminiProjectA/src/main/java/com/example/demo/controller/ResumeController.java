@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.example.demo.resumeVo.ResumeMultiVo;
 import com.example.demo.service.ResumeService;
 import com.example.demo.vo.PortfolioFileVo;
 import com.example.demo.vo.ResumeVo;
@@ -41,7 +43,7 @@ public class ResumeController {
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("userDetail", selectUser);
 		
-		return "resume/resiResume";
+		return "resume/resiResumeTest";
 	}
 	
 	/* ,MultipartHttpServletRequest upfile,HttpServletRequest request */
@@ -51,9 +53,22 @@ public class ResumeController {
 		String result ="success";
 		
 	    result=service.insertResume(info,request);
+	    
+		return result;
+	}
+	
+	// 폼데이터 테스트용
+	@ResponseBody
+	@PostMapping("/resumeInsertTest.do")
+	public String resumeInsertTest(MultipartHttpServletRequest request,ResumeMultiVo resumeMultiVo ) {
+		String result ="success";
+		System.out.println(resumeMultiVo.toString());
+		 MultipartFile f = request.getFile("profileImage");
+		 System.out.println(f.getOriginalFilename());
 		
 		return result;
 	}
+	
 	
 	@PostMapping("/uploadProfileImage.do")
 	@ResponseBody

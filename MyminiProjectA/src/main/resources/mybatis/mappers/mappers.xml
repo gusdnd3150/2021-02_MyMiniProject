@@ -11,6 +11,7 @@
 	<typeAlias alias="portfolioFileVo" type="com.example.demo.vo.PortfolioFileVo" />
 	<typeAlias alias="mediaVo" type="com.example.demo.vo.MediaVo" />
 	<typeAlias alias="messageVo" type="com.example.demo.vo.MessageVo" />
+	<typeAlias alias="scrapVo" type="com.example.demo.vo.ScrapVo" />
 	
 	<!-- 서울시 일자리 -->
 	<typeAlias alias="seoulJobInfoVo" type="com.example.demo.vo.SeoulJobInfoVo" />

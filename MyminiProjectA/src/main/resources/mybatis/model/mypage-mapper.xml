@@ -103,50 +103,29 @@
 	
 	
 	<delete id="deleteResume" parameterType="int">
-	  delete from resume
-	  where resume_id=#{resume_id}
+		DELETE
+		resume.*,
+		resume_cram.*,
+		resume_detail.*,
+		resume_educate.*,
+		resume_experience.*,
+		resume_language.*,
+		resume_license.*,
+		resume_portfolio.*,
+		resume_selfintro.*
+		FROM
+		resume LEFT JOIN resume_cram ON(resume.resume_id=resume_cram.resume_id)
+		LEFT JOIN resume_detail ON(resume.resume_id=resume_detail.resume_id)
+		LEFT JOIN resume_educate ON(resume.resume_id=resume_educate.resume_id)
+		LEFT JOIN resume_experience on(resume.resume_id=resume_experience.resume_id)
+		LEFT JOIN resume_language ON(resume.resume_id=resume_language.resume_id)
+		LEFT JOIN resume_license ON(resume.resume_id=resume_license.resume_id)
+		LEFT JOIN resume_portfolio ON(resume.resume_id=resume_portfolio.resume_id)
+		LEFT JOIN resume_selfintro ON(resume.resume_id=resume_selfintro.resume_id)
+		LEFT JOIN apply_information ON(resume.resume_id=apply_information.resume_id)
+		WHERE
+		resume.resume_id = #{resume_id}
 	</delete>
-	
-	<delete id="deleteResumeCram" parameterType="int">
-	  delete from resume_cram
-	  where resume_id=#{resume_id}
-	</delete>
-	
-	<delete id="deleteResumeDetail" parameterType="int">
-	  delete from resume_detail
-	  where resume_id=#{resume_id}
-	</delete>
-	
-	<delete id="deleteResumeEducate" parameterType="int">
-	  delete from resume_educate
-	  where resume_id=#{resume_id}
-	</delete>
-	
-	<delete id="deleteResumeExperience" parameterType="int">
-	  delete from resume_experience
-	  where resume_id=#{resume_id}
-	</delete>
-	
-	<delete id="deleteResumeLanguage" parameterType="int">
-	  delete from resume_language
-	  where resume_id=#{resume_id}
-	</delete>
-	
-	<delete id="deleteResumeLicense" parameterType="int">
-	  delete from resume_license
-	  where resume_id=#{resume_id}
-	</delete>
-	
-	<delete id="deleteResumePortfolio" parameterType="int">
-	  delete from resume_portfolio
-	  where resume_id=#{resume_id}
-	</delete>
-	
-	<delete id="deleteResumeSelfIntro" parameterType="int">
-	  delete from resume_selfintro
-	  where resume_id=#{resume_id}
-	</delete>
-	
 	
 	<insert id="insertMedia" parameterType="mediaVo">
 	

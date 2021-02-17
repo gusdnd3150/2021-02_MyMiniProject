@@ -99,7 +99,7 @@ public class MyPageService {
 		String result =null;
 		try {
 			dao.deleteResume(resume_id);
-			dao.deleteApply(resume_id);
+			//dao.deleteApply(resume_id);
 		    result="success";
 		} catch (Exception e) {
 			e.printStackTrace();

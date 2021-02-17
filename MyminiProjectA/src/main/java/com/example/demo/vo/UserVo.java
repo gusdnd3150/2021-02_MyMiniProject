@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 @Data
 @Component
-public class UserVo  {
+public class UserVo extends ResumeVo {
 	
 	private int id;
 	private String user_id;         //아이디

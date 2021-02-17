@@ -46,7 +46,7 @@ public class ResumeController {
 		return "resume/resiResumeTest";
 	}
 	
-	/* ,MultipartHttpServletRequest upfile,HttpServletRequest request */
+	/*  사용안함
 	@ResponseBody
 	@PostMapping("/insertResume.do")
 	public String insertResume(@RequestBody String info,HttpServletRequest request ) {
@@ -56,6 +56,7 @@ public class ResumeController {
 	    
 		return result;
 	}
+	*/
 	
 	// 폼데이터 테스트용
 	@ResponseBody

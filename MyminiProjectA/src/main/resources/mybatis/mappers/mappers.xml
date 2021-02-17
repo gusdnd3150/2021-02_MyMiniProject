@@ -45,5 +45,6 @@
 		<mapper resource="mybatis/model/resume-mapper.xml"/>
 		<mapper resource="mybatis/model/mypage-mapper.xml"/>
 		<mapper resource="mybatis/model/hire-mapper.xml"/>
+		<mapper resource="mybatis/model/topMenu-mapper.xml"/>
 		</mappers>        
 </configuration> 

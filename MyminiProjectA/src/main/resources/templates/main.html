@@ -21,6 +21,17 @@
 	border-radius: 25px
 }
 
+.notice{
+ /* border-style: solid;
+ border-radius: 25px;
+ border-bottom-width: 1px;
+ border-top-width: 1px;
+ border-left-width: 1px;
+ border-right-width: 1px;
+ border-color: #007bff; */
+ padding:21px;
+}
+
 div p h {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -44,7 +55,7 @@ div p h {
        <div class="input-group" style="width:100%">
 		  <input type="text" name="search" class="form-control" placeholder="기업,채용정보"  style="width:90%;border-color:#4e61ff">
 		  <button class="btn btn-primary">검색 </button>
-	</div>
+		</div>
 	</div>
 </div>
 
@@ -52,11 +63,25 @@ div p h {
 <hr>
 <br>
 <br>
-<div class="container" id="mainTopImage"  >
+<div class="container" >
   <div class="row">
-    <div align="center">
-          <h2 style="color:white"><strong>share your Telent</strong></h2>
+     <div class="col-8">
+    <div align="center" id="mainTopImage"  >
+          <h5 style="color:white"><strong>채용중개 서비스</strong></h5>
     </div>
+     </div>
+     
+     <div class="col-4 notice" >
+         <h5 align="center"><strong>공지사항</strong><span></span></h5>
+        <table class="table">
+           <tr>
+            <td><p style="font-size: 14px">이용안내</p></td>
+           </tr>
+           <tr>
+            <td><p style="font-size: 14px">FAQ</p></td>
+           </tr>
+        </table>
+     </div>
   </div>
 </div>
 

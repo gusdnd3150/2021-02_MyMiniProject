@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+
+<!-- 해더 css -->
+<th:block th:replace="common/header :: headerCss"></th:block>
+
+<style>
+.plusTag{
+ cursor: pointer
+}
+
+.searchDiv{
+border-style: solid;
+ /* border-radius: 25px; */
+ border-bottom-width: 1px;
+ border-top-width: 1px;
+ border-left-width: 1px;
+ border-right-width: 1px;
+ border-color: #d9dfeb; 
+ padding:21px;
+}
+
+</style>
+
+<meta charset="UTF-8">
+<title>탑 인재 리스트</title>
+</head>
+<body>
+<!-- 해더 공통 -->
+<th:block th:replace="common/header :: header"></th:block>
+
+
+<br><br>
+<div class="container">
+        <div class="searchDiv" align="center">
+          <h6><strong>검색</strong></h6>
+          
+          <form>
+          <table>
+          <tr>
+          <td>
+            <div class="input-group-sm mb-3">
+			  <select class="custom-select" id="inputGroupSelect01" style="border-color:gray">
+			    <option selected>학교</option>
+			    <option value="1">2년제</option>
+			    <option value="2">3년제</option>
+			    <option value="3">4년제</option>
+			  </select>
+			</div>
+           </td>
+           <td>
+            <div class="input-group-sm mb-3">
+			  <select class="custom-select"  style="border-color:gray">
+			    <option selected>희망연봉</option>
+			    <option value="1">~2000만원</option>
+			    <option value="2">2500~3000만원</option>
+			    <option value="3">3000~4000만원</option>
+			    <option value="3">5000만원~</option>
+			  </select>
+			</div>
+           </td>
+           <td>
+            <div class="input-group-sm mb-3">
+			  <select class="custom-select"  style="border-color:gray">
+			    <option selected>언어</option>
+			    <option value="1">영어</option>
+			    <option value="2">일본어</option>
+			    <option value="3">중국어</option>
+			  </select>
+			</div>
+           </td>
+           <td>
+            <div class="input-group-sm mb-3">
+			  <select class="custom-select"  style="border-color:gray">
+			    <option selected>1분소개</option>
+			    <option value="1">지참</option>
+			    <option value="2">불참</option>
+			  </select>
+			</div>
+           </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <div class="input-group mb-3">
+				  <input type="text" class="form-control" name="search_content" placeholder="검색">
+				</div>
+            </td>
+          </tr>
+			</table>
+          </form>
+          <div id="hashTag">
+          </div>
+        </div>
+</div>
+
+
+
+</body>
+</html>

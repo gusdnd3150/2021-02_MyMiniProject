@@ -36,14 +36,6 @@ public class MyPageDao {
 	}
 	
 	public void deleteResume(int resume_id) {
-		session.delete("myPage.deleteResumeCram",resume_id);
-		session.delete("myPage.deleteResumeDetail",resume_id);
-		session.delete("myPage.deleteResumeEducate",resume_id);
-		session.delete("myPage.deleteResumeExperience",resume_id);
-		session.delete("myPage.deleteResumeLanguage",resume_id);
-		session.delete("myPage.deleteResumeLicense",resume_id);
-		session.delete("myPage.deleteResumePortfolio",resume_id);
-		session.delete("myPage.deleteResumeSelfIntro",resume_id);
 		session.delete("myPage.deleteResume",resume_id);
 	}
 	

@@ -131,7 +131,8 @@ border-radius: 20px
               </tr>
               <tr>
               <td></td>
-              <td><p th:text="${info.resume_cr_content}"></p></td>
+              <!-- <td><p th:text="${info.resume_cr_content}"></p></td> -->
+              <td> <pre th:text="${info.resume_cr_content}"></pre></td>
               </tr>
              <br>
              <hr>
@@ -145,10 +146,7 @@ border-radius: 20px
             <table th:each="info : ${userResume.experienceVo}">
              <tr>
                <td><p><span th:text="${info.resume_ex_start}"></span>~<span th:text="${info.resume_ex_end}"></span></p></td>
-			
 			</tr>
-
-            
             </table>
             <hr>
           </div>
@@ -201,12 +199,8 @@ border-radius: 20px
             <h5><strong>자기소개</strong></h5>
             <hr>
             <br>
-            <p th:text="${userResume.selfintroVo.resume_self_content}"> </p>
-            
+            <pre th:text="${userResume.selfintroVo.resume_self_content}"> </pre>
           </div>
-          
-          
-          
        </div>
    </div>
 </div>

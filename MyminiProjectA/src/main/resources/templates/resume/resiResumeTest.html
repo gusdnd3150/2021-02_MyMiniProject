@@ -678,6 +678,7 @@ function controllEducateBox(){
 function controllExperienceBox(){
 	var use = document.insertForm1.useExperienceForm;
 	var check = document.getElementById("experienceCheckBox");
+	
 	if(use.value=='false'){
 	   $("#experienceDivBox").slideDown();
 	   $("#exAlert").slideDown();
@@ -687,6 +688,7 @@ function controllExperienceBox(){
 		$("#experienceDivBox").slideUp();
 		$("#exAlert").slideUp();
 		use.value="false";   //사용여부를 false로 바꿔줬음
+		document.insertForm1.resume_ex_salary.value=1;
 		check.innerHTML ="+";
 	}
 }
@@ -775,8 +777,8 @@ function addPoForm(type){
 	     tag +="<span class='input-group-text' >포트폴리오(파일)</span>";
 	     tag +="</div>";
 	     tag +="<input type='hidden'  name='resume_po_type' value='F'>";
-	     tag +="<input type='file' class='form-control' name='portfolioFile' value='파일선택'>";
 	     tag +="<input type='hidden' class='form-control' name='resume_po_url' value='file'>";
+	     tag +="<input type='file' class='form-control' name='portfolioFile' value='파일선택'>";
 	     tag +="</div>";
 		break;
 	case "u":  //url
@@ -785,7 +787,7 @@ function addPoForm(type){
 	     tag +="<span class='input-group-text' >포트폴리오(url)</span>";
 	     tag +="</div>";
 	     tag +="<input type='hidden'  name='resume_po_type' value='U'>";
-	     tag +="<input type='text' class='form-control' placeholder='ex:http://주소' name='resume_po_url'>";
+	     tag +="<input type='text' class='form-control'  name='resume_po_url' placeholder='ex:http://주소'>";
 	     tag +="</div>";
 		break;
 	}
@@ -833,6 +835,16 @@ function uploadImage(){
 function insert(event){
 	event.preventDefault();
 	
+	var textarea;
+	var value;
+	
+	/* $("textarea").each(function(){
+		textarea =$(this);
+		value =textarea.val();
+		value = value.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+		textarea.val(value);
+		console.log(value);
+	}); */
 	
 	 	//인적사항
 		$("#insertForm1").each(function(){
@@ -846,6 +858,7 @@ function insert(event){
 			$(this).find("input[name=resume_address1]").attr("name","detailVo.resume_address1");
 			$(this).find("input[name=resume_profile]").attr("name","detailVo.resume_profile");
 		});
+	
 		// 자기소개서
 		$("#insertForm1").each(function(){
 			$(this).find("textarea[name=resume_self_content]").attr("name","selfintroVo.resume_self_content");
@@ -935,12 +948,12 @@ function insert(event){
 		        success: function (data) {
 			          if(data=='success'){
 			        	  alert("등록 되었습니다.");
-			        	  //location.href="/main.do";
+			        	  location.href="/main.do";
 			          }else{
 			        	  alert("등록실패");
 			          }
 		        }
-		    }); 
+		    });  
 
 }
 </script>

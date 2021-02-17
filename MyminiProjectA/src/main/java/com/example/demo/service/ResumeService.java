@@ -159,10 +159,18 @@ public class ResumeService {
 				dao.insertResumeLicense(licenceVo);
 				
 			}
-			//내일하지뭐
+			//좀더 생각해보자
 			/*
-			if(resumeMultiVo.getPortfolioVo().size() != 0) {  //포폴
-				
+			if(portfolioVo != null) {  //포폴
+				 
+				 for(int i =0 ; i <portfolioVo.size() ;i++) {
+					 
+					 if(portfolioVo.get(i).getResume_po_type().equals("F")) { //파일일 경우
+						 
+					 }else if(portfolioVo.get(i).getResume_po_type().equals("U")) { // url일 경우
+						 
+					 }
+				 }
 			}*/
 			
 		} catch (Exception e) {

@@ -838,13 +838,7 @@ function insert(event){
 	var textarea;
 	var value;
 	
-	/* $("textarea").each(function(){
-		textarea =$(this);
-		value =textarea.val();
-		value = value.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-		textarea.val(value);
-		console.log(value);
-	}); */
+	
 	
 	 	//인적사항
 		$("#insertForm1").each(function(){
@@ -950,6 +944,7 @@ function insert(event){
 			        	  alert("등록 되었습니다.");
 			        	  location.href="/main.do";
 			          }else{
+			        	  location.reload();
 			        	  alert("등록실패");
 			          }
 		        }

@@ -133,18 +133,30 @@ function join(){
 	
 	var form = document.joinForm;
 	
-	if(form.user_id.value==null){
+	if(!form.user_id.value){
 		alert("아이디 입력은 필수 입니다.");
-	}else if(form.user_password.value==null){
+		return;
+	}else if(!form.user_password.value){
 		alert("비밀번호 입력은 필수 입니다.");
-	}else if(form.user_name.value==null){
+		return;
+	}else if(!form.user_name.value){
 		alert("이름 입력은 필수 입니다.");
-	}else if(form.user_email.value=null){
+		return;
+	}else if(!form.user_email.value){
 		alert("이메일 입력은 필수 입니다.");
-	}else if(form.file.value==null){
+		return;
+	}else if(!form.file.value){
 		alert("프로필 이미지는 필수 입니다.");
+		return;
+	}else if(!form.user_address2.value){
+		alert("주소는 필수 입니다.");
+		return;
+	}else if(!form.user_zip.value){
+		alert("우편번호는 필수 입니다.");
+		return;
 	}
 	
+
     var form2 = $('#joinForm')[0];
     var data = new FormData(form2);
 	
@@ -178,6 +190,11 @@ function checkDup(event){
 	var idInput =document.getElementById("idInput");
 	
 	var user_id = document.joinForm.user_id.value;
+	
+	if(user_id == ''){
+		alert("아이디를 입력해 주세요");
+		return;
+	}
 	    $.ajax({
 		        url: '/checkId.do',
 		        type: 'POST',

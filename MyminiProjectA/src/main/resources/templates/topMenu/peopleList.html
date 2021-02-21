@@ -36,13 +36,13 @@ border-style: solid;
         <div class="searchDiv" align="center">
           <h6><strong>검색</strong></h6>
           
-          <form>
+          <form action="/people.do" method="post" name="searchForm">
           <table>
           <tr>
           <td>
             <div class="input-group-sm mb-3">
-			  <select class="custom-select" id="inputGroupSelect01" style="border-color:gray">
-			    <option selected>학교</option>
+			  <select class="custom-select" id="inputGroupSelect01" name="resume_ed_type" style="border-color:gray">
+			    <option selected value="">학교</option>
 			    <option value="1">2년제</option>
 			    <option value="2">3년제</option>
 			    <option value="3">4년제</option>
@@ -51,8 +51,8 @@ border-style: solid;
            </td>
            <td>
             <div class="input-group-sm mb-3">
-			  <select class="custom-select"  style="border-color:gray">
-			    <option selected>희망연봉</option>
+			  <select class="custom-select" name="resume_ho_salary" style="border-color:gray">
+			    <option selected value="">희망연봉</option>
 			    <option value="1">~2000만원</option>
 			    <option value="2">2500~3000만원</option>
 			    <option value="3">3000~4000만원</option>
@@ -62,8 +62,8 @@ border-style: solid;
            </td>
            <td>
             <div class="input-group-sm mb-3">
-			  <select class="custom-select"  style="border-color:gray">
-			    <option selected>언어</option>
+			  <select class="custom-select" name="resume_la_type" style="border-color:gray">
+			    <option selected value="">언어</option>
 			    <option value="1">영어</option>
 			    <option value="2">일본어</option>
 			    <option value="3">중국어</option>
@@ -72,8 +72,8 @@ border-style: solid;
            </td>
            <td>
             <div class="input-group-sm mb-3">
-			  <select class="custom-select"  style="border-color:gray">
-			    <option selected>1분소개</option>
+			  <select class="custom-select" name="media_exist" style="border-color:gray">
+			    <option selected value="">1분소개</option>
 			    <option value="1">지참</option>
 			    <option value="2">불참</option>
 			  </select>
@@ -84,6 +84,7 @@ border-style: solid;
             <td colspan="4">
               <div class="input-group mb-3">
 				  <input type="text" class="form-control" name="search_content" placeholder="검색">
+				  <button>검색</button>
 				</div>
             </td>
           </tr>

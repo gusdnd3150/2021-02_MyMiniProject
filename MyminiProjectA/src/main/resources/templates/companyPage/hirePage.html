@@ -26,7 +26,7 @@ function applyUserList(hire_id,index){
 					tag += '<div class="media border p-3">';
 					tag += '<img src="/user/'+data[i].resume_profile+'" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">';
 					tag += '<div class="media-body">'
-					tag += '<p>'+data[i].resume_title+'<small>&nbsp;&nbsp;<i>'+data[i].resume_name+'</i></small></p>'
+					tag += '<a href="/interviewResumeDetail.do?apply_id='+data[i].apply_id+'" style="font-size:13px">'+data[i].resume_title+'</a><small>&nbsp;&nbsp;<i>'+data[i].resume_name+'</i></small>'
 					tag += '<p>';
 					if(data[i].media_original != null){
 						tag += '<a href="/showUserMedia.do"><span class="badge badge-primary">1분소개</span></a>&nbsp;';	

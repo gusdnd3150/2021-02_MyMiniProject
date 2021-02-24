@@ -290,4 +290,13 @@ public class MyPageController {
 		return service.selectApplyListById(hire_id);
 	}
 	
+	@RequestMapping("/interviewResumeDetail.do")
+	public String interviewResumeDetail(HttpServletRequest request,Model model) {
+		UserVo user= (UserVo) request.getSession().getAttribute("USER");
+		
+		
+		model.addAttribute("userDetail", user);
+		return "apply/interviewResumeDetail";
+	}
+	
 }

@@ -29,7 +29,9 @@
    		from (	SELECT a.apply_id,a.resume_id,a.media_id,a.apply_result,a.apply_date,a.id,a.hire_id,
 			r.resume_title,rd.resume_profile,
 			rd.resume_name,rd.resume_gender
+			
 	FROM apply_information a,resume r,resume_detail rd
+	
 	WHERE a.resume_id =r.resume_id
 	AND r.resume_id=rd.resume_id
 	and a.hire_id =#{hire_id})

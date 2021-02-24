@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.example.demo.hireVo.HireMultipleVo;
 import com.example.demo.hireVo.HireVo;
 import com.example.demo.resumeVo.ResumeMultiVo;
+import com.example.demo.service.ApplyService;
+import com.example.demo.service.CommonService;
 import com.example.demo.service.MyPageService;
 import com.example.demo.service.ResumeService;
 import com.example.demo.vo.ApplyVo;
@@ -37,7 +39,13 @@ public class MyPageController {
 	
 	
 	@Autowired
+	private ApplyService applyService;
+	
+	@Autowired
 	private MyPageService service;
+	
+	@Autowired
+	private CommonService commonService;
 	
 	@Autowired
 	private ResumeService resumeService;
@@ -291,9 +299,16 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/interviewResumeDetail.do")
-	public String interviewResumeDetail(HttpServletRequest request,Model model) {
+	public String interviewResumeDetail(HttpServletRequest request,Model model
+			) {
 		UserVo user= (UserVo) request.getSession().getAttribute("USER");
+		ResumeVo param = new ResumeVo();
 		
+		String apply_id = request.getParameter("apply_id");
+		
+		//ApplyVo applyVo = applyService.selectApplyOne(applyVo);
+		
+		//ResumeMultiVo resume = resumeService.selectResumeDetail(user);
 		
 		model.addAttribute("userDetail", user);
 		return "apply/interviewResumeDetail";

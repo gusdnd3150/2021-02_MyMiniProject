@@ -352,9 +352,20 @@
 		
 		
 		
+		function applyCompany(hire_id){
+			
+			if(userSessionCheck != 'empty'){
+				
+			location.href="/applyCompany.do?hire_id="+hire_id;
+			
+			}else{
+				alert("로그인 후 이용가능합니다.");
+			}
+			
+		}
 		
-		
-		function applyCompany(hire_id){ //지원양식 노출
+		// 아작스로 자기 양식 보여주는 폼 일단 대기
+		function applyCompany2(hire_id){ //지원양식 노출
 			
 			//header에 세팅한 값을 참조하여 검사진행
 			if(userSessionCheck==null||userSessionCheck=='empty'){

@@ -131,7 +131,7 @@ public class MyPageDao {
 		return session.selectList("myPage.selectApplyListByPaging",paging);
 	}
 	
-	//지원리스트  by hire_id
+	//지원리스트  by  hire_id
 	public List<ApplyVo> selectApplyListById(int hire_id){
 		return session.selectList("myPage.selectApplyListById",hire_id);
 	}

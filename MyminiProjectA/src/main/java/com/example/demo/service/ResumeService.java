@@ -104,9 +104,8 @@ public class ResumeService {
 		 List<PortfolioVo> portfolioVo= resumeMultiVo.getPortfolioVo();
 		
 		try {
-			imageStoreName= fileService.insertProfile(request);   //이력서 이미지 저장 후 저장이름 반환
 			
-			detailVo.setResume_profile(imageStoreName);
+			detailVo.setResume_profile(fileService.insertProfile(request));
 			detailVo.setId(user.getId());
 			
 			dao.insertResume(detailVo);  // resume 테이블에  insert

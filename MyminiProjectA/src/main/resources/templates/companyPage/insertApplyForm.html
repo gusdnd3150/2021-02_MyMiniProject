@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+
+<!-- 해더 css -->
+<th:block th:replace="common/header :: headerCss"></th:block>
+
+<meta charset="UTF-8">
+<title>이력서 지원하기</title>
+</head>
+<body>
+<!-- 해더 공통 -->
+<th:block th:replace="common/header :: header"></th:block>
+
+<hr>
+ <br>
+ <br><br>
+ 
+		<form id="parameter" name="parameter">
+		  <input type="hidden" name="hire_id" th:value="${hireInfo.hireVo.hire_id}">
+		  <input type="hidden" name="hire_apply_way" th:value="${hireInfo.hireApplyVo.hire_apply_way}">
+		  <input type="hidden" name="hire_apply_p2p" th:value="${hireInfo.hireApplyVo.hire_apply_p2p}">
+		  <input type="hidden" name="resume_id" id="resume_id">
+		  <input type="hidden" name="media_id" id="media_id">
+		</form>
+
+<div class="container">
+
+<div class="row">
+   <div class="col-12">
+    <h5 align="center"><strong th:text="${hireInfo.hireVo.hire_title}"></strong></h5>
+	  <br>
+	  <br>
+   </div>
+    <br>
+	<div class="col-6"> 
+	<h6><strong>보유 이력서</strong></h6>
+	 <table class="table table-hover">
+		    <thead>
+		    </thead>
+		    <tbody>
+		     		<tr th:each=" info : ${resumeInfo}">
+				        <td style="text-align: center">
+							<input type="checkbox" th:value="${info.resume_id}" name="resume_id">		        
+				        </td>
+				        <td>
+						 	<img th:src="|/user/${info.resume_profile}" width="80px">       
+				        </td>
+				        <td>
+						 	<p th:text="${info.resume_title}"></p>       
+				        </td>
+				     </tr>
+		    </tbody>
+		  </table>
+	</div>
+   
+   <div class="col-6"> 
+      <h6><strong>보유 1분 자기소개</strong></h6>
+	 <table class="table table-hover">
+		    <thead>
+		    </thead>
+		    <tbody>
+		     		<tr th:each=" info : ${mediaInfo}">
+				        <td>
+							<input type="checkbox" th:value="${info.media_id}" name="media_id">		        
+				        </td>
+				        <td>
+						 	<p th:text="${info.media_original}"></p>       
+				        </td>
+				        <td>
+						 	<p th:text="${info.media_update}"></p>       
+				        </td>
+				     </tr>
+		    </tbody>
+		  </table>
+	</div>
+</div>
+	<br>
+	<br>
+	<div align="center">
+		<button type="button" class="btn btn-primary btn-sm" onclick="insert()">지원하기</button>
+		<button class="btn btn-primary" disabled>
+		  <span class="spinner-grow spinner-grow-sm"></span>
+		  Loading..
+		</button>
+	</div>
+</div>
+
+</body>
+
+<script>
+$(document).ready(function(){
+
+    $("input[name=media_id]").click(function(){
+        $("input[name=media_id]:checkbox").prop("checked", false);
+         $(this).prop("checked",true);
+    });
+    
+    $("input[name=resume_id]").click(function(){
+        $("input[name=resume_id]:checkbox").prop("checked", false);
+         $(this).prop("checked",true);
+    });
+
+});
+
+
+function insert(){
+	
+	var resume_id= $("input:checkbox[name=resume_id]:checked").val();
+	var media_id =$("input:checkbox[name=media_id]:checked").val();
+	var hire_apply_way =$("input[name=hire_apply_way]").val();
+	
+	if(hire_apply_way == '이력서+자기소개'&& media_id==null ||media_id==""){
+		alert("해당 기업은 1분자기소개를 요구하고 있습니다. ");
+	}
+	
+	$("#resume_id").val(resume_id);
+	$("#media_id").val(media_id);
+	
+	var params = $("#parameter").serialize(); 
+	    $.ajax({
+	        url: '/insertApply.do',
+	        type: 'POST',
+	        data:params,
+	        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
+	        dataType: 'text',
+	        success: function (data) {
+		          if(data=='success'){
+		        	  alert("등록 되었습니다.");
+		        	  location.href="/main.do";
+		          }else{
+		        	  alert("등록실패");
+		          }
+	        }
+	    });
+	
+}
+ 
+</script>
+
+
+
+</html>

@@ -96,7 +96,8 @@
       hire_id,
       resume_id,
       apply_result,
-      apply_date
+      apply_date,
+      media_id
       )
       values
       (
@@ -104,7 +105,8 @@
       #{hire_id},
       #{resume_id},
       '대기',
-      NOW()
+      NOW(),
+      #{media_id}
       )
     </insert>
     

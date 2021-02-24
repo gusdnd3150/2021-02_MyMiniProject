@@ -23,8 +23,9 @@
 	
 	<select id="selectResumeList" parameterType="int" resultType="resumeVo">
 	SELECT *
-	FROM resume
-	WHERE id=#{id}
+	FROM resume r, resume_detail rd
+	WHERE  r.resume_id= rd.resume_id
+	and id=#{id}
 	</select>
 	
 	<select id="selectUserFile" parameterType="int" resultType="portfolioFileVo">

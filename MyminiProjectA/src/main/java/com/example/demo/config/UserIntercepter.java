@@ -21,7 +21,6 @@ public class UserIntercepter extends HandlerInterceptorAdapter  {
 		ModelAndView mv = new ModelAndView();
 		UserVo user= (UserVo) session.getAttribute("USER");
 	
-		
 		if(user == null){
 			System.out.println("세션 empty");
 			mv.addObject("intercepter", "needLogin");

@@ -26,6 +26,7 @@ import com.example.demo.service.CommonService;
 import com.example.demo.service.MyPageService;
 import com.example.demo.service.ResumeService;
 import com.example.demo.vo.ApplyVo;
+import com.example.demo.vo.MediaVo;
 import com.example.demo.vo.ResumeVo;
 import com.example.demo.vo.SeoulJobInfoVo;
 import com.example.demo.vo.UserVo;
@@ -167,4 +168,23 @@ public class CommonController {
 		applyVo.setId(user.getId());
 		return service.insertApply(applyVo);
 	}
+	
+	// 이력서 지원 재수정버전
+	@GetMapping("/applyCompany.do")
+	public String applyCompany(Model model ,HttpServletRequest request) {
+		UserVo user = (UserVo) request.getSession().getAttribute("USER");
+		String hire_id = request.getParameter("hire_id");
+		
+		HireMultipleVo hireInfo = service.selectHire(Integer.parseInt(hire_id)); // 지원한 회사
+		List<ResumeVo> resumeInfo = resumeService.selectResumeList(user.getId());//보유 이력서
+		List<MediaVo> mediaInfo =  myPageService.selectMediaList(user.getId()); // 보유 1분 자기소개
+		
+		model.addAttribute("mediaInfo", mediaInfo);
+		model.addAttribute("resumeInfo", resumeInfo);
+		model.addAttribute("hireInfo", hireInfo);
+		return "companyPage/insertApplyForm";
+	}
+	
+	
+	
 }

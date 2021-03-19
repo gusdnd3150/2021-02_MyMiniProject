@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dao.CommonDao;
@@ -74,6 +75,7 @@ public class CommonService  implements UserDetailsService{
 	
 	
 	//기업 회원가입
+	@Transactional(rollbackFor = {Exception.class,RuntimeException.class})
 	public String userJoin(UserVo user,MultipartHttpServletRequest upfile,HttpServletRequest request) {
 		
 		String result=null;
@@ -86,13 +88,11 @@ public class CommonService  implements UserDetailsService{
 					
 					if(user.getAutho().equals("USER")) {  //구직자\
 						user.setUser_profile(fileService.addImageFile(upfile, request,"user"));
-						int id=dao.userJoin(user);   // users 기본정보만 insert
-						dao.insertUserDetail(user);
+						insertUser(user);
 						
 					}else if(user.getAutho().equals("COMPANY")) { 						// 기업
 						user.setCompany_logo(fileService.addImageFile(upfile, request,"company"));
-						int id=dao.userJoin(user);   // users 기본정보만 insert
-						dao.insertCompanyDetail(user);
+						insertCompanyDetail(user);
 					}
 					
 				result="success";
@@ -101,10 +101,20 @@ public class CommonService  implements UserDetailsService{
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
 			result="fail";
-		} 
+			throw new RuntimeException("Exception for rollback");
+		}
+		
 		return result; 
+	}
+	
+	public void insertUser(UserVo user) {
+		int id=dao.userJoin(user);
+		dao.insertUserDetail(user);
+	}
+	public void insertCompanyDetail(UserVo user) {
+		int id=dao.userJoin(user);
+		dao.insertCompanyDetail(user);
 	}
 	
 	//아이디 중복 검사

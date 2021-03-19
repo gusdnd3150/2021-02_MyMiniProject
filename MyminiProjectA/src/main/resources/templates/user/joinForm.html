@@ -176,7 +176,11 @@ function join(){
 		          }else if(data=='already'){
 		        	  alert("아이디가 이미 존재합니다.");
 		          }
-	        }
+	        },
+			error:function(me){
+				alert(me);
+				console.log(me);
+			}
 	    });
 
 }
